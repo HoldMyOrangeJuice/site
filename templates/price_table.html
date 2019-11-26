@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<table>
+        <tr>
+            <td>Name</td>
+            <td>Amount</td>
+            <td>Price</td>
+            <td>Year</td>
+            <td>Category</td>
+        </tr>
+
+    {% for item in items %}
+
+        <tr>
+            <td>item.name</td>
+            <td>item.amount</td>
+            <td>item.price</td>
+            <td>item.year</td>
+            <td>item.category</td>
+        </tr>
+    {% endfor %}
+</table>
+
+</body>
+</html>

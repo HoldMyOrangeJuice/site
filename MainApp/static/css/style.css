@@ -1,0 +1,13 @@
+.navbar
+{
+    height: 40px;
+    background: #447e9b;
+    position: absolute;
+    width: 100%;
+    margin: -10px -10px -10px -10px;
+}
+
+.showcase
+{
+    padding-top: 50px;
+}

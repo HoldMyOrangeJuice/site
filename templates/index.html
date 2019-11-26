@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<div class="navbar"> <form method="get"><button name="price" value="pressed" >price</button></form> </div>
+
+{% for item in items %}
+    <div class="showcase">{{ item.name }}  {{ item.price }}  {{ item.amount }}</div>
+{% endfor %}
+
+</body>
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

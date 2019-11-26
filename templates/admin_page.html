@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load  app_filters %}
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<p>add item</p>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <input type="file" name="file_input" >
+        <button type="submit">submit</button>
+    </form>
+
+    {% if full_price_table %}
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <table border="1">
+                    {% for r in x %}
+                        <td>
+                            {% if r == 0 %}
+                                <select name="{{ r }}-header">
+                                    <option selected="selected">Group</option>
+                                    <option>Name</option>
+                                    <option>Amount</option>
+                                    <option>Price</option>
+                                    <option>Year</option>
+                                </select>
+
+
+                            {% elif r == 1 %}
+                                <select name="{{ r }}-header">
+                                    <option>Group</option>
+                                    <option selected="selected">Name</option>
+                                    <option>Amount</option>
+                                    <option>Price</option>
+                                    <option>Year</option>
+                                </select>
+
+
+                            {% elif r == 2 %}
+                                <select name="{{ r }}-header">
+                                    <option>Group</option>
+                                    <option>Name</option>
+                                    <option selected="selected">Amount</option>
+                                    <option>Price</option>
+                                    <option>Year</option>
+                                </select>
+
+
+                            {% elif r == 3 %}
+                                <select name="{{ r }}-header">
+                                    <option>Group</option>
+                                    <option>Name</option>
+                                    <option>Amount</option>
+                                    <option selected="selected">Price</option>
+                                    <option>Year</option>
+                                </select>
+
+
+                            {% elif r == 4 %}
+                                <select name="{{ r }}-header">
+                                    <option>Group</option>
+                                    <option>Name</option>
+                                    <option>Amount</option>
+                                    <option>Price</option>
+                                    <option selected="selected">Year</option>
+                                </select>
+
+                            {% else %}
+                                <select name="{{ r }}-header">
+                                    <option>Group</option>
+                                    <option>Name</option>
+                                    <option>Amount</option>
+                                    <option>Price</option>
+                                    <option>Year</option>
+                                    <option selected="selected">nothing</option>
+                                </select>
+                            {% endif %}
+
+                        </td>
+                    {% endfor %}
+                    {% for i in y %}
+                        <tr>
+                            {% for e in x %}
+                                <td>
+
+                                    <input type="text" value = "{{ full_price_table | get_item_:i | get_item_:e}}" name = "{{ i|create_name:e}}">
+                                </td>
+                            {% endfor %}
+                        </tr>
+                    {% endfor %}
+
+            </table>
+
+            <button value="pressed" name="sub_btn" type="submit">submit update</button>
+
+        </form>
+    {% endif %}
+
+</body>
+</html>
