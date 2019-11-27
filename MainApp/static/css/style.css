@@ -1,13 +1,30 @@
-.navbar
-{
-    height: 40px;
-    background: #447e9b;
+#main_table{
     position: absolute;
-    width: 100%;
-    margin: -10px -10px -10px -10px;
+    top: 100px;
+
 }
 
-.showcase
+.row_oriented
 {
-    padding-top: 50px;
+    display: flex;
+}
+
+.button {
+
+    background-color: white;
+      color: black;
+    border-radius: 5px;
+    border-color: #007bff;
+      padding: 6px 12px;
+    border-width: 1px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 16px;
+}
+
+.button:hover
+{
+    color: white;
+    background-color: #007bff;
 }

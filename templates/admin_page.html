@@ -18,72 +18,79 @@
         <form method="post" enctype="multipart/form-data">
             {% csrf_token %}
             <table border="1">
-                    {% for r in x %}
-                        <td>
-                            {% if r == 0 %}
-                                <select name="{{ r }}-header">
-                                    <option selected="selected">Group</option>
-                                    <option>Name</option>
-                                    <option>Amount</option>
-                                    <option>Price</option>
-                                    <option>Year</option>
-                                </select>
+            <tr>
+                <td>hide</td>
+                {% for r in x %}
+                    <td>
+                        {% if r == 0 %}
+                            <select name="{{ r }}-header">
+                                <option selected="selected">Group</option>
+                                <option>Name</option>
+                                <option>Amount</option>
+                                <option>Price</option>
+                                <option>Year</option>
+                            </select>
 
 
-                            {% elif r == 1 %}
-                                <select name="{{ r }}-header">
-                                    <option>Group</option>
-                                    <option selected="selected">Name</option>
-                                    <option>Amount</option>
-                                    <option>Price</option>
-                                    <option>Year</option>
-                                </select>
+                        {% elif r == 1 %}
+                            <select name="{{ r }}-header">
+                                <option>Group</option>
+                                <option selected="selected">Name</option>
+                                <option>Amount</option>
+                                <option>Price</option>
+                                <option>Year</option>
+                            </select>
 
 
-                            {% elif r == 2 %}
-                                <select name="{{ r }}-header">
-                                    <option>Group</option>
-                                    <option>Name</option>
-                                    <option selected="selected">Amount</option>
-                                    <option>Price</option>
-                                    <option>Year</option>
-                                </select>
+                        {% elif r == 2 %}
+                            <select name="{{ r }}-header">
+                                <option>Group</option>
+                                <option>Name</option>
+                                <option selected="selected">Amount</option>
+                                <option>Price</option>
+                                <option>Year</option>
+                            </select>
 
 
-                            {% elif r == 3 %}
-                                <select name="{{ r }}-header">
-                                    <option>Group</option>
-                                    <option>Name</option>
-                                    <option>Amount</option>
-                                    <option selected="selected">Price</option>
-                                    <option>Year</option>
-                                </select>
+                        {% elif r == 3 %}
+                            <select name="{{ r }}-header">
+                                <option>Group</option>
+                                <option>Name</option>
+                                <option>Amount</option>
+                                <option selected="selected">Price</option>
+                                <option>Year</option>
+                            </select>
 
 
-                            {% elif r == 4 %}
-                                <select name="{{ r }}-header">
-                                    <option>Group</option>
-                                    <option>Name</option>
-                                    <option>Amount</option>
-                                    <option>Price</option>
-                                    <option selected="selected">Year</option>
-                                </select>
+                        {% elif r == 4 %}
+                            <select name="{{ r }}-header">
+                                <option>Group</option>
+                                <option>Name</option>
+                                <option>Amount</option>
+                                <option>Price</option>
+                                <option selected="selected">Year</option>
+                            </select>
 
-                            {% else %}
-                                <select name="{{ r }}-header">
-                                    <option>Group</option>
-                                    <option>Name</option>
-                                    <option>Amount</option>
-                                    <option>Price</option>
-                                    <option>Year</option>
-                                    <option selected="selected">nothing</option>
-                                </select>
-                            {% endif %}
+                        {% else %}
+                            <select name="{{ r }}-header">
+                                <option>Group</option>
+                                <option>Name</option>
+                                <option>Amount</option>
+                                <option>Price</option>
+                                <option>Year</option>
+                                <option selected="selected">nothing</option>
+                            </select>
+                        {% endif %}
+                    </td>
 
-                        </td>
-                    {% endfor %}
+                {% endfor %}
+            </tr>
                     {% for i in y %}
                         <tr>
+                            <td>
+                                <input type="checkbox" name="{{ i }}-To_show" value="false">
+                            </td>
+
                             {% for e in x %}
                                 <td>
 
