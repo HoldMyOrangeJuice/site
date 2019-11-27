@@ -2,13 +2,15 @@
 <html lang="en">
 <head>
     {% load static %}
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <link rel="stylesheet" href="https://getbootstrap.com/docs/4.3/examples/pricing/pricing.css">
     <script src="chrome-extension://cmedhionkhpnakcndndgjdbohmhepckk/scripts/contentscript.js"></script>
     <link href="https://getbootstrap.com/docs/4.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
     <meta charset="UTF-8">
     <style>
       .bd-placeholder-img {
@@ -36,12 +38,12 @@
   <h5 class="my-0 mr-md-auto font-weight-normal">Рога и Копыта</h5>
         <form class="w3-container">
             <div class="row_oriented">
-                <input class="w3-input" type="text" placeholder="Поиск по прайсу">
-                <button class="button" type="submit"><i class="fa fa-search"></i></button>
+                <input class="w3-input" type="text" name="search_request" placeholder="Поиск по прайсу">
+                <button class="button" type="submit" ><i class="fa fa-search"></i></button>
             </div>
         </form>
   <nav class="my-2 my-md-0 mr-md-3">
-    <a class="p-2 text-dark" href="#">Контакты</a>
+    <a class="p-2 text-dark" href="#">Контакты <span class="glyphicon glyphicon-earphone"></span> </a>
     <a class="p-2 text-dark" href="/full_price">Прайс лист</a>
 
   </nav>
@@ -67,7 +69,7 @@
           <li>чтоттам</li>
           <li>чтоттам</li>
         </ul>
-          <form method="get"><button type="submit" class="btn btn-lg btn-block btn-outline-primary" name="item_requested" value="Резистор">Подробнее</button></form>
+          <form method="get"><button type="submit" class="btn btn-lg btn-block btn-outline-primary" name="item_requested" value="резистор">Подробнее</button></form>
 
       </div>
     </div>
@@ -84,7 +86,7 @@
           <li>чтоттам</li>
           <li>чтоттам</li>
         </ul>
-          <form method="get"><button type="submit" class="btn btn-lg btn-block btn-outline-primary" name="item_requested" value="Диод">Подробнее</button></form>
+          <form method="get"><button type="submit" class="btn btn-lg btn-block btn-outline-primary" name="item_requested" value="диод">Подробнее</button></form>
       </div>
     </div>
 
@@ -116,7 +118,7 @@
           <li>чтоттам</li>
           <li>чтоттам</li>
         </ul>
-          <form method="get"><button type="submit" class="btn btn-lg btn-block btn-outline-primary" name="item_requested" value="Микросхема">Подробнее</button></form>
+          <form method="get"><button type="submit" class="btn btn-lg btn-block btn-outline-primary" name="item_requested" value="микросхема">Подробнее</button></form>
       </div>
     </div>
       <div class="card mb-4 shadow-sm">
@@ -182,7 +184,7 @@
           <form method="get"><button type="submit" class="btn btn-lg btn-block btn-outline-primary">Подробнее</button></form>
       </div>
     </div>
-
+  </div>
   <footer class="pt-4 my-md-5 pt-md-5 border-top" >
     <div class="row">
       <div class="col-12 col-md">
@@ -192,27 +194,31 @@
       <div class="col-6 col-md">
         <h5>Контакты</h5>
         <ul class="list-unstyled text-small">
-          <li><a class="text-muted" href="#">наверное телефон</a></li>
-          <li><a class="text-muted" href="#">почта</a></li>
+          <li class="text-muted">8-800-555-35-35</li>
+
+          <li class="text-muted"> harrypotter@gmail.com</li>
         </ul>
       </div>
       <div class="col-6 col-md">
         <h5>Адресс</h5>
         <ul class="list-unstyled text-small">
-          <li><a class="text-muted" href="#">а оно нам надо?</a></li>
-          <li><a class="text-muted" href="#">а вам?</a></li>
+          <li class="text-muted">Ул. Пушкина</li>
+          <li class="text-muted">Дом Колотушкина</li>
         </ul>
       </div>
       <div class="col-6 col-md">
         <h5>About</h5>
         <ul class="list-unstyled text-small">
-          <li><a class="text-muted" href="#">Team</a></li>
-          <li><a class="text-muted" href="#">Locations</a></li>
+          <li class="text-muted">Team</li>
+          <li class="text-muted">Locations</li>
         </ul>
       </div>
     </div>
+
+
   </footer>
 
+    </div>
 
 </body>
 </html>

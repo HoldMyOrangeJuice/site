@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from MainApp.models import Item
 import xlrd
+from django.contrib.postgres.search import SearchVector
 # Create your views here.
 
 
@@ -15,6 +16,14 @@ def start_page(request):
         print("item req", request.GET.get("item_requested"))
         item_objects = Item.objects.filter(category=request.GET.get("item_requested"))
         return render(request, "price_table.html", context={"items": item_objects})
+
+    if request.GET.get("search_request"):
+        search_request = request.GET.get("search_request")
+        query = search(search_request)
+        return render(request, "price_table.html", context={"items": query})
+
+    if request.GET.get("contacts") == "pressed":
+        return render(request, )
 
     return render(request, "index.html")
 
@@ -63,26 +72,27 @@ def admin_page(request):
                 if single_item.get("Name"):
                     name = single_item.get("Name")
                 else:
-                    name = "n"
+                    name = "-"
                 if single_item.get("Price"):
                     price = single_item.get("Price")
                 else:
-                    price = "n"
+                    price = "-"
                 if single_item.get("Amount"):
                     amount = single_item.get("Amount")
                 else:
-                    amount = "n"
+                    amount = "-"
                 if single_item.get("Year"):
                     year = single_item.get("Year")
                 else:
-                    year = "n"
+                    year = "-"
                 if single_item.get("Group"):
                     category = single_item.get("Group")
                 else:
-                    category = "n"
+                    category = "-"
                 bulk_to_add.append(Item(
                     name=name,
-                    category=category,
+                    name_to_search=cstcf(name),
+                    category=cstcf(category),
                     price=price,
                     amount=amount,
                     to_show=To_show,
@@ -90,13 +100,34 @@ def admin_page(request):
                                         )
                                    )
             Item.objects.bulk_create(bulk_to_add)
-                    #Item.objects.all().filter(name=)
-
-
-
-
 
     return render(request, "admin_page.html")
 
-def price_page(request, context=Item.objects.order_by('category')):
+
+def price_page(request):
+    print("price page view called")
+    if request.GET.get("search_request"):
+        context = search(request.GET.get("search_request"))
+    else:
+        context = Item.objects.order_by('category')
+
     return render(request, "price_table.html", context={"items": context})
+
+
+def search(key):
+    key = cstcf(key)
+    print(key)
+    print(Item.objects.all().filter(name_to_search__contains="диод"))
+    query1 = Item.objects.all().filter(name_to_search__contains=key)
+    query2 = Item.objects.all().filter(category__contains=key)
+    query = query1 | query2
+    return query
+
+
+def cstcf(string):
+    string = str(string)
+    string = string.replace(" ", "")
+    string = string.replace("-", "")
+    string = string.replace(" ", "")
+    string = string.lower()
+    return string
