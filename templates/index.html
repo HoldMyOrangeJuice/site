@@ -28,14 +28,17 @@
         }
       }
     </style>
-    <title>Title</title>
+    <title>Радиодетали, электронные компоненты</title>
 
 </head>
 
 
     <body>
+
+
+
     <div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm">
-  <h5 class="my-0 mr-md-auto font-weight-normal">Рога и Копыта</h5>
+        <h5 class="my-0 mr-md-auto font-weight-normal"><a href="/">Рога и Копыта</a></h5>
         <form class="w3-container">
             <div class="row_oriented">
                 <input class="w3-input" type="text" name="search_request" placeholder="Поиск по прайсу">
@@ -43,11 +46,18 @@
             </div>
         </form>
   <nav class="my-2 my-md-0 mr-md-3">
-    <a class="p-2 text-dark" href="#">Контакты <span class="glyphicon glyphicon-earphone"></span> </a>
-    <a class="p-2 text-dark" href="/full_price">Прайс лист</a>
+      <a class="p-2 text-dark" href="/adm">Админка</a>
+    <a class="p-2 text-dark" href="#footer_">Контакты <span class="glyphicon glyphicon-earphone"></span> </a>
+    <a class="p-2 text-dark" href="/full_price">Прайс лист <span class="glyphicon glyphicon-align-justify"></span></a>
 
   </nav>
-  <a class="btn btn-outline-primary" href="#">Sign up</a>
+        <script>
+            function show_login() {
+                console.log("show");
+                document.getElementById("login_window").hidden = false
+            }
+        </script>
+  <button class="button" onclick="show_login()">Log in</button>
 </div>
 
 <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
@@ -59,15 +69,16 @@
   <div class="card-deck mb-3 text-center">
     <div class="card mb-4 shadow-sm">
       <div class="card-header">
-        <h4 class="my-0 font-weight-normal">Резистор</h4>
+        <h4 class="my-0 font-weight-normal">Резисторы</h4>
       </div>
       <div class="card-body">
         <h1 class="card-title pricing-card-title">ткст <small class="text-muted">знч</small></h1>
         <ul class="list-unstyled mt-3 mb-4">
-          <li>чтоттам</li>
-          <li>чтоттам</li>
-          <li>чтоттам</li>
-          <li>чтоттам</li>
+          <li>Постоянные</li>
+          <li>Переменные</li>
+            <li>-</li>
+            <li>-</li>
+
         </ul>
           <form method="get"><button type="submit" class="btn btn-lg btn-block btn-outline-primary" name="item_requested" value="резистор">Подробнее</button></form>
 
@@ -76,15 +87,15 @@
 
       <div class="card mb-4 shadow-sm">
       <div class="card-header">
-        <h4 class="my-0 font-weight-normal">Диод</h4>
+        <h4 class="my-0 font-weight-normal">Диоды</h4>
       </div>
       <div class="card-body">
         <h1 class="card-title pricing-card-title">ткст <small class="text-muted">знч</small></h1>
         <ul class="list-unstyled mt-3 mb-4">
-          <li>чтоттам</li>
-          <li>чтоттам</li>
-          <li>чтоттам</li>
-          <li>чтоттам</li>
+          <li>Маломощные</li>
+          <li>Мощные</li>
+          <li>Шоттки</li>
+          <li>СВЧ</li>
         </ul>
           <form method="get"><button type="submit" class="btn btn-lg btn-block btn-outline-primary" name="item_requested" value="диод">Подробнее</button></form>
       </div>
@@ -92,100 +103,100 @@
 
       <div class="card mb-4 shadow-sm">
       <div class="card-header">
-        <h4 class="my-0 font-weight-normal">Резисторы</h4>
+        <h4 class="my-0 font-weight-normal">Транзисторы</h4>
       </div>
       <div class="card-body">
         <h1 class="card-title pricing-card-title">ткст <small class="text-muted">знч</small></h1>
         <ul class="list-unstyled mt-3 mb-4">
-          <li>чтоттам</li>
-          <li>чтоттам</li>
-          <li>чтоттам</li>
-          <li>чтоттам</li>
+          <li>Импортные</li>
+          <li>Кремниевые</li>
+          <li>Полевые</li>
+          <li>Германиевые</li>
         </ul>
-          <form method="get"><button type="submit" class="btn btn-lg btn-block btn-outline-primary">Подробнее</button></form>
+          <form method="get"><button type="submit" class="btn btn-lg btn-block btn-outline-primary" name="item_requested" value="транзистор">Подробнее</button></form>
       </div>
     </div>
 
       <div class="card mb-4 shadow-sm">
       <div class="card-header">
-        <h4 class="my-0 font-weight-normal">Микросхема</h4>
+        <h4 class="my-0 font-weight-normal">Микросхемы</h4>
       </div>
       <div class="card-body">
         <h1 class="card-title pricing-card-title">ткст <small class="text-muted">знч</small></h1>
         <ul class="list-unstyled mt-3 mb-4">
-          <li>чтоттам</li>
-          <li>чтоттам</li>
-          <li>чтоттам</li>
-          <li>чтоттам</li>
+          <li>Аналоговые</li>
+          <li>Цифровые</li>
+          <li>-</li>
+            <li>-</li>
         </ul>
           <form method="get"><button type="submit" class="btn btn-lg btn-block btn-outline-primary" name="item_requested" value="микросхема">Подробнее</button></form>
       </div>
     </div>
       <div class="card mb-4 shadow-sm">
       <div class="card-header">
-        <h4 class="my-0 font-weight-normal">Резисторы</h4>
+        <h4 class="my-0 font-weight-normal">Лампы</h4>
       </div>
       <div class="card-body">
         <h1 class="card-title pricing-card-title">ткст <small class="text-muted">знч</small></h1>
         <ul class="list-unstyled mt-3 mb-4">
-          <li>чтоттам</li>
-          <li>чтоттам</li>
-          <li>чтоттам</li>
-          <li>чтоттам</li>
+          <li>Баретторы</li>
+          <li>Диоды</li>
+          <li>Пентоды</li>
+            <li>-</li>
         </ul>
-          <form method="get"><button type="submit" class="btn btn-lg btn-block btn-outline-primary">Подробнее</button></form>
+          <form method="get"><button type="submit" class="btn btn-lg btn-block btn-outline-primary" name="item_requested" value="электронные лампы">Подробнее</button></form>
       </div>
     </div>
 
    <div class="card mb-4 shadow-sm">
       <div class="card-header">
-        <h4 class="my-0 font-weight-normal">Резисторы</h4>
+        <h4 class="my-0 font-weight-normal">Установочные</h4>
       </div>
       <div class="card-body">
         <h1 class="card-title pricing-card-title">ткст <small class="text-muted">знч</small></h1>
         <ul class="list-unstyled mt-3 mb-4">
-          <li>чтоттам</li>
-          <li>чтоттам</li>
-          <li>чтоттам</li>
-          <li>чтоттам</li>
+          <li>Предохранители</li>
+          <li>лампы накаливания</li>
+          <li>Разъемы</li>
+            <li>-</li>
         </ul>
-          <form method="get"><button type="submit" class="btn btn-lg btn-block btn-outline-primary">Подробнее</button></form>
+          <form method="get"><button type="submit" class="btn btn-lg btn-block btn-outline-primary" name="item_requested" value="установочные изделия">Подробнее</button></form>
       </div>
     </div>
 
     <div class="card mb-4 shadow-sm">
       <div class="card-header">
-        <h4 class="my-0 font-weight-normal">Резисторы</h4>
+        <h4 class="my-0 font-weight-normal">Конденсаторы</h4>
       </div>
       <div class="card-body">
         <h1 class="card-title pricing-card-title">ткст <small class="text-muted">знч</small></h1>
         <ul class="list-unstyled mt-3 mb-4">
-          <li>чтоттам</li>
-          <li>чтоттам</li>
-          <li>чтоттам</li>
-          <li>чтоттам</li>
+          <li>Неполярные</li>
+          <li>Полярные</li>
+            <li>-</li>
+            <li>-</li>
         </ul>
-          <form method="get"><button type="submit" class="btn btn-lg btn-block btn-outline-primary">Подробнее</button></form>
+          <form method="get"><button type="submit" class="btn btn-lg btn-block btn-outline-primary" name="item_requested" value="конденсатор">Подробнее</button></form>
       </div>
     </div>
 
   <div class="card mb-4 shadow-sm">
       <div class="card-header">
-        <h4 class="my-0 font-weight-normal">Резисторы</h4>
+        <h4 class="my-0 font-weight-normal">Трансформаторы</h4>
       </div>
       <div class="card-body">
         <h1 class="card-title pricing-card-title">ткст <small class="text-muted">знч</small></h1>
         <ul class="list-unstyled mt-3 mb-4">
-          <li>чтоттам</li>
-          <li>чтоттам</li>
-          <li>чтоттам</li>
-          <li>чтоттам</li>
+          <li>50 Герц</li>
+          <li>400 Герц</li>
+            <li>-</li>
+            <li>-</li>
         </ul>
-          <form method="get"><button type="submit" class="btn btn-lg btn-block btn-outline-primary">Подробнее</button></form>
+          <form method="get"><button type="submit" class="btn btn-lg btn-block btn-outline-primary" name="item_requested" value="трансформатор">Подробнее</button></form>
       </div>
     </div>
   </div>
-  <footer class="pt-4 my-md-5 pt-md-5 border-top" >
+  <footer class="pt-4 my-md-5 pt-md-5 border-top" id="footer_">
     <div class="row">
       <div class="col-12 col-md">
         <img class="mb-2" src="/docs/4.3/assets/brand/bootstrap-solid.svg" alt="" width="24" height="24">
@@ -219,6 +230,18 @@
   </footer>
 
     </div>
-
+<script> function hide_window()
+    {
+    document.getElementById("login_window").hidden = true
+    }
+</script>
+    <div id="login_window" hidden="true">
+        <form id="login-form" method="post" enctype="multipart/form-data">{% csrf_token %}
+            <button class="close-button" type="button" onclick="hide_window()"><i  class="fa fa-close close-icon"></i></button>
+            <input name="username" placeholder="username" class="w3-input"  >
+            <input name="password" placeholder="password" type="password" class="w3-input">
+            <button type="submit" class="button">submit</button>
+        </form>
+    </div>
 </body>
 </html>

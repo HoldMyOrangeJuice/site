@@ -1,6 +1,7 @@
 #main_table{
     position: absolute;
     top: 100px;
+    background-color: ghostwhite;
 
 }
 
@@ -48,4 +49,58 @@ body
     margin-right: 3px;
     background-color: #f8f8f8;
     border-radius: 5px;
+}
+
+#progress
+{
+    background-color: black;
+    height: 20px!important;
+}
+
+#login_window
+{
+    position: fixed;
+    background: 0;
+  top: 50%;
+  left: 50%;
+  font-size: 50px;
+    transform: translate(-50%,-50%);
+  -ms-transform: translate(-50%,-50%);
+
+}
+
+#login-form
+{
+    width: 300px;
+    background: 0;
+}
+
+.close-button
+{
+    background: 0;
+    border: 0;
+    justify-content: end;
+
+}
+
+.close-icon
+{
+    color: black;
+}
+
+#progress
+{
+    width: 63%;
+    margin-left: 3%;
+    margin-right: 30%;
+    background: 0;
+    display: flex;
+}
+
+#line
+{
+    display: flex;
+    align-items: center;
+    height: 10px;
+    background-color: #525252;
 }

@@ -5,8 +5,8 @@ from django.template.defaulttags import register
 def get_item_(iterable, i):
     i = int(i)
     iterable = list(iterable)
-    print(i)
-    print(iterable)
+    #print(i)
+    #print(iterable)
     return iterable[i]
 
 

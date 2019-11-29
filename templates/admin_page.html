@@ -2,12 +2,19 @@
 <html lang="en">
 <head>
     {% load  app_filters %}
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <script src="{% static 'save_changes.js' %}"></script>
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
 <body>
 
 <p>add item</p>
+    <div id="progress">
+        <div id="line"></div>
+        <div id="progress_percent"></div>
+    </div>
     <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
         <input type="file" name="file_input" >
@@ -15,8 +22,13 @@
     </form>
 
     {% if full_price_table %}
-        <form method="post" enctype="multipart/form-data">
-            {% csrf_token %}
+        <form method="post" enctype="multipart/form-data">{% csrf_token %}
+            <input type="hidden" id="changes" name="changes">
+
+        <button value="pressed" name="sub_btn" type="submit">submit update</button>
+
+
+
             <table border="1">
             <tr>
                 <td>hide</td>
@@ -29,6 +41,7 @@
                                 <option>Amount</option>
                                 <option>Price</option>
                                 <option>Year</option>
+                            <option>nothing</option>
                             </select>
 
 
@@ -39,6 +52,7 @@
                                 <option>Amount</option>
                                 <option>Price</option>
                                 <option>Year</option>
+                            <option>nothing</option>
                             </select>
 
 
@@ -49,6 +63,7 @@
                                 <option selected="selected">Amount</option>
                                 <option>Price</option>
                                 <option>Year</option>
+                            <option>nothing</option>
                             </select>
 
 
@@ -59,6 +74,7 @@
                                 <option>Amount</option>
                                 <option selected="selected">Price</option>
                                 <option>Year</option>
+                            <option>nothing</option>
                             </select>
 
 
@@ -69,6 +85,7 @@
                                 <option>Amount</option>
                                 <option>Price</option>
                                 <option selected="selected">Year</option>
+                                <option>nothing</option>
                             </select>
 
                         {% else %}
@@ -85,24 +102,35 @@
 
                 {% endfor %}
             </tr>
+
                     {% for i in y %}
+
+                       <script>
+                        all = {{ y|length }};
+                        part = {{ i }};
+                        if(part%1==0){
+                            document.getElementById("line").style.width = (part / (all / 100)) + "%";
+                            document.getElementById("progress_percent").innerText = (Math.round(part / (all / 100)) + "%");
+                            console.log((Math.round(part / (all / 100)) + "%"))
+                        }
+
+                       </script>
                         <tr>
                             <td>
-                                <input type="checkbox" name="{{ i }}-To_show" value="false">
+                                <input type="checkbox" data-key="{{ i }}-To_show" value="false">
+
                             </td>
 
                             {% for e in x %}
                                 <td>
 
-                                    <input type="text" value = "{{ full_price_table | get_item_:i | get_item_:e}}" name = "{{ i|create_name:e}}">
+                                    <input type="text" value = "{{ full_price_table | get_item_:i | get_item_:e}}" data-key = "{{ i|create_name:e}}">
                                 </td>
                             {% endfor %}
                         </tr>
                     {% endfor %}
 
             </table>
-
-            <button value="pressed" name="sub_btn" type="submit">submit update</button>
 
         </form>
     {% endif %}
