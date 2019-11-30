@@ -12,7 +12,7 @@ def get_item_(iterable, i):
 
 @register.filter(name='create_name')
 def create_name(x, y):
-    return f"{x}&{y}"
+    return f"{x}a{y}"
 
 
 

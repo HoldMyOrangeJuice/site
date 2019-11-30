@@ -2,19 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="be8a2fb3-f30f-444b-8d98-3439e5fa8f68" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/MainApp/static/css/table.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/MainApp/static/save_changes.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/MainApp/static/table.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/denied.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/MainApp/migrations/0001_initial.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/прайс/short.xlsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MainApp/migrations/0001_initial.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MainApp/static/css/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/MainApp/static/css/style.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/MainApp/templatetags/app_filters.py" beforeDir="false" afterPath="$PROJECT_DIR$/MainApp/templatetags/app_filters.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/MainApp/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/MainApp/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/db.sqlite3" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/admin_page.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/admin_page.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/price_table.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/price_table.html" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -62,7 +56,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/MainApp/static/css/table.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="330">
+            <state relative-caret-position="396">
               <caret line="18" column="22" selection-start-line="18" selection-start-column="22" selection-end-line="18" selection-end-column="22" />
             </state>
           </provider>
@@ -71,29 +65,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/templates/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="414">
+            <state relative-caret-position="1078">
               <caret line="49" column="43" selection-start-line="49" selection-start-column="43" selection-end-line="49" selection-end-column="43" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/MainApp/models.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="110">
-              <caret line="5" column="60" selection-start-line="5" selection-start-column="60" selection-end-line="5" selection-end-column="60" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/MainApp/views.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-308">
-              <caret line="25" lean-forward="true" selection-start-line="25" selection-end-line="25" />
-              <folding>
-                <element signature="e#0#35#0" expanded="true" />
-              </folding>
             </state>
           </provider>
         </entry>
@@ -107,14 +80,35 @@
           </provider>
         </entry>
       </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/MainApp/views.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="220">
+              <caret line="79" column="54" selection-start-line="79" selection-start-column="39" selection-end-line="79" selection-end-column="54" />
+              <folding>
+                <element signature="e#0#35#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/templates/admin_page.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2486">
-              <caret line="113" column="78" selection-start-line="113" selection-start-column="78" selection-end-line="113" selection-end-column="78" />
+            <state relative-caret-position="3740">
+              <caret line="170" column="39" selection-start-line="170" selection-start-column="36" selection-end-line="170" selection-end-column="39" />
               <folding>
-                <marker date="1574944576020" expanded="true" signature="4054:4576" ph="..." />
+                <marker date="1575041265035" expanded="true" signature="4674:4675" ph="..." />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/MainApp/templatetags/app_filters.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="308">
+              <caret line="14" column="17" selection-start-line="14" selection-start-column="17" selection-end-line="14" selection-end-column="17" />
             </state>
           </provider>
         </entry>
@@ -131,8 +125,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/MainApp/static/save_changes.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="484">
-              <caret line="22" column="41" selection-start-line="22" selection-start-column="41" selection-end-line="22" selection-end-column="41" />
+            <state relative-caret-position="22">
+              <caret line="10" column="28" selection-start-line="10" selection-start-column="28" selection-end-line="10" selection-end-column="28" />
             </state>
           </provider>
         </entry>
@@ -155,6 +149,8 @@
       <find>name</find>
       <find>pro</find>
       <find>BootstrapTable</find>
+      <find>;</find>
+      <find>cha</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -167,16 +163,16 @@
         <option value="$PROJECT_DIR$/siteff/urls.py" />
         <option value="$PROJECT_DIR$/MainApp/models.py" />
         <option value="$PROJECT_DIR$/templates/contacts.html" />
-        <option value="$PROJECT_DIR$/MainApp/templatetags/app_filters.py" />
         <option value="$PROJECT_DIR$/templates/save_changes.js" />
         <option value="$PROJECT_DIR$/MainApp/static/save_changes.js" />
         <option value="$PROJECT_DIR$/templates/denied.html" />
-        <option value="$PROJECT_DIR$/templates/admin_page.html" />
         <option value="$PROJECT_DIR$/MainApp/static/css/style.css" />
         <option value="$PROJECT_DIR$/templates/price_table.html" />
         <option value="$PROJECT_DIR$/MainApp/static/table.js" />
         <option value="$PROJECT_DIR$/MainApp/static/css/table.css" />
         <option value="$PROJECT_DIR$/templates/index.html" />
+        <option value="$PROJECT_DIR$/MainApp/templatetags/app_filters.py" />
+        <option value="$PROJECT_DIR$/templates/admin_page.html" />
         <option value="$PROJECT_DIR$/MainApp/views.py" />
       </list>
     </option>
@@ -207,21 +203,7 @@
             <path>
               <item name="siteff" type="b2602c69:ProjectViewProjectNode" />
               <item name="siteff" type="462c0819:PsiDirectoryNode" />
-              <item name="MainApp" type="462c0819:PsiDirectoryNode" />
-              <item name="migrations" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="siteff" type="b2602c69:ProjectViewProjectNode" />
               <item name="siteff" type="462c0819:PsiDirectoryNode" />
-              <item name="MainApp" type="462c0819:PsiDirectoryNode" />
-              <item name="static" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="siteff" type="b2602c69:ProjectViewProjectNode" />
-              <item name="siteff" type="462c0819:PsiDirectoryNode" />
-              <item name="MainApp" type="462c0819:PsiDirectoryNode" />
-              <item name="static" type="462c0819:PsiDirectoryNode" />
-              <item name="css" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="siteff" type="b2602c69:ProjectViewProjectNode" />
@@ -299,18 +281,19 @@
       <workItem from="1574757055541" duration="13771000" />
       <workItem from="1574844463675" duration="26732000" />
       <workItem from="1574922617528" duration="22709000" />
-      <workItem from="1575019388655" duration="506000" />
+      <workItem from="1575019388655" duration="21185000" />
+      <workItem from="1575106235323" duration="515000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="66639000" />
+    <option name="totallyTimeSpent" value="87833000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.1772288" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.17991407" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -324,8 +307,8 @@
       <window_info anchor="bottom" id="Version Control" order="8" />
       <window_info anchor="bottom" id="Database Changes" order="9" show_stripe_button="false" />
       <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="11" visible="true" weight="0.2885906" />
-      <window_info anchor="bottom" id="Python Console" order="12" weight="0.32960895" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="11" visible="true" weight="0.28747204" />
+      <window_info anchor="bottom" id="Python Console" order="12" weight="0.32885906" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -361,6 +344,13 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/MainApp/models.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="110">
+          <caret line="5" column="60" selection-start-line="5" selection-start-column="60" selection-end-line="5" selection-end-column="60" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/manage.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="110">
@@ -371,20 +361,34 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/MainApp/templatetags/app_filters.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="176">
-          <caret line="8" column="5" selection-start-line="8" selection-start-column="5" selection-end-line="8" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/MainApp/migrations/0001_initial.py">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/MainApp/models.py">
+    <entry file="file://$PROJECT_DIR$/templates/price_table.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="110">
-          <caret line="5" column="60" selection-start-line="5" selection-start-column="60" selection-end-line="5" selection-end-column="60" />
+        <state relative-caret-position="264">
+          <caret line="12" column="36" selection-start-line="12" selection-start-column="36" selection-end-line="12" selection-end-column="36" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/MainApp/static/table.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="198">
+          <caret line="9" selection-start-line="9" selection-end-line="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/MainApp/static/css/table.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="396">
+          <caret line="18" column="22" selection-start-line="18" selection-start-column="22" selection-end-line="18" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1078">
+          <caret line="49" column="43" selection-start-line="49" selection-start-column="43" selection-end-line="49" selection-end-column="43" />
         </state>
       </provider>
     </entry>
@@ -397,11 +401,18 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/templates/admin_page.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2486">
-          <caret line="113" column="78" selection-start-line="113" selection-start-column="78" selection-end-line="113" selection-end-column="78" />
+        <state relative-caret-position="3740">
+          <caret line="170" column="39" selection-start-line="170" selection-start-column="36" selection-end-line="170" selection-end-column="39" />
           <folding>
-            <marker date="1574944576020" expanded="true" signature="4054:4576" ph="..." />
+            <marker date="1575041265035" expanded="true" signature="4674:4675" ph="..." />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/MainApp/templatetags/app_filters.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="308">
+          <caret line="14" column="17" selection-start-line="14" selection-start-column="17" selection-end-line="14" selection-end-column="17" />
         </state>
       </provider>
     </entry>
@@ -414,43 +425,15 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/MainApp/static/save_changes.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="484">
-          <caret line="22" column="41" selection-start-line="22" selection-start-column="41" selection-end-line="22" selection-end-column="41" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/MainApp/static/css/table.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="330">
-          <caret line="18" column="22" selection-start-line="18" selection-start-column="22" selection-end-line="18" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/MainApp/static/table.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="198">
-          <caret line="9" selection-start-line="9" selection-end-line="9" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/price_table.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="264">
-          <caret line="12" column="36" selection-start-line="12" selection-start-column="36" selection-end-line="12" selection-end-column="36" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="414">
-          <caret line="49" column="43" selection-start-line="49" selection-start-column="43" selection-end-line="49" selection-end-column="43" />
+        <state relative-caret-position="22">
+          <caret line="10" column="28" selection-start-line="10" selection-start-column="28" selection-end-line="10" selection-end-column="28" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/MainApp/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-308">
-          <caret line="25" lean-forward="true" selection-start-line="25" selection-end-line="25" />
+        <state relative-caret-position="220">
+          <caret line="79" column="54" selection-start-line="79" selection-start-column="39" selection-end-line="79" selection-end-column="54" />
           <folding>
             <element signature="e#0#35#0" expanded="true" />
           </folding>

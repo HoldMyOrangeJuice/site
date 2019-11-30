@@ -4,8 +4,12 @@ import xlrd
 import json
 from django.contrib.auth import authenticate, login
 from django.contrib.postgres.search import SearchVector
-# Create your views here.
+
 TO_SHOW_FIELD = 0
+NAME_COL      = 1
+PRICE_COL     = 2
+AMOUNT_COL    = 3
+YEAR_COL      = 4
 
 def start_page(request):
     global user
@@ -38,32 +42,86 @@ def start_page(request):
 
 def admin_page(request):
     global cols, rows
-    if user:
+    if True or user:
         if request.method == 'POST':
             global cols, rows
             if request.FILES.get("file_input"):
-                global cols, rows, ws
-                try:
+                        global cols, rows, ws
+                #try:
                         global cols, rows
                         file = request.FILES['file_input'].read()
 
                         wb = xlrd.open_workbook(file_contents=file)
                         ws = wb.sheet_by_index(0)
-
+                        item_changes = {}
                         table = []
                         cols = ws.ncols  # x
-                        rows = ws.nrows  # y
+                        rows = ws.nrows  # y 4
                         print("colls rows", cols, rows)
                         for x in range(ws.nrows):
                             row = []
+                            conclusion = []
                             for y in range(ws.ncols):
-                                row.append(ws.cell_value(x, y))
-                            table.append(row)
+                                cell_val = ws.cell_value(x, y)
+                                row.append(cell_val)
+                                print("col number", y, "height", x)
 
+                                if y == NAME_COL:
+
+                                    try:
+
+                                        item_name_in_db = Item.objects.all().filter(name=cell_val)[0]
+
+                                        print(item_name_in_db.name, "ITEM WITH THIS NAME IN DATABASE")
+                                    except IndexError:
+                                        print("ITEM NOT PRESENT IN DATABASE")
+                                        item_name_in_db = None
+
+                                    if item_name_in_db:
+
+                                        ws_amount = cstcf(ws.cell_value(x, AMOUNT_COL))
+                                        ws_price = cstcf(ws.cell_value(x, PRICE_COL))
+                                        ws_year = cstcf(ws.cell_value(x, YEAR_COL))
+
+                                        db_amount = cstcf(item_name_in_db.amount)
+                                        db_price = cstcf(item_name_in_db.price)
+                                        db_year = cstcf(item_name_in_db.year)
+
+                                        if ws_price == db_price and ws_amount == db_amount and ws_year == db_year:
+
+                                            conclusion.append("not_changed")   # item not changed
+
+                                        else:
+
+                                            if ws_price != db_price:
+                                                print("price1", ws_price, "price2", db_price)
+                                                conclusion.append("price_changed")
+
+                                            if ws_amount != db_amount:
+                                                conclusion.append("amount_changed")
+                                                print("am1", ws_amount, "am2", db_amount,"\n",
+                                                      repr(ws_amount), repr(db_amount) )
+
+                                            if ws_year != db_year:
+                                                print("y1", ws_year, "y2", db_year)
+                                                conclusion.append("year_changed")
+
+                                    else:
+                                        conclusion.append("new_item")
+
+                                item_changes[x] = conclusion
+                                #Item.objects.all().filter(name=cell_val).delete()
+
+
+                            table.append(row)
                         return render(request, "admin_page.html",
-                                      context={"full_price_table": table, "x": list(range(cols)), "y": list(range(rows))})
-                except:
-                    pass
+                                      context={"full_price_table": table,
+                                               "x": list(range(cols)),
+                                               "y": list(range(rows)),
+                                               "item_changes": json.dumps(item_changes),
+                                               })
+                #except:
+                    #pass
 
             print(rows)
             if request.POST.get("sub_btn") == "pressed":

@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     {% load  app_filters %}
     {% load static %}
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
@@ -9,7 +10,7 @@
     <title>Title</title>
 </head>
 <body>
-
+<input id="crutch" type="hidden">
 <p>add item</p>
     <div id="progress">
         <div id="line"></div>
@@ -22,14 +23,14 @@
     </form>
 
     {% if full_price_table %}
-        <form method="post" enctype="multipart/form-data">{% csrf_token %}
+        <form method="post" enctype="multipart/form-data" data-identifier="inputs" id="fm">{% csrf_token %}
             <input type="hidden" id="changes" name="changes">
 
         <button value="pressed" name="sub_btn" type="submit">submit update</button>
 
 
 
-            <table border="1">
+            <table border="1" id="tabl">
             <tr>
                 <td>hide</td>
                 {% for r in x %}
@@ -38,8 +39,8 @@
                             <select name="{{ r }}-header">
                                 <option selected="selected">Group</option>
                                 <option>Name</option>
-                                <option>Amount</option>
                                 <option>Price</option>
+                                <option>Amount</option>
                                 <option>Year</option>
                             <option>nothing</option>
                             </select>
@@ -49,8 +50,8 @@
                             <select name="{{ r }}-header">
                                 <option>Group</option>
                                 <option selected="selected">Name</option>
-                                <option>Amount</option>
                                 <option>Price</option>
+                                <option>Amount</option>
                                 <option>Year</option>
                             <option>nothing</option>
                             </select>
@@ -60,8 +61,8 @@
                             <select name="{{ r }}-header">
                                 <option>Group</option>
                                 <option>Name</option>
-                                <option selected="selected">Amount</option>
-                                <option>Price</option>
+                                <option selected="selected">Price</option>
+                                <option>Amount</option>
                                 <option>Year</option>
                             <option>nothing</option>
                             </select>
@@ -71,8 +72,8 @@
                             <select name="{{ r }}-header">
                                 <option>Group</option>
                                 <option>Name</option>
-                                <option>Amount</option>
-                                <option selected="selected">Price</option>
+                                <option>Price</option>
+                                <option selected="selected">Amount</option>
                                 <option>Year</option>
                             <option>nothing</option>
                             </select>
@@ -82,8 +83,8 @@
                             <select name="{{ r }}-header">
                                 <option>Group</option>
                                 <option>Name</option>
-                                <option>Amount</option>
                                 <option>Price</option>
+                                <option>Amount</option>
                                 <option selected="selected">Year</option>
                                 <option>nothing</option>
                             </select>
@@ -92,8 +93,8 @@
                             <select name="{{ r }}-header">
                                 <option>Group</option>
                                 <option>Name</option>
-                                <option>Amount</option>
                                 <option>Price</option>
+                                <option>Amount</option>
                                 <option>Year</option>
                                 <option selected="selected">nothing</option>
                             </select>
@@ -105,16 +106,16 @@
 
                     {% for i in y %}
 
-                       <script>
-                        all = {{ y|length }};
-                        part = {{ i }};
-                        if(part%1==0){
-                            document.getElementById("line").style.width = (part / (all / 100)) + "%";
-                            document.getElementById("progress_percent").innerText = (Math.round(part / (all / 100)) + "%");
-                            console.log((Math.round(part / (all / 100)) + "%"))
-                        }
+                        <script>
+                         part = {{ i }};
+                         all = {{ y|length }};
 
-                       </script>
+                        document.getElementById("line").style.width = (part / (all / 100)) + "%";
+                        document.getElementById("progress_percent").innerText = (Math.round(part / (all / 100)) + "%");
+                        console.log((Math.round(part / (all / 100)) + "%"));
+
+                        </script>
+
                         <tr>
                             <td>
                                 <input type="checkbox" data-key="{{ i }}-To_show" value="false">
@@ -124,11 +125,69 @@
                             {% for e in x %}
                                 <td>
 
-                                    <input type="text" value = "{{ full_price_table | get_item_:i | get_item_:e}}" data-key = "{{ i|create_name:e}}">
+                                    <input data-x="{{ i }}" data-y="{{ e }}" id="{{ i|create_name:e}}" type="text" value = "{{ full_price_table | get_item_:i | get_item_:e}}" data-key = "{{ i|create_name:e}}">
                                 </td>
                             {% endfor %}
                         </tr>
                     {% endfor %}
+{##}
+                    <script>
+                    changes_ = {{ item_changes|safe }}
+                        console.log(changes);
+                    all = {{ y|length }};
+                    test=[];
+
+                        for (i=1; i<all; i++)
+                        {
+                            elem_name = $("#tabl tr").eq(i+1).find("td").eq(2).find("input")[0];
+                            elem_price = $("#tabl tr").eq(i+1).find("td").eq(3).find("input")[0];
+                            elem_amount = $("#tabl tr").eq(i+1).find("td").eq(4).find("input")[0];
+                            elem_year = $("#tabl tr").eq(i+1).find("td").eq(5).find("input")[0];
+                            for(e=0; e<Object.keys(changes_).length; e++)
+                                {
+
+                                if (changes_[i][e] == "new_item" && elem_name)
+                                    {
+                                        elem_name.style.color = "green";
+                                        elem_price.style.color = "green";
+                                        elem_amount.style.color = "green";
+                                        elem_year.style.color = "green";
+                                    }
+                                if (changes_[i][e] == "not_changed" && elem_name)
+                                    {
+                                        elem_name.style.color = "blue";
+                                        elem_price.style.color = "blue";
+                                        elem_amount.style.color = "blue";
+                                        elem_year.style.color = "blue";
+                                    }
+
+                                if (changes_[i][e] == "price_changed" && elem_price)
+                                    {
+                                        elem_name.style.color = "blue";
+                                        elem_amount.style.color = "blue";
+                                        elem_year.style.color = "blue";
+                                        elem_price.style.color = "red";
+                                    }
+                                if (changes_[i][e] == "amount_changed" && elem_amount)
+                                    {
+                                        elem_name.style.color = "blue";
+                                        elem_price.style.color = "blue";
+                                        elem_year.style.color = "blue";
+                                        elem_amount.style.color = "red";
+                                    }
+                                if (changes_[i][e] == "year_changed" && elem_year)
+                                    {
+                                        elem_name.style.color = "blue";
+                                        elem_price.style.color = "blue";
+                                        elem_amount.style.color = "blue";
+                                        elem_year.style.color = "red";
+                                    }
+
+                                }
+                        }
+
+                       </script>
+{##}
 
             </table>
 
