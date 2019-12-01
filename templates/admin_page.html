@@ -4,27 +4,35 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     {% load  app_filters %}
     {% load static %}
+
+    <script src="{% static "image_preview.js"%}"></script>
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
     <script src="{% static 'save_changes.js' %}"></script>
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
+
 <body>
-<input id="crutch" type="hidden">
-<p>add item</p>
+<form method="get"><button name="edit_db_table" value="pressed" type="submit">f</button></form>
+
     <div id="progress">
         <div id="line"></div>
         <div id="progress_percent"></div>
     </div>
+
     <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
         <input type="file" name="file_input" >
         <button type="submit">submit</button>
     </form>
 
+
+                    {#  display loaded xls  #}
+
     {% if full_price_table %}
         <form method="post" enctype="multipart/form-data" data-identifier="inputs" id="fm">{% csrf_token %}
             <input type="hidden" id="changes" name="changes">
+
 
         <button value="pressed" name="sub_btn" type="submit">submit update</button>
 
@@ -89,6 +97,17 @@
                                 <option>nothing</option>
                             </select>
 
+                        {% elif r == 5 %}
+                            <select name="{{ r }}-header">
+                                <option>Group</option>
+                                <option>Name</option>
+                                <option>Price</option>
+                                <option>Amount</option>
+                                <option>Year</option>
+                                <option selected="selected">photo link</option>
+                                <option>nothing</option>
+                            </select>
+
                         {% else %}
                             <select name="{{ r }}-header">
                                 <option>Group</option>
@@ -102,6 +121,9 @@
                     </td>
 
                 {% endfor %}
+
+
+
             </tr>
 
                     {% for i in y %}
@@ -118,22 +140,29 @@
 
                         <tr>
                             <td>
-                                <input type="checkbox" data-key="{{ i }}-To_show" value="false">
-
+                                {% if full_price_table|get_item_:i|get_item_:1 in hidden_item_names %}
+                                    <input type="checkbox" data-key="{{ i }}-To_show" value="true" checked="checked">
+                                {% else %}
+                                    <input type="checkbox" data-key="{{ i }}-To_show" value="false">
+                               {% endif %}
                             </td>
 
                             {% for e in x %}
                                 <td>
-
                                     <input data-x="{{ i }}" data-y="{{ e }}" id="{{ i|create_name:e}}" type="text" value = "{{ full_price_table | get_item_:i | get_item_:e}}" data-key = "{{ i|create_name:e}}">
                                 </td>
                             {% endfor %}
+
+
                         </tr>
                     {% endfor %}
-{##}
+
+
+
+
                     <script>
                     changes_ = {{ item_changes|safe }}
-                        console.log(changes);
+                        console.log(changes_);
                     all = {{ y|length }};
                     test=[];
 
@@ -187,11 +216,120 @@
                         }
 
                        </script>
-{##}
 
             </table>
 
         </form>
+    {% endif %}
+
+    {# display price list from db to edit #}
+
+    {% if current_price_list %}
+
+    <form method="post" enctype="multipart/form-data">{% csrf_token %}
+    <input type="hidden" name="changes_to_db_table" id="price-list-from-db-changes" value="{}">
+    <button type="submit">submit changes</button>
+        <table id="table_from_db">
+        <thead>
+            <th>to show</th>  {#  TABLE HEAD  #}
+            <th>name</th>  {#  TABLE HEAD  #}
+            <th>price</th>  {#  TABLE HEAD  #}
+            <th>amount</th>  {#  TABLE HEAD  #}
+            <th>year</th>  {#  TABLE HEAD  #}
+            <th>category</th>  {#  TABLE HEAD  #}
+            <th>photo</th>
+        </thead>
+
+        <tbody>
+        <script>
+
+            function save_change(e, data_row, id)
+            {
+                form_elem = document.getElementById("price-list-from-db-changes");
+                changes_in_db_table = JSON.parse(form_elem.value);
+                if (e.type = "checkbox")
+                {
+                    if (e.checked == true)
+                    {
+                        value = "false";
+                        changes_in_db_table[id+"|"+e.getAttribute("data-col_type")] = value;
+                    }
+                    else
+                    {
+                        value = "true";
+                        changes_in_db_table[id+"|"+e.getAttribute("data-col_type")] = value;
+                    }
+                }
+                else
+                {
+                    changes_in_db_table[id+"|"+e.getAttribute("data-col_type")] = e.value; // editing value for value|colName
+                }
+            form_elem.value = JSON.stringify(changes_in_db_table);  //  saving changes
+            console.log(changes_in_db_table);
+            }
+
+        </script>
+            {% for  row_index, item in current_price_list %}
+                <tr>
+               {% if item.to_show == True %} {# item.to_show == True#}
+                    <td><input type="checkbox"                   value="true" data-row="{{ row_index }}" data-col_type="to_show"></td>
+                {% elif item.to_show == False %}
+                    <td><input type="checkbox" checked="checked" value="false" data-row="{{ row_index }}" data-col_type="to_show"></td>
+                {% endif %}
+
+                {% for field in fields %}
+
+                    <td><input value="{{ item|get_model_field:field }}" data-row="{{ row_index }}" data-col_type="{{ field }}"></td>
+
+                {% endfor %}
+
+                    <td><input value="{{ item.photo_link }}" data-row="{{ row_index }}" data-col_type="photo_link">
+                    <img id="img{{row_index}}" src="{{ item.photo_link }}" hidden="true" >
+                    <button type="button" id="{{ row_index }}open" onclick="open_image({{ row_index }})"  >развернуть</button>
+                    <button type="button" id="{{ row_index }}close" onclick="close_image({{ row_index }})"  hidden="true">свернуть</button>
+                    </td>
+
+
+                </tr>
+                    <script>
+                        $("[data-row={{ row_index }}][data-col_type=to_show]")[0].addEventListener("input", function (evt)
+                        {
+                            console.log("listener fired");
+                            save_change(this, {{ row_index }}, "{{ item.id }}");
+                        });
+                        $("[data-row={{ row_index }}][data-col_type=name]")[0].addEventListener("input", function (evt)
+                        {
+                            console.log("listener fired");
+                            save_change(this, {{ row_index }}, "{{ item.id }}");
+                        });
+                        $("[data-row={{ row_index }}][data-col_type=price]")[0].addEventListener("input", function (evt)
+                        {
+                            console.log("listener fired");
+                            save_change(this, {{ row_index }}, "{{ item.id }}");
+                        });
+                        $("[data-row={{ row_index }}][data-col_type=amount]")[0].addEventListener("input", function (evt)
+                        {
+                            console.log("listener fired");
+                            save_change(this, {{ row_index }}, "{{ item.id }}");
+                        });
+                        $("[data-row={{ row_index }}][data-col_type=year]")[0].addEventListener("input", function (evt)
+                        {
+                            console.log("listener fired");
+                            save_change(this, {{ row_index }}, "{{ item.id }}");
+                        });
+                        $("[data-row={{ row_index }}][data-col_type=category]")[0].addEventListener("input", function (evt)
+                        {
+                            console.log("listener fired");
+                            save_change(this, {{ row_index }}, "{{ item.id }}");
+                        });
+                    </script>
+            {% endfor %}
+        </tbody>
+        </table>
+
+
+
+    </form>
     {% endif %}
 
 </body>

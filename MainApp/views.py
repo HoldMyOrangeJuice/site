@@ -49,6 +49,7 @@ def admin_page(request):
                         global cols, rows, ws
                 #try:
                         global cols, rows
+
                         file = request.FILES['file_input'].read()
 
                         wb = xlrd.open_workbook(file_contents=file)
@@ -67,43 +68,45 @@ def admin_page(request):
                                 print("col number", y, "height", x)
 
                                 if y == NAME_COL:
-
+                                    item_names_in_db = []
                                     try:
+                                        item_names_in_db = Item.objects.all().filter(name=cell_val)
+                                        print(cell_val, "ITEM IN DATABASE")
+                                    except:
+                                        print(cell_val, "ITEM WITH THIS NAME IS NOT PRESENT IN DATABASE")
 
-                                        item_name_in_db = Item.objects.all().filter(name=cell_val)[0]
+                                    if len(item_names_in_db) > 0:
 
-                                        print(item_name_in_db.name, "ITEM WITH THIS NAME IN DATABASE")
-                                    except IndexError:
-                                        print("ITEM NOT PRESENT IN DATABASE")
-                                        item_name_in_db = None
-
-                                    if item_name_in_db:
+                                        db_amounts = []
+                                        db_prices = []
+                                        db_years = []
 
                                         ws_amount = cstcf(ws.cell_value(x, AMOUNT_COL))
                                         ws_price = cstcf(ws.cell_value(x, PRICE_COL))
                                         ws_year = cstcf(ws.cell_value(x, YEAR_COL))
 
-                                        db_amount = cstcf(item_name_in_db.amount)
-                                        db_price = cstcf(item_name_in_db.price)
-                                        db_year = cstcf(item_name_in_db.year)
+                                        for item_in_db in item_names_in_db:
+                                            db_amounts.append(cstcf(item_in_db.amount))
+                                            db_prices.append(cstcf(item_in_db.price))
+                                            db_years.append(cstcf(item_in_db.year))
 
-                                        if ws_price == db_price and ws_amount == db_amount and ws_year == db_year:
+                                        if ws_price in db_prices and ws_amount in db_amounts and ws_year in db_years:
 
                                             conclusion.append("not_changed")   # item not changed
 
                                         else:
 
-                                            if ws_price != db_price:
-                                                print("price1", ws_price, "price2", db_price)
+                                            if ws_price not in db_prices:
+                                                print("price1", ws_price, "price2", db_prices)
                                                 conclusion.append("price_changed")
 
-                                            if ws_amount != db_amount:
+                                            if ws_amount not in db_amounts:
                                                 conclusion.append("amount_changed")
-                                                print("am1", ws_amount, "am2", db_amount,"\n",
-                                                      repr(ws_amount), repr(db_amount) )
+                                                print("am1", ws_amount, "am2", db_amounts,"\n",
+                                                      repr(ws_amount), repr(db_amounts) )
 
-                                            if ws_year != db_year:
-                                                print("y1", ws_year, "y2", db_year)
+                                            if ws_year not in db_years:
+                                                print("y1", ws_year, "y2", db_years)
                                                 conclusion.append("year_changed")
 
                                     else:
@@ -114,20 +117,42 @@ def admin_page(request):
 
 
                             table.append(row)
+                        hidden_query = Item.objects.all().filter(to_show=False).values_list("name", flat=True)
+                        print(hidden_query)
                         return render(request, "admin_page.html",
                                       context={"full_price_table": table,
                                                "x": list(range(cols)),
                                                "y": list(range(rows)),
                                                "item_changes": json.dumps(item_changes),
+                                               "hidden_item_names": hidden_query,
                                                })
                 #except:
                     #pass
 
-            print(rows)
+            if request.POST.get("changes_to_db_table"):
+                changes = json.loads(request.POST.get("changes_to_db_table"))
+                print(changes)
+                keys = changes.keys()
+                for key in keys:
+                    new_value = changes[key]
+                    item_id = key.split("|")[0]
+                    field_edited = key.split("|")[1]
+
+                    item = Item.objects.all().filter(id=item_id)[0]  # table uses name, not name_to_search
+                    if field_edited == "to_show":
+
+                        new_value = (new_value == "true")
+                        print("old val", Item.__getattribute__(item, "to_show"), "new val", new_value)
+
+                    print(new_value)
+                    Item.__setattr__(item, field_edited, new_value)
+                    item.save()
+
             if request.POST.get("sub_btn") == "pressed":
                 changes = {}
                 if request.POST.get("changes"):
                     changes = json.loads(request.POST.get("changes"))
+
                 bulk_to_add = []
                 for r in range(rows):
                     single_item = {}
@@ -136,17 +161,16 @@ def admin_page(request):
                         To_show = False
 
                     for c in range(cols):
-                        print("CHANGES", changes)
-                        print("worksheet", ws)
+
                         cell_header = request.POST.get(f"{c}-header")
                         cell_content = ws.cell_value(r, c)
 
-                        if changes.get(f"{r}&{c}"):
-                            print("change detected", changes.get(f"{r}&{c}"))
-                            single_item[cell_header] = changes.get(f"{r}&{c}")  # change detected
+                        if changes.get(f"{r}a{c}"):
+                            print("change detected", changes.get(f"{r}a{c}"))
+                            single_item[cell_header] = changes.get(f"{r}a{c}")  # change detected
                         else:
                             single_item[cell_header] = cell_content  # without changes
-                            print("no changes", cell_header, single_item[cell_header])
+                            #print("no changes", cell_header, single_item[cell_header])
 
 
                     if single_item.get("Name"):
@@ -169,18 +193,36 @@ def admin_page(request):
                         category = single_item.get("Group")
                     else:
                         category = "-"
+
+                    photo_link = single_item.get("photo link")  # including none
+                    print(photo_link)
+
+                    Item.objects.all().filter(name_to_search=cstcf(name),
+                                              category=cstcf(category),
+                                              ).delete()
+                    # deleting old item before adding new one
+
                     bulk_to_add.append(Item(
-                        name=name,
+                        name=name,  # lang
                         name_to_search=cstcf(name),
                         category=cstcf(category),
                         price=price,
                         amount=amount,
                         to_show=To_show,
                         year=year,
+                        photo_link=photo_link,
                                             )
                                        )
                 Item.objects.bulk_create(bulk_to_add)
-
+        if request.GET.get("edit_db_table") == "pressed":
+            fields = []
+            for field in Item._meta.fields:
+                if field.name != "name_to_search" and field.name != "id" and field.name != "to_show" and field.name != "photo_link":
+                    fields.append(field.name)
+            return render(request, "admin_page.html", context={
+                "current_price_list": enumerate(Item.objects.all()),
+                "fields": fields
+                })
         return render(request, "admin_page.html")
     return render(request, "denied.html")
 
@@ -191,12 +233,12 @@ def price_page(request):
     else:
         context = Item.objects.order_by('category')
 
-    return render(request, "price_table.html", context={"items": context})
+    return render(request, "price_table.html", context={"items_enumed": enumerate(context)})
 
 
 def search(key):
     key = cstcf(key)
-    #print(key)
+
     #print(Item.objects.all().filter(name_to_search__contains="диод"))
     query1 = Item.objects.all().filter(name_to_search__contains=key)
     query2 = Item.objects.all().filter(category__contains=key)
@@ -209,5 +251,16 @@ def cstcf(string):
     string = string.replace(" ", "")
     string = string.replace("-", "")
     string = string.replace(" ", "")
+    string = string.upper()
+
+    rus = ["А", "В", "С", "Е", "Р", "У", "К", "Н", "Х", "М", "Т"]
+    eng = ["A", "B", "C", "E", "P", "Y", "K", "H", "X", "M", "T"]
+
+    if len(rus) == len(eng):
+        for i in range(len(rus)):
+
+            string = string.replace(eng[i], rus[i])
+
     string = string.lower()
+
     return string

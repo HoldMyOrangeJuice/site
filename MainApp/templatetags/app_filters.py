@@ -15,4 +15,9 @@ def create_name(x, y):
     return f"{x}a{y}"
 
 
+@register.filter(name='get_model_field')
+def get_model_field(model, field):
+    return model.__getattribute__(field)
+
+
 

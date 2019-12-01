@@ -9,4 +9,4 @@ class Item(models.Model):
     year = models.TextField(blank=True, null=None)
     category = models.TextField(blank=True, null=None)
     to_show = models.BooleanField(blank=True, null=None)
-
+    photo_link = models.TextField(blank=True)

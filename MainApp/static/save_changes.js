@@ -1,4 +1,4 @@
-document.addEventListener('input', function (evt) {
+document.getElementById("tabl").addEventListener('input', function (evt) {
     add_change(this);
 });
 let changes = {};

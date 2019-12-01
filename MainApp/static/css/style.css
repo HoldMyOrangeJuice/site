@@ -104,3 +104,29 @@ body
     height: 10px;
     background-color: #525252;
 }
+
+.contacts___
+{
+    display: flex;
+    justify-content: space-around;
+
+}
+
+.cont-text
+{
+    color: #757575;
+    font-size: 30px;
+    font-family: "Agency FB"
+}
+
+td{
+    width: auto!important;
+
+}
+
+#table_from_db td
+{
+    width: auto!important;
+    height: 100%;
+    background-color: white;
+}
