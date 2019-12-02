@@ -2,19 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="be8a2fb3-f30f-444b-8d98-3439e5fa8f68" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/MainApp/static/image_preview.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MainApp/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/MainApp/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MainApp/static/css/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/MainApp/static/css/style.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MainApp/static/css/table.css" beforeDir="false" afterPath="$PROJECT_DIR$/MainApp/static/css/table.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MainApp/static/save_changes.js" beforeDir="false" afterPath="$PROJECT_DIR$/MainApp/static/save_changes.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MainApp/templatetags/app_filters.py" beforeDir="false" afterPath="$PROJECT_DIR$/MainApp/templatetags/app_filters.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MainApp/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/MainApp/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/db.sqlite3" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/admin_page.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/admin_page.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/price_table.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/price_table.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/прайс/short.xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/прайс/short.xlsx" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -44,8 +32,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/templates/price_table.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="264">
-              <caret line="84" column="134" lean-forward="true" selection-start-line="82" selection-start-column="19" selection-end-line="84" selection-end-column="134" />
+            <state relative-caret-position="1848">
+              <caret line="84" column="134" selection-start-line="82" selection-start-column="19" selection-end-line="84" selection-end-column="134" />
             </state>
           </provider>
         </entry>
@@ -53,8 +41,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/MainApp/static/css/style.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2290">
-              <caret line="107" column="12" lean-forward="true" selection-start-line="107" selection-start-column="12" selection-end-line="107" selection-end-column="12" />
+            <state relative-caret-position="2354">
+              <caret line="107" column="12" selection-start-line="107" selection-start-column="12" selection-end-line="107" selection-end-column="12" />
             </state>
           </provider>
         </entry>
@@ -63,7 +51,7 @@
         <entry file="file://$PROJECT_DIR$/MainApp/static/image_preview.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="352">
-              <caret line="16" lean-forward="true" selection-start-line="16" selection-end-line="16" />
+              <caret line="16" selection-start-line="16" selection-end-line="16" />
             </state>
           </provider>
         </entry>
@@ -71,7 +59,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/MainApp/static/css/table.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="530">
+            <state relative-caret-position="594">
               <caret line="27" column="17" selection-start-line="27" selection-start-column="17" selection-end-line="27" selection-end-column="17" />
             </state>
           </provider>
@@ -89,8 +77,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/MainApp/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="264">
-              <caret line="219" column="132" lean-forward="true" selection-start-line="219" selection-start-column="132" selection-end-line="219" selection-end-column="132" />
+            <state relative-caret-position="4708">
+              <caret line="219" column="132" selection-start-line="219" selection-start-column="132" selection-end-line="219" selection-end-column="132" />
               <folding>
                 <element signature="e#0#35#0" expanded="true" />
               </folding>
@@ -101,10 +89,10 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/templates/admin_page.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="495">
-              <caret line="297" column="38" selection-start-line="297" selection-start-column="33" selection-end-line="297" selection-end-column="38" />
+            <state relative-caret-position="220">
+              <caret line="250" column="29" selection-start-line="250" selection-start-column="29" selection-end-line="250" selection-end-column="29" />
               <folding>
-                <marker date="1575228536817" expanded="true" signature="5387:5388" ph="..." />
+                <marker date="1575298205382" expanded="true" signature="5387:5388" ph="..." />
               </folding>
             </state>
           </provider>
@@ -131,7 +119,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/MainApp/static/save_changes.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="231">
+            <state relative-caret-position="660">
               <caret line="30" column="37" lean-forward="true" selection-start-line="30" selection-start-column="37" selection-end-line="30" selection-end-column="37" />
             </state>
           </provider>
@@ -160,6 +148,7 @@
       <find>nges</find>
       <find>changes</find>
       <find>checkbo</find>
+      <find>check</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -198,7 +187,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -238,6 +226,7 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -308,16 +297,18 @@
       <workItem from="1575106235323" duration="10927000" />
       <workItem from="1575193370605" duration="10728000" />
       <workItem from="1575214102876" duration="9785000" />
+      <workItem from="1575297605695" duration="595000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="118758000" />
+    <option name="totallyTimeSpent" value="119353000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.18528464" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.18796992" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -331,8 +322,8 @@
       <window_info anchor="bottom" id="Version Control" order="8" weight="0.32997763" />
       <window_info anchor="bottom" id="Database Changes" order="9" show_stripe_button="false" />
       <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
-      <window_info anchor="bottom" id="Terminal" order="11" weight="0.28747204" />
-      <window_info active="true" anchor="bottom" id="Python Console" order="12" visible="true" weight="0.32662192" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="11" visible="true" weight="0.28747204" />
+      <window_info anchor="bottom" id="Python Console" order="12" weight="0.326257" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -395,6 +386,34 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/templates/price_table.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1848">
+          <caret line="84" column="134" selection-start-line="82" selection-start-column="19" selection-end-line="84" selection-end-column="134" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/MainApp/static/css/style.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2354">
+          <caret line="107" column="12" selection-start-line="107" selection-start-column="12" selection-end-line="107" selection-end-column="12" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/MainApp/static/image_preview.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="352">
+          <caret line="16" selection-start-line="16" selection-end-line="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/MainApp/static/css/table.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="594">
+          <caret line="27" column="17" selection-start-line="27" selection-start-column="17" selection-end-line="27" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/templates/denied.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="220">
@@ -402,55 +421,13 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/MainApp/templatetags/app_filters.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="418">
-          <caret line="19" column="40" lean-forward="true" selection-start-line="19" selection-start-column="40" selection-end-line="19" selection-end-column="40" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/MainApp/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="264">
-          <caret line="219" column="132" lean-forward="true" selection-start-line="219" selection-start-column="132" selection-end-line="219" selection-end-column="132" />
+        <state relative-caret-position="4708">
+          <caret line="219" column="132" selection-start-line="219" selection-start-column="132" selection-end-line="219" selection-end-column="132" />
           <folding>
             <element signature="e#0#35#0" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/price_table.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="264">
-          <caret line="84" column="134" lean-forward="true" selection-start-line="82" selection-start-column="19" selection-end-line="84" selection-end-column="134" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/MainApp/static/image_preview.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="352">
-          <caret line="16" lean-forward="true" selection-start-line="16" selection-end-line="16" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/MainApp/static/css/table.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="530">
-          <caret line="27" column="17" selection-start-line="27" selection-start-column="17" selection-end-line="27" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/MainApp/static/css/style.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2290">
-          <caret line="107" column="12" lean-forward="true" selection-start-line="107" selection-start-column="12" selection-end-line="107" selection-end-column="12" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/MainApp/static/save_changes.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="231">
-          <caret line="30" column="37" lean-forward="true" selection-start-line="30" selection-start-column="37" selection-end-line="30" selection-end-column="37" />
         </state>
       </provider>
     </entry>
@@ -461,12 +438,26 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/MainApp/templatetags/app_filters.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="418">
+          <caret line="19" column="40" lean-forward="true" selection-start-line="19" selection-start-column="40" selection-end-line="19" selection-end-column="40" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/MainApp/static/save_changes.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="660">
+          <caret line="30" column="37" lean-forward="true" selection-start-line="30" selection-start-column="37" selection-end-line="30" selection-end-column="37" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/templates/admin_page.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="495">
-          <caret line="297" column="38" selection-start-line="297" selection-start-column="33" selection-end-line="297" selection-end-column="38" />
+        <state relative-caret-position="220">
+          <caret line="250" column="29" selection-start-line="250" selection-start-column="29" selection-end-line="250" selection-end-column="29" />
           <folding>
-            <marker date="1575228536817" expanded="true" signature="5387:5388" ph="..." />
+            <marker date="1575298205382" expanded="true" signature="5387:5388" ph="..." />
           </folding>
         </state>
       </provider>
