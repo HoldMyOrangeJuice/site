@@ -1,0 +1,110 @@
+{% load  app_filters %}
+{% load static %}
+<script src={% static "image_preview.js" %}></script>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js" ></script>
+
+
+<script>
+    document.addEventListener("input", function (e) {
+console.log(e);
+        if(e.target.getAttribute("value") != e.target.value && e.target.getAttribute("data-field"))
+        {
+            e.target.style.color = "green"
+        }
+        else
+        {
+            e.target.style.color = "black"
+        }
+        if(e.target.value=="" && e.target.getAttribute("data-field") == "name")
+        {
+            e.target.setAttribute("placeholder", `${e.target.getAttribute("value")} Будет удален`)
+        }
+        console.log(e.target);
+        input_el = e.target;
+        changes = JSON.parse(document.getElementById("changes").value);
+        let id = input_el.getAttribute("data-id");
+        let field = input_el.getAttribute("data-field");
+        if (input_el.type == "checkbox")
+        {
+            changes[`${id}|${field}`] = input_el.checked == true;
+        }
+        else
+        {
+            changes[`${id}|${field}`] = input_el.value;
+        }
+        console.log(changes);
+        document.getElementById("changes").value = JSON.stringify(changes)
+        })
+    </script>
+{% if table %}
+<form method="post" enctype="multipart/form-data">{% csrf_token %}
+    {% if mode == "edit" %}
+        <input type="hidden" id="changes" name="changes" value="{}">
+        <button type="submit">tmplt_sbmt</button>
+    {% endif %}
+
+        <table data-toggle="table" id="table-universal">
+        <thead>
+            {% for head in headers %}
+            <th>{{ head }}</th>
+            {% endfor %}
+            </thead>
+
+            <tbody>
+                {% for row_index, item in table %}
+                    {% if mode == "edit" or not item.is_hidden %}
+                    <tr>
+                        {% for col_index, field in fields %}
+                            <td>
+                                {% if mode == "edit" %}
+                                <input
+
+                                    data-id="{{ item.id }}"
+                                    data-field="{{ field }}"
+                                    value="{{ item|get_model_field:field }}"
+                                    type="{{ col_index|inp_type }}"
+
+                                    {% if item.is_hidden %}
+                                    checked="checked"
+                                    {% endif %}
+
+                                />
+
+                                    {% if field == "photo_link" and item.photo_link %}
+                                        <img src="{{ item.photo_link }}" id="img{{ row_index }}" hidden="true">
+                                        <button id="{{ row_index }}open" type="button" onclick="open_image({{ row_index }})">open</button>
+                                        <button id="{{ row_index }}close" type="button" onclick="close_image({{ row_index }})" hidden="true">close</button>
+                                    {% endif %}
+
+
+
+                                {% elif mode == "view"  %}
+
+                                    {% if field != "photo_link" %}
+                                        {{ item|get_model_field:field }}
+                                    {% else %}
+                                        {% if item.photo_link %}
+                                        <img src="{{ item.photo_link }}" id="img{{ row_index }}" hidden="true">
+                                        <button id="{{ row_index }}open" type="button" onclick="open_image({{ row_index }})">open</button>
+                                        <button id="{{ row_index }}close" type="button" onclick="close_image({{ row_index }})" hidden="true">close</button>
+                                        {% endif %}
+                                    {% endif %}
+
+                                {% endif %}
+
+
+                            </td>
+
+                        {% endfor %}
+                    </tr>
+                    {% endif %}
+                {% endfor %}
+            </tbody>
+        </table>
+    </form>
+{% endif %}
+
+
+
+
+

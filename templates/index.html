@@ -46,7 +46,11 @@
             </div>
         </form>
   <nav class="my-2 my-md-0 mr-md-3">
+
+      {% if user %}
       <a class="p-2 text-dark" href="/adm">Админка</a>
+      {% endif %}
+
     <a class="p-2 text-dark" href="#footer_">Контакты <span class="glyphicon glyphicon-earphone"></span> </a>
     <a class="p-2 text-dark" href="/full_price">Прайс лист <span class="glyphicon glyphicon-align-justify"></span></a>
 
@@ -237,11 +241,12 @@
     }
 </script>
     <div id="login_window" hidden="true">
-        <form id="login-form" method="post" enctype="multipart/form-data">{% csrf_token %}
+        <form id="login-form" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
             <button class="close-button" type="button" onclick="hide_window()"><i  class="fa fa-close close-icon"></i></button>
             <input name="username" placeholder="username" class="w3-input"  >
             <input name="password" placeholder="password" type="password" class="w3-input">
-            <button type="submit" class="button">submit</button>
+            <button type="submit" class="button" >submit</button>
         </form>
     </div>
 </body>

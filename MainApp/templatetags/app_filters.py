@@ -5,8 +5,8 @@ from django.template.defaulttags import register
 def get_item_(iterable, i):
     i = int(i)
     iterable = list(iterable)
-    #print(i)
-    #print(iterable)
+    # print(i)
+    # print(iterable)
     return iterable[i]
 
 
@@ -18,6 +18,14 @@ def create_name(x, y):
 @register.filter(name='get_model_field')
 def get_model_field(model, field):
     return model.__getattribute__(field)
+
+
+@register.filter(name='inp_type')
+def inp_type(index):
+    if int(index) == 0:
+        return "checkbox"
+    else:
+        return "text"
 
 
 
