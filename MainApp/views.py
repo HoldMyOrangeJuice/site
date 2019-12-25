@@ -13,13 +13,6 @@ from .resources import ItemRes
 from django.core.mail import send_mail
 from siteff import settings
 
-TO_SHOW_FIELD = 0
-NAME_COL      = 1
-PRICE_COL     = 2
-AMOUNT_COL    = 3
-YEAR_COL      = 4
-PHOTO_COL     = 5
-
 
 def start_page(request):
 
@@ -29,7 +22,7 @@ def start_page(request):
         return render(request, "price_table.html", context={"items": item_objects})
 
     if request.GET.get("item_requested"):
-        item_objects = Item.objects.filter(category=request.GET.get("item_requested"))
+        item_objects = Item.objects.filter(category_to_search__contains=request.GET.get("item_requested"))
         return render(request, "price_table.html", context={"table": list(enumerate(item_objects)),
                                                             "headers": v_headers,
                                                             "fields": list(enumerate(v_fields)),
@@ -66,7 +59,7 @@ def admin_page(request):
 
                         file = request.FILES['file_input'].read()
                         wb = xlrd.open_workbook(file_contents=file)
-                        ws = wb.sheet_by_index(0)
+                        ws = wb.sheet_by_index(2)
 
                         raw_bulk_from_xls = []
                         for x in range(ws.nrows):
@@ -74,18 +67,24 @@ def admin_page(request):
                             for y in range(ws.ncols):
                                 cell_val = ws.cell_value(x, y)
                                 row.append(cell_val)
-                            item = Item(
-                                name=row[xl_NAME_COL],  # lang
-                                name_to_search=cstcf(row[xl_NAME_COL]),
-                                category=cstcf(row[xl_CATEGORY_COL]),
-                                price=row[xl_PRICE_COL],
-                                amount=row[xl_AMOUNT_COL],
-                                is_hidden=False,
-                                year=row[xl_YEAR_COL],
-                                photo_link=row[xl_PHOTO_COL],
-                                            )
 
-                            raw_bulk_from_xls.append(item)
+                            if row[xl_NAME_COL]:    # name present;
+                                item = Item(
+                                    name=row[xl_NAME_COL],  # lang
+                                    name_to_search=cstcf(row[xl_NAME_COL]),
+                                    category=row[xl_CATEGORY_COL],
+                                    category_to_search=cstcf(row[xl_CATEGORY_COL]),
+                                    price=round_val(row[xl_PRICE_COL], 2),
+                                    amount=round_val(row[xl_AMOUNT_COL], 0),
+                                    is_hidden=False,
+                                    year=round_val(row[xl_YEAR_COL], 0),
+                                    photo_link=row[xl_PHOTO_COL],
+                                    spot=row[xl_SPOT_COL],
+                                    sum=row[xl_SUM_COL],
+                                    notes=row[xl_NOTES_COL],
+                                                )
+                                raw_bulk_from_xls.append(item)
+
                         Item.objects.all().bulk_create(raw_bulk_from_xls)
                         table = Item.objects.all()
 
@@ -155,6 +154,12 @@ def admin_page(request):
 
 
 def price_page(request):
+
+    if request.GET.get("download_price"):
+        make_xlsx()
+        response = HttpResponse(open("test.xls", mode="rb"), content_type='application/vnd.ms-excel')
+        response['Content-Disposition'] = 'attachment; filename="test.xls"'
+        return response
 
     if request.GET.get("search_request"):
         table = search(request.GET.get("search_request"))

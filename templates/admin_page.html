@@ -7,26 +7,50 @@
     {% load static %}
 
     <script src="{% static "image_preview.js"%}"></script>
+
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static "css/table_editor.css" %}">
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
 
 <body>
-
-    <form method="get"><button name="create_xl" value="pressed">download</button></form>
+<input placeholder="search">
+<div id="page-load-status">ЗАГРУЗКА СТРАНИЦЫ...</div>
+<script>
+    function change_load_status_loaded()
+    {
+        el = document.getElementById("page-load-status");
+        el.innerText = "СТРАНИЦА ЗАГРУЖЕНА";
+        el.style.color = "black";
+    }
+    function change_load_status_loading()
+    {
+        el = document.getElementById("page-load-status");
+        el.innerText = "ЗАГРУЗКА СТРАНИЦЫ...";
+        el.style.color = "red";
+    }
+    document.addEventListener("DOMContentLoaded", change_load_status_loaded);
+    document.addEventListener("beforeunload", change_load_status_loading);
+</script>
+<div class="row_oriented even-space">
+    <form method="get"><button name="create_xl" class="action-button-admin" value="pressed">Скачать</button></form>
     <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
-        <input type="file" name="file_input" >
-        <button type="submit">submit</button>
+        <div class="col_oriented">
+
+
+                <input type="file" name="file_input" class="file-input-admin">
+
+
+
+            <button type="submit" class="action-button-admin">Открыть</button>
+        </div>
     </form>
 
-<form method="get"><button name="edit_db_table" value="pressed" type="submit">edit price list</button></form>
-
-    <div id="progress">
-        <div id="line"></div>
-        <div id="progress_percent"></div>
-    </div>
+<form method="get"><button name="edit_db_table" value="pressed" type="submit" class="action-button-admin" >Редактировать</button></form>
+</div>
+   <div class="wide-split-line"></div>
 
 
 

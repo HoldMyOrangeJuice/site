@@ -1,9 +1,4 @@
-#table-universal{
-    position: absolute;
-    top: 100px;
-    background-color: ghostwhite;
 
-}
 
 .row_oriented
 {
@@ -12,7 +7,7 @@
 
 .button {
 
-    background-color: #c4dce8;
+    background: 0;
       color: black;
     border-radius: 5px;
     border-color: #007bff;
@@ -120,7 +115,6 @@ body
 }
 
 td{
-    width: auto!important;
 
 }
 
@@ -136,3 +130,127 @@ td{
 }
 
 #searcher { position:fixed; top:10px; right:10px; }
+
+
+
+.nav_header
+{
+    background-color: #609ab6;
+    z-index: 3;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    margin-top: 0;
+    height: 400px;
+}
+
+.NameE
+{
+    width: 20%!important;
+
+}
+
+.PriceE
+{
+    width: 10%!important;
+
+}
+
+.AmountE
+{
+    width: 10%!important;
+
+}
+.YearE
+{
+    width: 5%!important;
+
+}
+.CategoryE
+{
+    width: 10%!important;
+
+}
+.photo_linkE
+{
+    width: 15%!important;
+
+}
+.SpotE
+{
+width: 10%!important;
+}
+
+.SumE
+{
+width: 10%!important;
+}
+
+.NotesE
+{
+width: 10%!important;
+}
+
+
+.edit-table_input
+{
+    width: 100%;
+}
+
+
+.static-thead
+{
+    background-color: white;
+    border-bottom: #757575 10px;
+    z-index: 6;
+}
+
+.col_oriented
+{
+    display: flex;
+    flex-direction: column;
+}
+
+.even-space
+{
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.wide-split-line
+{
+    width: 98%;
+    padding-left: 1%;
+    padding-right: 1%;
+    background-color: #757575;
+    height: 0.3vh;
+    border-radius: 50%;
+    border-color: #4f4f4f;
+    border-width: 0.1vh;
+    margin-top: 2vh;
+    margin-bottom: 2vh;
+}
+
+
+.item_image
+{
+    display: none;
+    top: 0;
+    width: 100vw;
+    height: 100vh;
+    padding-left: 30vw;
+    padding-right: 30vw;
+
+    padding-bottom: 35vh;
+    padding-top: 35vh;
+
+    background-color: rgba(0,0,0,0.5); /* Black background with opacity */
+
+    position: fixed; /* Sit on top of the page content */
+
+    z-index: 2; /* Specify a stack order in case you're using a different order for other elements */
+    cursor: pointer; /* Add a pointer on hover */
+    background-position: center;
+    justify-content: center;
+}
+
