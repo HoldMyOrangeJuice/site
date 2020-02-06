@@ -1,10 +1,10 @@
 
 #table-universal {
-    position: absolute;
-    top: 100px;
+
+
     /*background-color: ghostwhite;*/
     border: 10px red;
-    margin-top: 40px;
+    margin-top: 20px;
 }
 
 table
@@ -19,6 +19,7 @@ table
 .th-inner
 {
     text-align: center;
+    color: black;
 }
 
 td
@@ -37,7 +38,7 @@ td
 .reveal_img
 {
     width: 20%;
-    height: 40px;
+    height: 20px;
     background: 0;
     border: 0;
 }

@@ -1,7 +1,7 @@
 e_headers = ["Скрыть", "Наименование", "Цена", "Количество", "Год", "Категория", "Место", "Примечания", "Сумма", "Фото", ]
-v_headers = ["№", "Наименование", "Цена", "Количество", "Год", "Категория", "Фото", ]
+v_headers = ["№", "Категория", "Наименование", "Цена", "Количество", "Год", "Фото", ]
 e_fields = ["is_hidden", "name", "price", "amount", "year", "category", "spot", "sum", "notes", "photo_link", ]
-v_fields = ["number", "name", "price", "amount", "year", "category", "photo_link", ]
+v_fields = ["index", "category", "name", "price", "amount", "year", "photo_link", ]
 
 IS_HIDDEN_COL = 0
 NAME_COL = 1

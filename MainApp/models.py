@@ -14,3 +14,4 @@ class Item(models.Model):
     spot = models.TextField(blank=True, null=None)
     sum = models.TextField(blank=True, null=None)
     notes = models.TextField(blank=True, null=None)
+    index = models.IntegerField(blank=True, null=None)

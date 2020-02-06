@@ -78,12 +78,13 @@
     </script>
 {% endif %}
 {% if table %}
+    <div class="entry_count">Деталей найдено: {{ table|length }}</div>
 <form method="post" enctype="multipart/form-data">{% csrf_token %}
 
     {% if mode == "edit" %}
         <input type="hidden" id="changes" name="changes" value="{}">
         <div class="even-space">
-            <button type="submit" class="action-button-admin">Загрузить</button>
+            <button type="submit" class="action-button-admin">Сохранить в БД</button>
         </div>
 
     {% endif %}
@@ -99,9 +100,9 @@
                 {% for row_index, item in table %}
 
                 {% if item.photo_link %}
-                    <div class="item_image_bg">
+
                         <img class="item_image" src="{{ item.photo_link }}" id="img{{ row_index }}" > <!-- adding hidden image on page -->
-                    </div>
+
                 {% endif %}
 
                     {% if mode == "edit" or not item.is_hidden %}
@@ -125,7 +126,9 @@
 
                                     {% if field == "photo_link" and item.photo_link %}
 
-                                        <button class="reveal_img" id="{{ row_index }}open" type="button" onclick="open_image({{ row_index }})">open</button>
+                                        <button class="reveal_img photo_text" id="{{ row_index }}open" type="button" onclick="open_image({{ row_index }})">
+                                            Фото
+                                        </button>
 
                                     {% endif %}
 
@@ -133,15 +136,15 @@
 
                                 {% elif mode == "view" %}
 
-                                    {% if field == "number" %}
-                                        {{ row_index }}
-                                    {% endif %}
 
-                                    {% if field != "photo_link" and field != "number"%}
+
+                                    {% if field != "photo_link"%}
                                         {{ item|get_model_field:field }}
                                     {% else %}
                                         {% if item.photo_link %}
-                                            <button id="{{ row_index }}open" type="button" class="reveal_img" onclick="open_image({{ row_index }})">open</button>
+                                            <button id="{{ row_index }}open" type="button" class="reveal_img photo_text" onclick="open_image({{ row_index }})">
+                                                Фото
+                                            </button>
                                         {% endif %}
                                     {% endif %}
 
@@ -153,6 +156,10 @@
                         {% endfor %}
                     </tr>
                     {% endif %}
+
+
+
+
                 {% endfor %}
             </tbody>
         </table>
@@ -184,6 +191,9 @@
 <!-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -->
 
 {% endif %}
+
+
+
 
 
 

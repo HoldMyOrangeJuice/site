@@ -15,19 +15,19 @@
 </head>
 
 <body>
-<input placeholder="search">
-<div id="page-load-status">ЗАГРУЗКА СТРАНИЦЫ...</div>
+<div class="admin-nav"><a href="/" class="admin-link left">Рога и копыта</a></div>
+<div id="page-load-status">ЗАГРУЗКА ПРАЙСА...</div>
 <script>
     function change_load_status_loaded()
     {
         el = document.getElementById("page-load-status");
-        el.innerText = "СТРАНИЦА ЗАГРУЖЕНА";
-        el.style.color = "black";
+        el.innerText = "ПРАЙС ЗАГРУЖЕН";
+        el.style.color = "green";
     }
     function change_load_status_loading()
     {
         el = document.getElementById("page-load-status");
-        el.innerText = "ЗАГРУЗКА СТРАНИЦЫ...";
+        el.innerText = "ЗАГРУЗКА ПРАЙСА...";
         el.style.color = "red";
     }
     document.addEventListener("DOMContentLoaded", change_load_status_loaded);
@@ -37,15 +37,17 @@
     <form method="get"><button name="create_xl" class="action-button-admin" value="pressed">Скачать</button></form>
     <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
+
         <div class="col_oriented">
-
-
-                <input type="file" name="file_input" class="file-input-admin">
-
-
-
-            <button type="submit" class="action-button-admin">Открыть</button>
+            <input type="file" name="file_input" class="file-input-admin" id="f-input">
+            <script>
+                document.getElementById('f-input').onchange = function(e) {
+                    document.getElementById('admin-sub-btn').hidden = false
+                };
+            </script>
+            <button type="submit" class="action-button-admin" id="admin-sub-btn" hidden="true">Загрузить</button>
         </div>
+
     </form>
 
 <form method="get"><button name="edit_db_table" value="pressed" type="submit" class="action-button-admin" >Редактировать</button></form>

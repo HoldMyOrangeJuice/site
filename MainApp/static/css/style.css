@@ -103,7 +103,8 @@ body
 .contacts___
 {
     display: flex;
-    justify-content: space-around;
+    justify-content: center;
+    margin-bottom: 2vh;
 
 }
 
@@ -111,7 +112,9 @@ body
 {
     color: #757575;
     font-size: 30px;
-    font-family: "Agency FB"
+    font-family: "Agency FB";
+    margin-left: 3vw;
+    margin-right: 3vw;
 }
 
 td{
@@ -144,52 +147,6 @@ td{
     height: 400px;
 }
 
-.NameE
-{
-    width: 20%!important;
-
-}
-
-.PriceE
-{
-    width: 10%!important;
-
-}
-
-.AmountE
-{
-    width: 10%!important;
-
-}
-.YearE
-{
-    width: 5%!important;
-
-}
-.CategoryE
-{
-    width: 10%!important;
-
-}
-.photo_linkE
-{
-    width: 15%!important;
-
-}
-.SpotE
-{
-width: 10%!important;
-}
-
-.SumE
-{
-width: 10%!important;
-}
-
-.NotesE
-{
-width: 10%!important;
-}
 
 
 .edit-table_input
@@ -200,8 +157,8 @@ width: 10%!important;
 
 .static-thead
 {
-    background-color: white;
-    border-bottom: #757575 10px;
+    background-color: rgb(220, 215, 190);
+    border-bottom: #354b75 10px;
     z-index: 6;
 }
 
@@ -238,11 +195,11 @@ width: 10%!important;
     top: 0;
     width: 100vw;
     height: 100vh;
-    padding-left: 30vw;
-    padding-right: 30vw;
+    /*padding-left: 30vw;*/
+    /*padding-right: 30vw;*/
 
-    padding-bottom: 35vh;
-    padding-top: 35vh;
+    /*padding-bottom: 35vh;*/
+    /*padding-top: 35vh;*/
 
     background-color: rgba(0,0,0,0.5); /* Black background with opacity */
 
@@ -253,4 +210,33 @@ width: 10%!important;
     background-position: center;
     justify-content: center;
 }
+
+.entry_count
+{
+    width: 100%;
+
+    margin-top: 1vh;
+    font-size: medium;
+    color: #4f4f4f;
+    text-align: center;
+}
+
+.centred
+{
+    display: flex;
+    width: 100%;
+    justify-content: center;
+
+}
+
+.photo_text
+{
+    text-decoration: underline;
+}
+.photo_text:hover
+{
+color: #4b7fb6;
+}
+
+
 

@@ -27,7 +27,6 @@ def start_page(request):
                                                             "headers": v_headers,
                                                             "fields": list(enumerate(v_fields)),
                                                             "mode": "view"})
-
     if request.GET.get("search_request"):
         search_request = request.GET.get("search_request")
         table = search(search_request)
@@ -53,23 +52,25 @@ def start_page(request):
 def admin_page(request):
     print(user, "<- user")
     if user:
-
         if request.method == 'POST':
             if request.FILES.get("file_input"):
 
-                        file = request.FILES['file_input'].read()
-                        wb = xlrd.open_workbook(file_contents=file)
-                        ws = wb.sheet_by_index(2)
+                file = request.FILES['file_input'].read()
+                wb = xlrd.open_workbook(file_contents=file)
+                ws = wb.sheet_by_index(2)
 
-                        raw_bulk_from_xls = []
-                        for x in range(ws.nrows):
-                            row = []
-                            for y in range(ws.ncols):
-                                cell_val = ws.cell_value(x, y)
-                                row.append(cell_val)
+                raw_bulk_from_xls = []
 
-                            if row[xl_NAME_COL]:    # name present;
-                                item = Item(
+                Item.objects.all().delete()
+
+                for x in range(ws.nrows):
+                    row = []
+                    for y in range(ws.ncols):
+                        cell_val = ws.cell_value(x, y)
+                        row.append(cell_val)
+
+                    if row[xl_NAME_COL]:    # name present;
+                        item = Item(
                                     name=row[xl_NAME_COL],  # lang
                                     name_to_search=cstcf(row[xl_NAME_COL]),
                                     category=row[xl_CATEGORY_COL],
@@ -82,18 +83,19 @@ def admin_page(request):
                                     spot=row[xl_SPOT_COL],
                                     sum=row[xl_SUM_COL],
                                     notes=row[xl_NOTES_COL],
-                                                )
-                                raw_bulk_from_xls.append(item)
+                                    index=int(x)
+                                    )
+                        raw_bulk_from_xls.append(item)
 
-                        Item.objects.all().bulk_create(raw_bulk_from_xls)
-                        table = Item.objects.all()
+                Item.objects.all().bulk_create(raw_bulk_from_xls)
+                table = Item.objects.all()
 
-                        return render(request, "admin_page.html",
-                                      context={"table": enumerate(table),
-                                               "headers": e_headers,
-                                               "fields": list(enumerate(e_fields)),
-                                               "mode": "edit"
-                                               })
+                return render(request, "admin_page.html",
+                              context={"table": enumerate(table),
+                                       "headers": e_headers,
+                                       "fields": list(enumerate(e_fields)),
+                                       "mode": "edit"
+                                       })
 #
 
             if request.POST.get("changes"):
@@ -126,7 +128,7 @@ def admin_page(request):
         if request.GET.get("edit_db_table") == "pressed":
 
             return render(request, "admin_page.html", context={
-                "table": enumerate(Item.objects.all()),
+                "table": list(enumerate(Item.objects.all())),
                 "fields": list(enumerate(e_fields)),
                 "headers": e_headers,
                 "mode": "edit"
@@ -161,16 +163,19 @@ def price_page(request):
         response['Content-Disposition'] = 'attachment; filename="test.xls"'
         return response
 
-    if request.GET.get("search_request"):
-        table = search(request.GET.get("search_request"))
+    q = request.GET.get("search_request")
+    if q:
+        table = search(q)
     else:
-        table = Item.objects.order_by('category')
+        q = ""  # instead of None
+        table = Item.objects.order_by('index')
 
     return render(request, "price_table.html", context={
-        "table": enumerate(table),
+        "table": list(enumerate(table)),
         "fields": list(enumerate(v_fields)),
         "headers": v_headers,
-        "mode": "view"
+        "mode": "view",
+        "q": q,
         })
 
 

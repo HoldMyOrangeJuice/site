@@ -21,53 +21,42 @@
 </head>
 <body id="price-table-body">
 
-    <script>
-        function hide_window()
-        {
-            document.getElementById("login_window").hidden = true
-        }
-        function show_login()
-        {
-            document.getElementById("login_window").hidden = false
-        }
-    </script>
+
 
 
     <div class="after-overlay d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm">
-  <h5 class="my-0 mr-md-auto font-weight-normal"><a href="/">Рога и Копыта</a></h5>
+  <h5 class="my-0 mr-md-auto font-weight-normal"><a href="/">ТОВ «РАСТА»</a></h5>
         <form class="w3-container">
             <div class="row_oriented">
-                <input class="w3-input" type="text" name="search_request" placeholder="Поиск по прайсу">
+                <input class="w3-input" type="text" name="search_request" placeholder="Поиск по прайсу" value="{{ q }}">
                 <button class="button" type="submit" ><i class="fa fa-search"></i></button>
             </div>
         </form>
   <nav class="my-2 my-md-0 mr-md-3">
-    <a class="p-2 text-dark" href="#footer_">Контакты <span class="glyphicon glyphicon-earphone"></span> </a>
+{#    <a class="p-2 text-dark" href="#footer_">Контакты <span class="glyphicon glyphicon-earphone"></span> </a>#}
     <a class="p-2 text-dark" href="/full_price">Прайс лист</a>
     <a class="p-2 text-dark" href="/">Назад <span class="fa fa-home w3-large"></span></a>
 
   </nav>
 
-  <button class="button" onclick="show_login()">Sign up</button>
+
 </div>
     <div class="contacts___">
 
-          <div class="cont-text">8-800-555-35-35</div>
-            <form method="get"><button type="submit" name="download_price" value="pressed" class="button">Скачать прайс</button></form>
-          <div class="cont-text"> harrypotter@gmail.com</div>
+          <div class="cont-text ">+38 068 785 68 25 (Kyivstar)</div>
+
+        <div class="cont-text"> vfo@ukr.net</div>
+            <div class="cont-text ">+38 095 903 23 10 (MTC)</div>
+
 
     </div>
 
+<div class="centred">
+    <form method="get" ><button type="submit" name="download_price" value="pressed" class="button">Скачать прайс</button></form>
+</div>
     {% include "price_list_table_template.html" %}
 
-    <div id="login_window" hidden="true">
-        <form id="login-form" method="post" enctype="multipart/form-data">{% csrf_token %}
-            <button class="close-button" type="button" onclick="hide_window()"><i  class="fa fa-close close-icon"></i></button>
-            <input name="username" placeholder="username" class="w3-input"  >
-            <input name="password" placeholder="password" type="password" class="w3-input">
-            <button type="submit" class="button">submit</button>
-        </form>
-    </div>
+
 
 
 

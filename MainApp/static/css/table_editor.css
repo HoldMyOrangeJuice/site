@@ -96,13 +96,49 @@ tr:hover
 
 .file-input-admin
 {
+    min-width: 20px;
+    max-width: 100px;
     height: 5vh;
-    width: 10vw;
+    /*width: 10vw;*/
     background-color: #5ea1ff;
     z-index: 1;
     margin: 1vh;
 
 }
 
+.admin-nav
+{
+    position: relative;
+    display: flex;
+    width: 100vw;
+    margin: 0;
+    top: -1vh;
+    left: -1vh;
+    height: 7vh;
+    background-color: #447e9b;
+    justify-items: center;
+    justify-content: space-around;
+
+}
+
+.left
+{
+    display: flex;
+    flex-direction: column;
+    align-self: flex-start;
+}
+
+.admin-link
+{
+    color: #e4e4e4;
+    font-family: Cambria;
+    font-size: 3vh;
+    text-decoration: none;
+}
+
+.admin-link:hover
+{
+    color: #FFFFCC;
+}
 
 
