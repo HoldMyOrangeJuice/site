@@ -1,5 +1,14 @@
 {% load  app_filters %}
 {% load static %}
+
+{#    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">#}
+{#    <link rel="stylesheet" href="{% static "css/table_for_view.css" %}">#}
+{#    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> {# icons #}
+{#    <link rel="stylesheet" href="{% static 'css/style.css' %}">#}
+{#    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">#}
+{#    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>#}
+{#    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>#}
+
 <script src={% static "image_preview.js" %}></script>
 
 <script src="https://code.jquery.com/jquery-3.3.1.min.js" ></script>
@@ -43,6 +52,7 @@
 
 
 {% if mode == "edit" %}
+    {% csrf_token %}
     <script>
 
         document.addEventListener("input", function (e) {
@@ -72,6 +82,7 @@
             {
                 changes[`${id}|${field}`] = input_el.value;
             }
+
             console.log(changes);
             document.getElementById("changes").value = JSON.stringify(changes)
             })
@@ -79,12 +90,52 @@
 {% endif %}
 {% if table %}
     <div class="entry_count">Деталей найдено: {{ table|length }}</div>
-<form method="post" enctype="multipart/form-data">{% csrf_token %}
+{#<form method="post" enctype="multipart/form-data">{% csrf_token %}#}
+
+    <script>
+
+        function getCookie(name) {
+        var cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            var cookies = document.cookie.split(';');
+            for (var i = 0; i < cookies.length; i++) {
+                var cookie = cookies[i].trim();
+                // Does this cookie string begin with the name we want?
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+}
+
+        function pass_changes()
+        {
+            var csrftoken = getCookie('csrftoken');
+
+            $.ajaxSetup({
+            beforeSend: function(xhr, settings) {
+
+                    xhr.setRequestHeader("X-CSRFToken", csrftoken);
+
+                }
+            });
+
+            $.ajax({
+            type: "POST",
+            url: "/adm/",
+            data: { "changes": document.getElementById("changes").value}
+        })
+        }
+    </script>
+
 
     {% if mode == "edit" %}
+
         <input type="hidden" id="changes" name="changes" value="{}">
         <div class="even-space">
-            <button type="submit" class="action-button-admin">Сохранить в БД</button>
+            <button type="button" class="action-button-admin" onclick="pass_changes()">Сохранить в БД</button>
         </div>
 
     {% endif %}
@@ -101,7 +152,7 @@
 
                 {% if item.photo_link %}
 
-                        <img class="item_image" src="{{ item.photo_link }}" id="img{{ row_index }}" > <!-- adding hidden image on page -->
+                        <img class="item_image" src="{{ item.photo_link }}" id="img{{ row_index }}" alt="{{ item.name }}"> <!-- adding hidden image on page -->
 
                 {% endif %}
 
@@ -139,7 +190,13 @@
 
 
                                     {% if field != "photo_link"%}
-                                        {{ item|get_model_field:field }}
+
+                                        {% if field == "name" %}
+
+                                            <a href="/items?q={{ item|get_model_field:"index" }}">{{ item|get_model_field:field }}</a>
+                                        {% else %}
+                                            {{ item|get_model_field:field }}
+                                        {% endif %}
                                     {% else %}
                                         {% if item.photo_link %}
                                             <button id="{{ row_index }}open" type="button" class="reveal_img photo_text" onclick="open_image({{ row_index }})">
@@ -163,7 +220,7 @@
                 {% endfor %}
             </tbody>
         </table>
-    </form>
+{#    </form>#}
 
     <!-- creating static headers if original not visible -->
     <table id="view-header" class="nav_header" hidden="true">

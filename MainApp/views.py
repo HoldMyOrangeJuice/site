@@ -12,28 +12,16 @@ from django.http import StreamingHttpResponse
 from .resources import ItemRes
 from django.core.mail import send_mail
 from siteff import settings
+from django.template.loader import render_to_string
+import datetime
+import os
+
+
 
 
 def start_page(request):
 
-    item_objects = Item.objects.order_by('category')
 
-    if request.GET.get("price") == "pressed":
-        return render(request, "price_table.html", context={"items": item_objects})
-
-    if request.GET.get("item_requested"):
-        item_objects = Item.objects.filter(category_to_search__contains=request.GET.get("item_requested"))
-        return render(request, "price_table.html", context={"table": list(enumerate(item_objects)),
-                                                            "headers": v_headers,
-                                                            "fields": list(enumerate(v_fields)),
-                                                            "mode": "view"})
-    if request.GET.get("search_request"):
-        search_request = request.GET.get("search_request")
-        table = search(search_request)
-        return render(request, "price_table.html", context={"table": list(enumerate(table)),
-                                                            "headers": v_headers,
-                                                            "fields": list(enumerate(v_fields)),
-                                                            "mode": "view"})
 
     if request.POST.get("username") and request.POST.get("password"):
         print(request.POST.get("username"), request.POST.get("password"))
@@ -52,6 +40,11 @@ def start_page(request):
 def admin_page(request):
     print(user, "<- user")
     if user:
+
+        if request.GET.get("del_items"):
+            Item.objects.all().delete()
+            ItemPage.objects.all().delete()
+
         if request.method == 'POST':
             if request.FILES.get("file_input"):
 
@@ -71,7 +64,7 @@ def admin_page(request):
 
                     if row[xl_NAME_COL]:    # name present;
                         item = Item(
-                                    name=row[xl_NAME_COL],  # lang
+                                    name=validate_name(row[xl_NAME_COL]),  # lang
                                     name_to_search=cstcf(row[xl_NAME_COL]),
                                     category=row[xl_CATEGORY_COL],
                                     category_to_search=cstcf(row[xl_CATEGORY_COL]),
@@ -88,6 +81,11 @@ def admin_page(request):
                         raw_bulk_from_xls.append(item)
 
                 Item.objects.all().bulk_create(raw_bulk_from_xls)
+
+                for item in Item.objects.all():
+                    create_item_page(item)
+
+                # after bulk created and items have ids, i can create htmls named with unique id
                 table = Item.objects.all()
 
                 return render(request, "admin_page.html",
@@ -110,12 +108,25 @@ def admin_page(request):
 
                     item = Item.objects.all().filter(id=item_id)[0]
 
+
+                        # if name edited:
+                        # 1. ItemPage name change
+                        # 2. delete old html
+                        # 3. create new html
+
                     if field_edited == "name" and new_value == "":  # if name erased
                         item.delete()
 
                     else:
                         Item.__setattr__(item, field_edited, new_value)
                         item.save()
+                        # after this particular item saved, edit its page
+                        create_item_page(item)
+
+                # after changes to db made update whole static price table
+                recreate_full_price_page()
+
+
 
             if request.POST.get("sub_btn") == "pressed":
                 if request.POST.get("changes"):
@@ -124,6 +135,7 @@ def admin_page(request):
                         changed_item = Item.objects.all().filter(id=change.id)
                         changed_item.__setattr__(change.field, change.value)
                         changed_item.save()
+
 
         if request.GET.get("edit_db_table") == "pressed":
 
@@ -160,23 +172,76 @@ def price_page(request):
     if request.GET.get("download_price"):
         make_xlsx()
         response = HttpResponse(open("test.xls", mode="rb"), content_type='application/vnd.ms-excel')
-        response['Content-Disposition'] = 'attachment; filename="test.xls"'
+        response['Content-Disposition'] = f'attachment; filename="{1}test.xls"'
         return response
+    ###
 
-    q = request.GET.get("search_request")
-    if q:
-        table = search(q)
-    else:
-        q = ""  # instead of None
-        table = Item.objects.order_by('index')
+    print("request", request)
+    if request.GET.get("full") == "true":
+        print("returning static")
+        return render(request, "full_price_static.html")
 
-    return render(request, "price_table.html", context={
+    if request.GET.get("category"):
+        print("returning dynamic cat")
+        item_objects = Item.objects.filter(category_to_search__contains=request.GET.get("category"))
+        return render(request, "price_table.html", context={"table": list(enumerate(item_objects)),
+                                                            "headers": v_headers,
+                                                            "fields": list(enumerate(v_fields)),
+                                                            "mode": "view"})
+    if request.GET.get("search_request"):
+        print("returning dynamic req")
+        search_request = request.GET.get("search_request")
+        table = search(search_request).order_by('index')
+        return render(request, "price_table.html", context={"table": list(enumerate(table)),
+                                                            "headers": v_headers,
+                                                            "fields": list(enumerate(v_fields)),
+                                                            "mode": "view",
+                                                            "q": search_request})
+
+
+
+def create_item_page(item):
+
+
+
+    context = {"item": item, "date": datetime.date.today().strftime("%y/%m/%d")}
+
+    content = render_to_string('item_page_base.html', context)
+    with open(f'templates/items/{item.index}.html', 'w', encoding="utf8") as static_file:
+        ItemPage.objects.all().filter(index=item.index).delete()
+        ItemPage.objects.create(item_name=item.name,
+                                index=item.index)
+        static_file.write(content)
+
+
+def show_custom_item_page(request):
+
+    testing = True
+
+    if request.GET.get("q"):
+        q = request.GET.get("q")
+
+        if not ItemPage.objects.all().filter(index=q).count() > 0 or testing:
+            create_item_page(Item.objects.all().filter(index=q)[0])
+
+        return render(request, f"items/{q}.html")
+
+
+def recreate_full_price_page():
+
+    table = Item.objects.all()
+
+    content = render_to_string('price_table.html', {
         "table": list(enumerate(table)),
         "fields": list(enumerate(v_fields)),
         "headers": v_headers,
         "mode": "view",
-        "q": q,
-        })
+        "q": "",
+    })
 
+    with open(f'templates/full_price_static.html', 'w', encoding="utf8") as static_file:
+        static_file.write(content)
 
-
+#  TODO
+#   split func to change db item pages and func to show them: done
+#   make static price list page with links to item pages (update with db update): in progress

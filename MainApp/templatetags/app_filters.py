@@ -31,4 +31,14 @@ def inp_type(index):
 def get_model_field(s1, s2):
     return str(s1) + str(s2)
 
+@register.filter(name='isint')
+def isint(i):
+    try:
+        int(i)
+        return True
+    except:
+        return False
 
+@register.filter(name='toint')
+def toint(i):
+    return int(i)

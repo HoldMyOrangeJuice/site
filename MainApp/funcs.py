@@ -1,4 +1,5 @@
 from MainApp.models import Item
+from MainApp.models import ItemPage
 import xlwt
 from .config import *
 
@@ -35,23 +36,52 @@ def search(key):
     return query
 
 
+def fix_lang(string):
+    string = str(string)
+    rus = ["А", "В", "С", "Е", "Р", "У", "К", "Н", "Х", "М", "Т", "О"]
+    eng = ["A", "B", "C", "E", "P", "Y", "K", "H", "X", "M", "T", "O"]
+
+    if len(rus) == len(eng):
+        for i in range(len(rus)):
+            string = string.replace(eng[i].upper(), rus[i].upper())
+            string = string.replace(eng[i].lower(), rus[i].lower())
+
+    return string
+
+
+def validate_name(name):
+
+    return fix_symbols(fix_lang(name))
+
+
+def fix_symbols(string):
+
+    string = str(string)
+    string = string.replace("\\", "")
+    string = string.replace("/", "")
+    string = string.replace("*", "")
+    string = string.replace("?", "")
+    string = string.replace("<", "")
+    string = string.replace(">", "")
+    string = string.replace(":", "")
+    string = string.replace("|", "")
+    string = string.replace("'", "")
+    string = string.replace("\"", '')
+
+
+    return string
+
+
 def cstcf(string):
     string = str(string)
     string = string.replace(" ", "")
     string = string.replace("-", "")
     string = string.replace(" ", "")
+
+    string = fix_symbols(string)
     string = string.upper()
-
-    rus = ["А", "В", "С", "Е", "Р", "У", "К", "Н", "Х", "М", "Т"]
-    eng = ["A", "B", "C", "E", "P", "Y", "K", "H", "X", "M", "T"]
-
-    if len(rus) == len(eng):
-        for i in range(len(rus)):
-
-            string = string.replace(eng[i], rus[i])
-
+    fix_lang(string)
     string = string.lower()
-
     return string
 
 
