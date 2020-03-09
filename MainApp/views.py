@@ -38,12 +38,28 @@ def start_page(request):
 
 
 def admin_page(request):
-    print(user, "<- user")
-    if user:
+
+    if True or user:
 
         if request.GET.get("del_items"):
             Item.objects.all().delete()
             ItemPage.objects.all().delete()
+
+        if request.GET.get("q") and request.is_ajax():
+            item_req = request.GET.get("q")
+            query = search(item_req)
+
+            hints = []
+            for hint in query[:min(10, len(query))]:
+                hints.append(hint.name)
+
+            if len(query) > 100:
+                print("long q. sending only hints")
+                return HttpResponse(json.dumps({"hints": hints, "data": None, "headers": None}), content_type="application/json")
+            else:
+                print("short q. sending data")
+                data = item_to_obj(query, e_fields)
+                return HttpResponse(json.dumps({"data": data, "hints": hints, "headers": e_field_headers}), content_type="application/json")
 
         if request.method == 'POST':
             if request.FILES.get("file_input"):

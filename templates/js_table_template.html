@@ -1,0 +1,64 @@
+{# ------=====------ js-table-template extention ------=====------#}
+{# -----=====----- creates table with dynamycally updated content #}
+
+{% load static %}
+<script src="{% static "js/format_table.js" %}"></script>
+
+
+    {#  input autocomplete datalist  #}
+    <datalist id="items">   </datalist>
+    {#  ---------------------------  #}
+
+    {#  main table to be filled  #}
+    <table id="js-table-template">
+        <thead id="js-table-head">
+        </thead>
+
+        <tbody id="js-table-body">
+        </tbody>
+    </table>
+    {# ------------------------- #}
+
+
+<script>
+
+    document.getElementById("search-box").addEventListener("input", function (e) {
+
+        let q = document.getElementById("search-box").value;
+        let datalist = document.getElementById("items");
+
+        $.ajax({
+            type: "GET",
+            url: window.location.href,
+            data: { "q": q},
+            dataType: "json",
+            success: function(data_json)
+            {
+                let data = data_json["data"];
+                let hints = data_json["hints"];
+                let headers = data_json["headers"];
+
+                if (data && headers)
+                    format_table(data, headers);
+
+                // add autocomplete to search-box
+                if (hints)
+                {
+                    rem_children("items");
+
+                    for (let item_name of hints)
+                    {
+                        let e = document.createElement("option");
+                        e.value = item_name;
+                        console.log(e);
+                        datalist.appendChild(e);
+                    }
+                }
+            }
+        })
+    });
+
+</script>
+
+
+

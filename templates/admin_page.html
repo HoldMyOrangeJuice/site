@@ -2,11 +2,17 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+
+
     {% load  app_filters %}
     {% load static %}
 
-    <script src="{% static "image_preview.js"%}"></script>
+    <script src="{% static "js/image_preview.js" %}"></script>
+    <script src="{% static "js/funcs.js" %}"></script>
 
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
     <link rel="stylesheet" href="{% static "css/table_editor.css" %}">
@@ -50,16 +56,25 @@
         </div>
 
     </form>
+
+    <div>
+        <input placeholder="search" id="search-box" list="items">
+        <button onclick="search()">s</button>
+    </div>
+
+
 <a href="/adm?del_items=+">del_items</a>
 <form method="get"><button name="edit_db_table" value="pressed" type="submit" class="action-button-admin" >Редактировать</button></form>
 </div>
    <div class="wide-split-line"></div>
 
 
+<table id="test">
 
+</table>
 
-    {% include "price_list_table_template.html" %}
-
+{#    {% include "price_list_table_template.html" %}#}
+{% include "js_table_template.html" %}
 
 </body>
 </html>

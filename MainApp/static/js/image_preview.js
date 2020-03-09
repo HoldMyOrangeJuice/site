@@ -42,7 +42,6 @@ document.addEventListener("keydown", close_image);
 
 
 function close_image(evt){
-    console.log(evt.target);
     if(evt.target.type != "button" || evt.key)
     {
         $('.item_image').each(function(i, obj) {

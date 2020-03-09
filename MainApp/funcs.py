@@ -2,6 +2,7 @@ from MainApp.models import Item
 from MainApp.models import ItemPage
 import xlwt
 from .config import *
+import json
 
 
 def get_model_fields_except(exceptions):
@@ -121,3 +122,19 @@ def round_val(val, n):
             except:
                 pass
     return val
+
+
+def item_to_obj(item_query, fields):
+    r = []
+
+    for item in item_query:
+        i = {}
+        for field in fields:
+            i[field] = getattr(item, field)
+        # also adding id
+        i["id"] = item.id
+
+        r.append(i)
+    return r
+
+
