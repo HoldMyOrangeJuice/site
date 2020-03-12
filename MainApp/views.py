@@ -9,7 +9,7 @@ from MainApp.config import *
 from django.utils.encoding import smart_str
 from django.http import HttpResponse
 from django.http import StreamingHttpResponse
-from .resources import ItemRes
+
 from django.core.mail import send_mail
 from siteff import settings
 from django.template.loader import render_to_string

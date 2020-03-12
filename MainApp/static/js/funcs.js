@@ -178,24 +178,40 @@ function update_current_table_page(q, target_page, update_reason)
 
 }
 
-
 function format_table(items, headers_json)
 {
+
     if (items.length === 0 || headers_json.length === 0)
     {
         set_page(0);
         return;
     }
 
+    let avg_col_w = 130;
 
     let table_head = document.getElementById("js-table-head");
     let table_body = document.getElementById("js-table-body");
 
     rem_children("js-table-head");
     rem_children("js-table-body");
+    rem_children("static-thead");
 
 
     let fields = Object.keys(headers_json);
+
+
+    let w = $(document).width();
+
+    console.log("screen", w);
+    console.log("calc", headers_json, w);
+    let cols_to_miss = Math.ceil (((Object.keys(headers_json).length * avg_col_w) - w )/ avg_col_w);
+    let cropped_fields;
+    console.log("skip", cols_to_miss);
+    if (cols_to_miss >0)
+        cropped_fields = fields.slice(0, Object.keys(headers_json).length - cols_to_miss);
+    else
+        cropped_fields = fields;
+
     console.log(fields);
     let aliases = headers_json;
 
@@ -207,13 +223,32 @@ function format_table(items, headers_json)
     else
         mode = "v";
 
-    for (let field of fields)
+    for (let field of cropped_fields)
     {
         let header = aliases[field];
         let c = document.createElement("th");
         c.innerText = header;
         table_head.appendChild(c);
         // set header
+
+        let table_static = document.getElementById("view-header");
+        table_static.hidden = true;
+        let thead_static = document.getElementById("static-thead");
+        let th = document.createElement("th");
+        th.innerText = aliases[field];
+        th.className = "th-inner th-static";
+        thead_static.appendChild(th);
+
+
+
+        // <table id="view-header" class="nav_header" hidden="hidden">
+        // <thead class="static-thead">
+        //
+        //     {% for header in headers %}
+        //
+        //         <th class="th-inner th-static">
+        //             {{ header }}
+        //         </th>
     }
 
     for (const [row_index, item, ]  of items.entries())
@@ -221,7 +256,7 @@ function format_table(items, headers_json)
 
         let e_row = document.createElement("tr");
 
-        for (const [col_index, field, ] of fields.entries())
+        for (const [col_index, field, ] of cropped_fields.entries())
         {
             setTimeout(function() {
 
@@ -392,3 +427,22 @@ function search_in_price_from_another_loc(q)
     xmlHttp.send( {"q":q, "p":0} );
     return xmlHttp.responseText;
 }
+
+
+function mobile_page()
+{
+    let h = window.screen.height;
+    let w = window.screen.width;
+    if (h > w)
+        console.log("mobile user");
+    else
+        return;
+
+    let style = document.createElement("style");
+    style.innerText="html{font-size: 1.6rem } " +
+        ".mobile{display: flex;\n" +
+        "flex-direction: column;}";
+    document.getElementsByTagName("body")[0].appendChild(style);
+
+}
+

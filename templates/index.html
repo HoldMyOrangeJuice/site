@@ -34,26 +34,30 @@
 
 
     <body>
+    <script>mobile_page()</script>
+    <div class="nav-bar mobile">
 
-    <div class="nav-bar ">
-        <h5 class="font-weight-normal org"><a href="/">ТОВ «РАСТА»</a></h5>
-
-
-
-            <div class=" outer-search">
-                <form action="/price/" class="form-aligned">
-                    {% include "datalist.html" %}
-                    <input class="w3-input" type="text" name="q" list="items" id="search-box" placeholder="Поиск по прайсу">
-                    <input type="hidden" value="0" name="p">
-                    <button class="button" type="submit" ><i class="fa fa-search"></i></button>
-                    <a class=" font-weight-normal  nav-iconed dark-nav-link" href="/price?q=&p=0" title="прайс лист радиодетали"><p class="">Прайс лист</p> <i class="fa fa-bars "></i></a>
-                </form>
-            </div>
+        <h5 class="font-weight-normal org "><a href="/">ТОВ «РАСТА»</a></h5>
 
 
-      {% if user %}
-      <a class="p-2 text-dark" href="/adm">У меня тут есть власть</a>
-      {% endif %}
+        <div class=" outer-search">
+            <form action="/price/" class="form-aligned row_oriented">
+                {% include "datalist.html" %}
+                <input class="w3-input" type="text" name="q" list="items" id="search-box" placeholder="Поиск по прайсу">
+                <input type="hidden" value="0" name="p">
+                <button class="button" type="submit" ><i class="fa fa-search"></i></button>
+                <a class=" font-weight-normal  nav-iconed dark-nav-link" href="/price?q=&p=0" title="прайс лист радиодетали"><p class="">Прайс лист</p> <i class="fa fa-bars "></i></a>
+
+            </form>
+
+        </div>
+
+
+        <button class="button font-weight-normal " onclick="show_login()">Войти</button>
+
+          {% if user %}
+          <a class="p-2 text-dark" href="/adm">У меня тут есть власть</a>
+          {% endif %}
 
 {#    <a class="p-2 text-dark" href="#footer_">Контакты <span class="glyphicon glyphicon-earphone"></span> </a>#}
 
@@ -65,7 +69,7 @@
                 document.getElementById("login_window").hidden = false
             }
         </script>
-  <button class="button font-weight-normal" onclick="show_login()">Войти</button>
+
 </div>
 
 <hr class="under-head">
