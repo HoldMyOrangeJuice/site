@@ -3,7 +3,8 @@ from MainApp.models import ItemPage
 import xlwt
 from .config import *
 import json
-
+from django.http import HttpResponse
+import math
 
 def get_model_fields_except(exceptions):
     fields = []
@@ -131,10 +132,79 @@ def item_to_obj(item_query, fields):
         i = {}
         for field in fields:
             i[field] = getattr(item, field)
-        # also adding id
+        # # also adding id
         i["id"] = item.id
 
         r.append(i)
     return r
 
 
+def ajax_give_table_pages(request):
+    print('give me pages')
+    page_index = int(request.GET.get("p"))
+
+    item_req = request.GET.get("q")
+    items_on_page = 200
+    print("rec p", page_index, "q", item_req)
+
+    admin = "adm" in request.build_absolute_uri()
+    if admin:
+        headers = e_field_headers
+    else:
+        print(v_field_headers)
+        headers = v_field_headers
+
+    full_query = search(item_req)
+    if item_req == "":
+        full_query = Item.objects.all()
+    print("query", full_query)
+
+    if page_index * items_on_page > len(full_query):
+        # page does not exist, no items left
+        return HttpResponse(json.dumps({"query": [],
+                                        "headers": [],
+                                        "max-pages": math.ceil(len(full_query)/items_on_page)}),
+                                        content_type="application/json")
+
+    query = full_query[page_index * items_on_page: min((page_index + 1) * items_on_page, len(Item.objects.all()) - 1)]
+    query = item_to_obj(query, headers)
+
+    return HttpResponse(json.dumps({"query": query,
+                                    "headers": headers,
+                                    "max-pages": math.ceil(math.ceil(len(full_query) / items_on_page))}),
+                                    content_type="application/json")
+
+
+# no need in this one.
+def ajax_update_table(request):
+
+    admin = "adm" in request.build_absolute_uri()
+    print(request.build_absolute_uri())
+    if admin:
+        headers = e_field_headers
+    else:
+        print(v_field_headers)
+        headers = v_field_headers
+
+    item_req = request.GET.get("q")
+
+    if item_req == "give_me_full_table":
+        query = Item.objects.all()
+
+    else:
+        query = search(item_req)
+        query = query[0:min(500, len(query))]
+
+    hints = []
+    for hint in query[:min(10, len(query))]:
+        hints.append(hint.name)
+
+    print("sending data")
+    data = item_to_obj(query, headers)
+    return HttpResponse(json.dumps({"data": data, "headers": headers}),
+                        content_type="application/json")
+
+
+def ajax_give_hints():
+    return HttpResponse(json.dumps({"hints": Item.objects.all().values_list('name', flat=True)},
+                        content_type="application/json"))

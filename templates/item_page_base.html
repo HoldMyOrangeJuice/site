@@ -24,9 +24,11 @@
     <div class="nav-bar">
         <a class="nav-link" href="/">«ТОВ РАСТА»</a>
 
-        <form class="">
-            <div class="flex">
-                <input class="w3-input" type="text" name="search_request" placeholder="Поиск по прайсу">
+         <form action="/price/">
+            <div class="row_oriented">
+                {% include "datalist.html" %}
+                <input class="w3-input" type="text" name="q" list="items" placeholder="Поиск по прайсу">
+                <input type="hidden" value="0" name="p">
                 <button class="button" type="submit" ><i class="fa fa-search"></i></button>
             </div>
         </form>
@@ -43,21 +45,29 @@
 
     <div class=" container-item-main">
 
-        <h1 class="main-header"><a class="categ-link" href="/price/?category={{ item.category_to_search }}">{{ item.category }}</a>: {{ item.name }} — Купить с доставкой по Украине</h1>
+        <h1 class="main-header"><a class="categ-link" href="/price/?q={{ item.category_to_search }}&p=0">{{ item.category }}</a>: {{ item.name }} — Купить с доставкой по Украине</h1>
         <hr class="">
         <div class="flex space-betw">
             <p class="text-main">{{ item.description }}</p>
 
             <div>
                 <img  src="{{ item.photo_link }}" alt="{{ item.name }}" title="{{ item.name }}">
+
+                <div class="data-row">
+                    <p class="align-mid">{% if item.amount|isint and  item.amount|toint > 0 %}Есть в наличии: {{ item.amount }} шт.{% else %}Нет в наличии{% endif %}</p>
+                    <p class="align-mid">Последние изменения: {{ date }} </p>
+                </div>
+
+                <div class="data-row">
+                    <p class="align-mid">Price: {{ item.price }} ₴</p>
+                    <p class="align-mid">Последние изменения: {{ date }} </p>
+                </div>
             </div>
 
         </div>
         <div class="up-split"></div>
-<div class="data-row">
-        <p class="align-mid">{% if item.amount|isint and  item.amount|toint > 0 %}Есть в наличии: {{ item.amount }} шт.{% else %}Нет в наличии{% endif %}</p>
-        <p class="align-mid">Последние изменения: {{ date }} </p>
-</div>
+
+
 
     </div>
 

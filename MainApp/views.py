@@ -21,7 +21,8 @@ import os
 
 def start_page(request):
 
-
+    if request.GET.get("get_hints") == "all":
+        return ajax_give_hints()
 
     if request.POST.get("username") and request.POST.get("password"):
         print(request.POST.get("username"), request.POST.get("password"))
@@ -41,25 +42,25 @@ def admin_page(request):
 
     if True or user:
 
+        if request.GET.get("p") and request.is_ajax():
+            return ajax_give_table_pages(request)
+
+        elif request.GET.get("p") and not request.is_ajax():
+            print("rendering template")
+            q = request.GET.get("q")
+            p = request.GET.get("p")
+            if not q:
+                q = " "
+
+            return render(request, "admin_page.html", context={"q": q, "p": p, "headers": e_headers})
+
         if request.GET.get("del_items"):
             Item.objects.all().delete()
             ItemPage.objects.all().delete()
 
+        # requested table update?
         if request.GET.get("q") and request.is_ajax():
-            item_req = request.GET.get("q")
-            query = search(item_req)
-
-            hints = []
-            for hint in query[:min(10, len(query))]:
-                hints.append(hint.name)
-
-            if len(query) > 100:
-                print("long q. sending only hints")
-                return HttpResponse(json.dumps({"hints": hints, "data": None, "headers": None}), content_type="application/json")
-            else:
-                print("short q. sending data")
-                data = item_to_obj(query, e_fields)
-                return HttpResponse(json.dumps({"data": data, "hints": hints, "headers": e_field_headers}), content_type="application/json")
+            return ajax_give_table_pages(request)
 
         if request.method == 'POST':
             if request.FILES.get("file_input"):
@@ -122,27 +123,37 @@ def admin_page(request):
                     field_edited = change["field"]
                     new_value = change["value"]
 
+                    print(f"edited {field_edited} with id of {item_id}. new val is {new_value}")
+
                     item = Item.objects.all().filter(id=item_id)[0]
 
 
-                        # if name edited:
-                        # 1. ItemPage name change
-                        # 2. delete old html
-                        # 3. create new html
+                        # if name edited => edit name to search
+                        # if category edited => category to search
 
                     if field_edited == "name" and new_value == "":  # if name erased
                         item.delete()
 
+                    elif field_edited == "name" and new_value != "":
+                        Item.__setattr__(item, "name", new_value)
+                        Item.__setattr__(item, "name_to_search", cstcf(new_value))
+
+                    if field_edited == "category":
+                        Item.__setattr__(item, "category", new_value)
+                        Item.__setattr__(item, "category_to_search", cstcf(new_value))
+
                     else:
                         Item.__setattr__(item, field_edited, new_value)
                         item.save()
-                        # after this particular item saved, edit its page
-                        create_item_page(item)
+
+                        # after this particular item saved, edit last edited
+                        item.__setattr__("last_edited", str(datetime.date.today().strftime("%y/%m/%d")))
 
                 # after changes to db made update whole static price table
-                recreate_full_price_page()
 
-
+                with open("templates/datalist.html", "w", encoding="utf8") as datalist:
+                    datalist.write(render_to_string("datalist_template.html",
+                                                    {"names": Item.objects.all().values_list('name', flat=True)}))
 
             if request.POST.get("sub_btn") == "pressed":
                 if request.POST.get("changes"):
@@ -151,7 +162,6 @@ def admin_page(request):
                         changed_item = Item.objects.all().filter(id=change.id)
                         changed_item.__setattr__(change.field, change.value)
                         changed_item.save()
-
 
         if request.GET.get("edit_db_table") == "pressed":
 
@@ -185,6 +195,19 @@ def admin_page(request):
 
 def price_page(request):
 
+    if request.GET.get("p") and request.is_ajax():
+        return ajax_give_table_pages(request)
+
+    elif request.GET.get("p") and not request.is_ajax():
+        print("rendering template")
+        q = request.GET.get("q")
+        p = request.GET.get("p")
+
+        if not q:
+            q = " "
+
+        return render(request, "price_table.html", context={"q": q, "p": p, "headers": v_headers})
+
     if request.GET.get("download_price"):
         make_xlsx()
         response = HttpResponse(open("test.xls", mode="rb"), content_type='application/vnd.ms-excel')
@@ -192,10 +215,10 @@ def price_page(request):
         return response
     ###
 
-    print("request", request)
-    if request.GET.get("full") == "true":
-        print("returning static")
-        return render(request, "full_price_static.html")
+    # requested table update?
+    if request.GET.get("q") and request.is_ajax():
+        return ajax_give_table_pages(request)
+
 
     if request.GET.get("category"):
         print("returning dynamic cat")
@@ -214,11 +237,12 @@ def price_page(request):
                                                             "mode": "view",
                                                             "q": search_request})
 
+    print("returning static page")
+    #return render(request, "full_price_static.html")
+    return render(request, "price_table.html")
 
 
 def create_item_page(item):
-
-
 
     context = {"item": item, "date": datetime.date.today().strftime("%y/%m/%d")}
 
@@ -232,32 +256,14 @@ def create_item_page(item):
 
 def show_custom_item_page(request):
 
-    testing = True
-
-    if request.GET.get("q"):
-        q = request.GET.get("q")
-
-        if not ItemPage.objects.all().filter(index=q).count() > 0 or testing:
-            create_item_page(Item.objects.all().filter(index=q)[0])
-
-        return render(request, f"items/{q}.html")
+    q = request.GET.get("q")
+    if Item.objects.all().filter(index=q).filter(is_hidden=False):
+        item = Item.objects.all().filter(index=q).filter(is_hidden=False)[0]
+        return render(request, 'item_page_base.html', context={"item": item, "date": item.last_edited})
+    return render(request, "error_item_page_not_present.html")
 
 
-def recreate_full_price_page():
 
-    table = Item.objects.all()
-
-    content = render_to_string('price_table.html', {
-        "table": list(enumerate(table)),
-        "fields": list(enumerate(v_fields)),
-        "headers": v_headers,
-        "mode": "view",
-        "q": "",
-    })
-
-    with open(f'templates/full_price_static.html', 'w', encoding="utf8") as static_file:
-        static_file.write(content)
-
-#  TODO
+    #  TODO
 #   split func to change db item pages and func to show them: done
 #   make static price list page with links to item pages (update with db update): in progress

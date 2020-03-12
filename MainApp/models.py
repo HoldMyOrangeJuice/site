@@ -16,6 +16,7 @@ class Item(models.Model):
     notes = models.TextField(blank=True, null=None)
     index = models.IntegerField(blank=True, null=None, unique=True)
     description = models.TextField(default="defaultr dest test", blank=True)
+    last_edited = models.TextField(default="12.03.today")
 
 
 class ItemPage(models.Model):

@@ -124,12 +124,6 @@ td{
 
 }
 
-#table_from_db td
-{
-    width: auto!important;
-    height: 100%;
-    background-color: white;
-}
 
 .show {
     background-color:yellow;
@@ -157,13 +151,6 @@ td{
     width: 100%;
 }
 
-
-.static-thead
-{
-    background-color: rgb(220, 215, 190);
-    border-bottom: #354b75 10px;
-    z-index: 6;
-}
 
 .col_oriented
 {
@@ -247,3 +234,27 @@ color: #4b7fb6;
 }
 
 .flex{display: flex}
+
+
+.page-nav-buttons
+{
+    display: flex;
+    justify-content: center;
+    margin: 1vw 0 1vw 0;
+}
+
+.nav-page-button
+{
+    text-align: center;
+    vertical-align: middle;
+    margin: 0 1vw 0 1vw;
+    cursor:pointer;
+}
+
+input::-webkit-calendar-picker-indicator {
+  display: none;
+}
+
+
+
+

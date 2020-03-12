@@ -1,6 +1,6 @@
 .nav_entry_price
 {
-    color: black;
+
 }
 
 .nav-bar
@@ -22,13 +22,78 @@
 
 .nav-link
 {
-    color: #5897fb;
+    display: flex;
+    color: black;
+    width: auto;
+    justify-content: center;
+    align-items: center;
     text-decoration: none;
     font-family: "Segoe UI",Arial,sans-serif;
     margin: 1vw;
     font-size: 2vh;
+    overflow: hidden;
+    white-space: nowrap;
 }
 .nav-link:hover
 {
     text-decoration: underline;
+}
+
+#search-box
+{
+    padding: 1vw;
+    text-align: left;
+    width: 50%;
+}
+
+.outer-search
+{
+
+    width: 100%;
+
+
+}
+
+.dark-nav-link
+{
+    margin-left: 1vw;
+    margin-right: 1vw;
+    color: black;
+    font-size: 1rem;
+    width: auto;
+}
+
+.org
+{
+    margin-left: 1vw;
+    color: #6697ec;
+    display: flex;
+    font-size: 1rem;
+    justify-self: flex-end!important;
+    margin-right: 0;
+    text-align: center;
+}
+
+.nav-iconed
+{
+    display: flex;
+    overflow: hidden;
+    white-space: nowrap;
+    align-items: center;
+    justify-content: space-between;
+}
+.nav-iconed p
+{
+    margin: 0 10px 0 0!important;
+
+}
+
+.form-aligned
+{
+    display: flex;
+    width: auto;
+    justify-content: center;
+    align-items: center;
+    margin-right: 2vw;
+    margin-left: 2vw;
 }

@@ -3,37 +3,31 @@
 <head>
 
     <title>РАСТА Радиодетали, электронные компоненты</title>
+
+    <meta charset="UTF-8">
     <meta name="description" content="Радиодетали с доставкой по Украине">
     <meta name="keywords" content="прайс, купить радиодетали, радиодетали прайс лист, радиодетали почтой наложенным платежом, радиодетали ссср цена, резисторы, транзисторы, микросхемы, диоды, трансформаторы, конденсаторы">
 
-    {% load static %}
+
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+
+    {#    icons price  #}
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+
+    {#    icons search  #}
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    {#   cards  #}
     <link rel="stylesheet" href="https://getbootstrap.com/docs/4.3/examples/pricing/pricing.css">
     <link href="https://getbootstrap.com/docs/4.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    {#    custom   #}
+    {% load static %}
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
     <link rel="stylesheet" href="{% static 'css/navbar_upper.css' %}">
-    <meta charset="UTF-8">
 
-    <style>
-      .bd-placeholder-img {
-        font-size: 1.125rem;
-        text-anchor: middle;
-        -webkit-user-select: none;
-        -moz-user-select: none;
-        -ms-user-select: none;
-        user-select: none;
-      }
+    <script src="{% static 'js/funcs.js' %}"></script>
 
-      @media (min-width: 768px) {
-        .bd-placeholder-img-lg {
-          font-size: 3.5rem;
-        }
-      }
-    </style>
 
 
 </head>
@@ -41,18 +35,21 @@
 
     <body>
 
-    <div class="nav-bar">
-        <h5 class="my-0 mr-md-auto font-weight-normal"><a href="/">ТОВ «РАСТА»</a></h5>
+    <div class="nav-bar ">
+        <h5 class="font-weight-normal org"><a href="/">ТОВ «РАСТА»</a></h5>
 
-        <a class="my-0 mr-md-auto font-weight-normal nav_entry_price" href="/price?full=true" title="прайс лист радиодетали">Прайс лист <span class="glyphicon glyphicon-align-justify"></span></a>
 
-        <form class="w3-container my-0 mr-md-auto font-weight-normal">
-            <div class="row_oriented">
-                <input class="w3-input" type="text" name="search_request" placeholder="Поиск по прайсу">
-                <button class="button" type="submit" ><i class="fa fa-search"></i></button>
+
+            <div class=" outer-search">
+                <form action="/price/" class="form-aligned">
+                    {% include "datalist.html" %}
+                    <input class="w3-input" type="text" name="q" list="items" id="search-box" placeholder="Поиск по прайсу">
+                    <input type="hidden" value="0" name="p">
+                    <button class="button" type="submit" ><i class="fa fa-search"></i></button>
+                    <a class=" font-weight-normal  nav-iconed dark-nav-link" href="/price?q=&p=0" title="прайс лист радиодетали"><p class="">Прайс лист</p> <i class="fa fa-bars "></i></a>
+                </form>
             </div>
-        </form>
-  <nav class="my-2 my-md-0 mr-md-3">
+
 
       {% if user %}
       <a class="p-2 text-dark" href="/adm">У меня тут есть власть</a>
@@ -61,14 +58,14 @@
 {#    <a class="p-2 text-dark" href="#footer_">Контакты <span class="glyphicon glyphicon-earphone"></span> </a>#}
 
 
-  </nav>
+
         <script>
             function show_login() {
                 console.log("show");
                 document.getElementById("login_window").hidden = false
             }
         </script>
-  <button class="button my-0 mr-md-auto font-weight-normal" onclick="show_login()">Войти</button>
+  <button class="button font-weight-normal" onclick="show_login()">Войти</button>
 </div>
 
 <hr class="under-head">
@@ -109,7 +106,7 @@
           <li>Полевые</li>
 
         </ul>
-          <form method="get" action="/price"><button type="submit" class="btn btn-lg btn-block btn-outline-primary" name="category" value="транзистор">Подробнее</button></form>
+          <a class="btn btn-lg btn-block btn-outline-primary" href="/price?q=транзистор&p=0">Подробнее</a>
       </div>
     </div>
 
@@ -128,7 +125,7 @@
             <li>Диоды</li>
 
         </ul>
-          <form method="get" action="/price"><button type="submit" class="btn btn-lg btn-block btn-outline-primary" name="category" value="ламп">Подробнее</button></form>
+          <a class="btn btn-lg btn-block btn-outline-primary" href="/price?q=ламп&p=0">Подробнее</a>
       </div>
     </div>
 
@@ -144,7 +141,7 @@
             <li>Гибридные</li>
             <li>Цифровые</li>
         </ul>
-          <form method="get" action="/price"><button type="submit" class="btn btn-lg btn-block btn-outline-primary" name="category" value="микросхем">Подробнее</button></form>
+          <a class="btn btn-lg btn-block btn-outline-primary" href="/price?q=микросхем&p=0">Подробнее</a>
       </div>
     </div>
 
@@ -160,7 +157,7 @@
           <li>Шоттки</li>
           <li>СВЧ</li>
         </ul>
-          <form method="get" action="/price"><button type="submit" class="btn btn-lg btn-block btn-outline-primary" name="category" value="диод">Подробнее</button></form>
+          <a class="btn btn-lg btn-block btn-outline-primary" href="/price?q=диод&p=0">Подробнее</a>
       </div>
     </div>
 
@@ -180,7 +177,7 @@
           <li>Разъемы</li>
 
         </ul>
-          <form method="get" action="/price"><button type="submit" class="btn btn-lg btn-block btn-outline-primary" name="category" value="установочные изделия">Подробнее</button></form>
+          <a class="btn btn-lg btn-block btn-outline-primary" href="/price?q=установочные&p=0">Подробнее</a>
       </div>
     </div>
 
@@ -200,7 +197,7 @@
           <li>Катушки</li>
 
         </ul>
-          <form method="get" action="/price"><button type="submit" class="btn btn-lg btn-block btn-outline-primary" name="category" value="трансформатор">Подробнее</button></form>
+          <a class="btn btn-lg btn-block btn-outline-primary" href="/price?q=трансформатор&p=0">Подробнее</a>
       </div>
     </div>
 
@@ -218,7 +215,7 @@
           <li>Пусковые</li>
           <li>Полярные</li>
         </ul>
-          <form method="get" action="/price"><button type="submit" class="btn btn-lg btn-block btn-outline-primary" name="category" value="конденсатор">Подробнее</button></form>
+          <a class="btn btn-lg btn-block btn-outline-primary" href="/price?q=конденсатор&p=0">Подробнее</a>
       </div>
     </div>
 
@@ -239,7 +236,7 @@
             <li>Постоянные</li>
 
         </ul>
-          <form method="get" action="/price"><button type="submit" class="btn btn-lg btn-block btn-outline-primary" name="category" value="резистор">Подробнее</button></form>
+          <a class="btn btn-lg btn-block btn-outline-primary" href="/price?q=резистор&p=0">Подробнее</a>
 
       </div>
     </div>
@@ -308,5 +305,8 @@
             <button type="submit" class="button" >submit</button>
         </form>
     </div>
+
+    {% include "datalist_template.html" %}
+
 </body>
 </html>

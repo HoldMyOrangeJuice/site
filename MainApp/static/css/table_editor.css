@@ -1,14 +1,11 @@
 
-#table-universal {
-    position: absolute;
-    top: 100px;
+#js-table-template {
     background-color: ghostwhite;
-    border: 1px;
 }
 
 table
 {
-    margin-top: 20vh;
+    margin-top: 5vh;
     width:90%!important;
     margin-left: 5%;
     margin-right: 5%;

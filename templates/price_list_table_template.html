@@ -1,3 +1,7 @@
+{# only used to render full static price table server-side #}
+
+
+
 {% load  app_filters %}
 {% load static %}
 
@@ -20,7 +24,7 @@
     document.addEventListener("scroll", elementInViewport2);
 
     function elementInViewport2() {
-        el = document.getElementById("table-head");
+        el = document.getElementById("js-table-head");
         var top = el.offsetTop;
         var left = el.offsetLeft;
         var width = el.offsetWidth;
@@ -110,24 +114,7 @@
         return cookieValue;
 }
 
-        function pass_changes()
-        {
-            var csrftoken = getCookie('csrftoken');
 
-            $.ajaxSetup({
-            beforeSend: function(xhr, settings) {
-
-                    xhr.setRequestHeader("X-CSRFToken", csrftoken);
-
-                }
-            });
-
-            $.ajax({
-            type: "POST",
-            url: "/adm/",
-            data: { "changes": document.getElementById("changes").value}
-        })
-        }
     </script>
 
 
@@ -140,14 +127,14 @@
 
     {% endif %}
 
-        <table id="table-universal" class="table table-hover" >
-        <thead id="table-head">
+        <table id="js-table-template" class="table table-hover" >
+        <thead id="js-table-head">
             {% for head in headers %}
-                <th class="th-inner {{ head }}" id="{{ head }}">{{ head }}</th>
+                <th  id="{{ head }}">{{ head }}</th>
             {% endfor %}
-            </thead>
+        </thead>
 
-            <tbody>
+            <tbody id="js-table-body">
                 {% for row_index, item in table %}
 
                 {% if item.photo_link %}
@@ -222,6 +209,8 @@
         </table>
 {#    </form>#}
 
+    {% include "js_table_template.html" %}
+
     <!-- creating static headers if original not visible -->
     <table id="view-header" class="nav_header" hidden="true">
         <thead class="static-thead">
@@ -246,6 +235,7 @@
         </thead>
     </table>
 <!-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -->
+
 
 {% endif %}
 

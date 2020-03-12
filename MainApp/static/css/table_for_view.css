@@ -22,14 +22,6 @@ table
     color: black;
 }
 
-td
-{
-    border-left: 1px red;
-
-    width: 10%;
-    text-align: center;
-}
-
 .name_column
 {
     text-align: left;
@@ -60,3 +52,9 @@ td
     height: 5vh;
 
 }
+
+th
+{
+    text-align: center  !important;
+}
+
