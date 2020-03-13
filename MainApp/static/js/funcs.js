@@ -187,10 +187,13 @@ function format_table(items, headers_json)
         return;
     }
 
-    let avg_col_w = 130;
+
 
     let table_head = document.getElementById("js-table-head");
     let table_body = document.getElementById("js-table-body");
+
+    let avg_col_w = window.mobilecheck()?160:110;//table_head.offsetWidth / Object.keys(headers_json).length;
+    console.log("average col size", avg_col_w);
 
     rem_children("js-table-head");
     rem_children("js-table-body");
@@ -435,24 +438,6 @@ window.mobilecheck = function() {
   return check;
 };
 
-function mobile_page()
-{
-    let h = window.screen.height;
-    let w = window.screen.width;
-    if (window.mobilecheck)
-    {
-        alert("mobile user");
-        console.log("mobile user");
-    }
 
-    else
-        return;
 
-    let style = document.createElement("style");
-    style.innerText="html{font-size: 1.6rem } " +
-        ".mobile{display: flex;\n" +
-        "flex-direction: column;}";
-    document.getElementsByTagName("body")[0].appendChild(style);
-
-}
 

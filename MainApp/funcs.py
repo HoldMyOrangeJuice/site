@@ -208,3 +208,9 @@ def ajax_update_table(request):
 def ajax_give_hints():
     return HttpResponse(json.dumps({"hints": Item.objects.all().values_list('name', flat=True)},
                         content_type="application/json"))
+
+
+def user_static_prefix(request):
+    if request.user_agent.is_mobile:
+        return "mobile"
+    return "desktop"

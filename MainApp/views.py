@@ -20,7 +20,7 @@ import os
 
 
 def start_page(request):
-
+    user_agent = user_static_prefix(request)
     if request.GET.get("get_hints") == "all":
         return ajax_give_hints()
 
@@ -33,9 +33,9 @@ def start_page(request):
             print("USER", user)
             login(request, user)
     try:
-        return render(request, "index.html", context={"user": user})
+        return render(request, f"{user_agent}/index.html", context={"user": user})
     except:
-        return render(request, "index.html", context={"user": None})
+        return render(request, f"{user_agent}/index.html", context={"user": None})
 
 
 def admin_page(request):
@@ -52,7 +52,7 @@ def admin_page(request):
             if not q:
                 q = " "
 
-            return render(request, "admin_page.html", context={"q": q, "p": p, "headers": e_headers})
+            return render(request, "desktop/admin_page.html", context={"q": q, "p": p, "headers": e_headers})
 
         if request.GET.get("del_items"):
             Item.objects.all().delete()
@@ -105,7 +105,7 @@ def admin_page(request):
                 # after bulk created and items have ids, i can create htmls named with unique id
                 table = Item.objects.all()
 
-                return render(request, "admin_page.html",
+                return render(request, "desktop/admin_page.html",
                               context={"table": enumerate(table),
                                        "headers": e_headers,
                                        "fields": list(enumerate(e_fields)),
@@ -152,7 +152,7 @@ def admin_page(request):
                 # after changes to db made update whole static price table
 
                 with open("templates/datalist.html", "w", encoding="utf8") as datalist:
-                    datalist.write(render_to_string("datalist_template.html",
+                    datalist.write(render_to_string("desktop/datalist_template.html",
                                                     {"names": Item.objects.all().values_list('name', flat=True)}))
 
             if request.POST.get("sub_btn") == "pressed":
@@ -165,7 +165,7 @@ def admin_page(request):
 
         if request.GET.get("edit_db_table") == "pressed":
 
-            return render(request, "admin_page.html", context={
+            return render(request, "desktop/admin_page.html", context={
                 "table": list(enumerate(Item.objects.all())),
                 "fields": list(enumerate(e_fields)),
                 "headers": e_headers,
@@ -189,12 +189,12 @@ def admin_page(request):
             response['Content-Disposition'] = 'attachment; filename="test.xls"'
             return response
 
-        return render(request, "admin_page.html")
-    return render(request, "denied.html")
+        return render(request, "desktop/admin_page.html")
+    return render(request, "desktop/denied.html")
 
 
 def price_page(request):
-
+    user_agent = user_static_prefix(request)
     if request.GET.get("p") and request.is_ajax():
         return ajax_give_table_pages(request)
 
@@ -206,7 +206,7 @@ def price_page(request):
         if not q:
             q = " "
 
-        return render(request, "price_table.html", context={"q": q, "p": p, "headers": v_headers})
+        return render(request, f"{user_agent}/price_table.html", context={"q": q, "p": p, "headers": v_headers})
 
     if request.GET.get("download_price"):
         make_xlsx()
@@ -223,7 +223,7 @@ def price_page(request):
     if request.GET.get("category"):
         print("returning dynamic cat")
         item_objects = Item.objects.filter(category_to_search__contains=request.GET.get("category"))
-        return render(request, "price_table.html", context={"table": list(enumerate(item_objects)),
+        return render(request, f"{user_agent}/price_table.html", context={"table": list(enumerate(item_objects)),
                                                             "headers": v_headers,
                                                             "fields": list(enumerate(v_fields)),
                                                             "mode": "view"})
@@ -231,7 +231,7 @@ def price_page(request):
         print("returning dynamic req")
         search_request = request.GET.get("search_request")
         table = search(search_request).order_by('index')
-        return render(request, "price_table.html", context={"table": list(enumerate(table)),
+        return render(request, f"{user_agent}/price_table.html", context={"table": list(enumerate(table)),
                                                             "headers": v_headers,
                                                             "fields": list(enumerate(v_fields)),
                                                             "mode": "view",
@@ -239,14 +239,14 @@ def price_page(request):
 
     print("returning static page")
     #return render(request, "full_price_static.html")
-    return render(request, "price_table.html")
+    return render(request, f"{user_agent}/price_table.html")
 
 
 def create_item_page(item):
 
     context = {"item": item, "date": datetime.date.today().strftime("%y/%m/%d")}
 
-    content = render_to_string('item_page_base.html', context)
+    content = render_to_string('desktop/item_page_base.html', context)
     with open(f'templates/items/{item.index}.html', 'w', encoding="utf8") as static_file:
         ItemPage.objects.all().filter(index=item.index).delete()
         ItemPage.objects.create(item_name=item.name,
@@ -255,12 +255,12 @@ def create_item_page(item):
 
 
 def show_custom_item_page(request):
-
+    user_agent = user_static_prefix(request)
     q = request.GET.get("q")
     if Item.objects.all().filter(index=q).filter(is_hidden=False):
         item = Item.objects.all().filter(index=q).filter(is_hidden=False)[0]
-        return render(request, 'item_page_base.html', context={"item": item, "date": item.last_edited})
-    return render(request, "error_item_page_not_present.html")
+        return render(request, f'{user_agent}/item_page_base.html', context={"item": item, "date": item.last_edited})
+    return render(request, f"{user_agent}/error_item_page_not_present.html")
 
 
 

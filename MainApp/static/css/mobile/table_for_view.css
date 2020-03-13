@@ -1,0 +1,60 @@
+
+#table-universal {
+
+
+    /*background-color: ghostwhite;*/
+    border: 10px red;
+    margin-top: 20px;
+}
+
+table
+{
+    width:88%!important;
+    margin-left: 6%;
+    margin-right: 6%;
+
+
+}
+
+.th-inner
+{
+    text-align: center;
+    color: black;
+}
+
+.name_column
+{
+    text-align: left;
+}
+
+.reveal_img
+{
+    width: 20%;
+    height: 20px;
+    background: 0;
+    border: 0;
+}
+
+.item_image_bg
+{
+    z-index: 5;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    vertical-align: middle;
+}
+
+.th-inner
+{
+    text-align: center;
+    height: 5vh;
+
+}
+
+th
+{
+    text-align: center  !important;
+}
+

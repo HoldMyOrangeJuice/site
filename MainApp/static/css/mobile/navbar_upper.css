@@ -1,0 +1,131 @@
+
+    /*MOBILE VERSION*/
+
+.nav-bar
+{
+    padding: 0.2vh 4vw 0.2vw 4vw;
+    height: auto;
+    background-color: #c4dce8;
+
+    align-items: center;
+    justify-content: space-evenly !important;
+    flex-shrink: 1
+}
+
+.under-head
+{
+    margin: 0;
+
+}
+
+.nav-link
+{
+    display: flex;
+    color: black;
+    width: auto;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    font-family: "Segoe UI",Arial,sans-serif;
+    margin: 1vw;
+    font-size: 2rem;
+    overflow: hidden;
+    white-space: nowrap;
+}
+.nav-link:hover
+{
+    text-decoration: underline;
+}
+
+#search-box
+{
+    padding: 1vw;
+    text-align: left;
+    width: 80%;
+    height: 100%;
+    font-size: 2vw;
+
+}
+
+.outer-search
+{
+
+    width: 100%;
+
+
+}
+
+.dark-nav-link
+{
+    margin: 1vw;
+    color: black;
+    font-size: 2rem;
+    width: auto;
+
+}
+
+.pretty-font
+{
+    font-family: "Segoe UI",Arial,sans-serif;
+}
+
+.org
+{
+    margin: 1rem 1rem 1rem 1rem;
+    text-decoration: underline;
+    color: #6697ec;
+
+    justify-self: flex-end!important;
+    text-align: center;
+    font-size: 2rem;
+    font-weight: normal;
+
+}
+
+.nav-iconed
+{
+    display: flex;
+    overflow: hidden;
+    white-space: nowrap;
+    align-items: center;
+    justify-content: center;
+    width: auto;
+    margin: 10px 10px 10px 10px;
+
+
+
+}
+.nav-iconed p
+{
+    margin: 0 10px 0 0!important;
+
+
+}
+
+.form-aligned
+{
+    display: flex;
+    width: auto;
+    justify-content: center;
+    align-items: center;
+    margin-right: 2vw;
+    margin-left: 2vw;
+}
+
+.search-input
+{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 10px 10px 10px 10px;
+
+}
+
+.nav-row
+{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}

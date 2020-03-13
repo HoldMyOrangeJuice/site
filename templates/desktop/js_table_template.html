@@ -1,0 +1,79 @@
+{# ------=====------ js-table-template extention ------=====------#}
+{# -----=====----- creates table with dynamycally updated content #}
+
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+{% load static %}
+{#<script>document.onload = update_current_table_page('', 0);</script>#}
+
+<script>
+
+    document.getElementById("search-box").addEventListener("input", function (e) {
+        set_page(0);
+        let q = document.getElementById("search-box").value;
+
+
+        if (!document.getElementById("js-table-template"))
+        {
+            let table = document.createElement("table");
+            let thead = document.createElement("thead");
+            let tbody = document.createElement("tbody");
+            table.id = "js-table-template";
+            thead.id = "js-table-head";
+            tbody.id = "js-table-body";
+
+            table.appendChild(thead);
+            table.appendChild(tbody);
+            document.getElementsByTagName("body")[0].appendChild(table);
+
+        }
+        // request and draw table, hints
+        console.log("requesting upd");
+        // get start page of table after request changed
+        update_current_table_page(q, 0, "query-modified")
+    });
+
+</script>
+
+
+    {#  ---------------------------  #}
+    <div id="page-nav-buttons-top" class="page-nav-buttons">
+        <a onclick="render_page(-1)" class="nav-page-button">
+            <i class="material-icons">arrow_back</i>
+        </a>
+
+        <p class="cur-page-index">0</p>
+
+        <a class="nav-page-button" onclick="render_page(+1)">
+            <i class="material-icons">arrow_forward</i>
+        </a>
+    </div>
+
+    {#  main table to be filled  #}
+    <table id="js-table-template">
+        <thead id="js-table-head">
+        </thead>
+
+        <tbody id="js-table-body">
+        </tbody>
+    </table>
+    {# ------------------------- #}
+    <div id="page-nav-buttons-bottom" class="page-nav-buttons" >
+
+        <a class="nav-page-button" onclick="render_page(-1)">
+            <i class="material-icons">arrow_back</i>
+        </a>
+
+        <p class="cur-page-index">0</p>
+
+        <a class="nav-page-button">
+            <i class="material-icons" onclick="render_page(+1)">arrow_forward</i>
+        </a>
+
+    </div>
+
+
+
+
+
+

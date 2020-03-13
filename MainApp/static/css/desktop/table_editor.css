@@ -1,0 +1,141 @@
+
+#js-table-template {
+    background-color: ghostwhite;
+}
+
+table
+{
+    margin-top: 5vh;
+    width:90%!important;
+    margin-left: 5%;
+    margin-right: 5%;
+    border: 1px;
+}
+
+.th-inner
+{
+    text-align: center;
+}
+
+td
+{
+
+    text-align: left;
+    padding: 1px;
+    justify-content: center;
+    align-items: center
+}
+
+tr
+{
+    height: 40px;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+tr:hover
+{
+ background-color: gold;
+}
+
+.edit-table_input
+{
+    width: 90%;
+    border-radius: 2px;
+    background-color: #bbccdd;
+    height: 30px;
+    padding-left: 5%;
+    padding-right: 5%;
+    border: 0;
+}
+
+.photo_link_input
+{
+    width: 80%;
+}
+
+.reveal_img
+{
+    width: 20%;
+    height: 40px;
+    background: 0;
+    border: 0;
+
+}
+
+#page-load-status
+{
+    width: 100%;
+    text-align: center;
+    color: red;
+    font-size: 30px;
+
+}
+
+.action-button-admin
+{
+    width: 10vw;
+    height: 5vh;
+    border-radius: 4%;
+    background-color: #5ea1ff;
+    color: #fff7ed;
+    font-size: medium;
+    border-color: #4b7fb6;
+    margin: 1vh;
+}
+
+.action-button-admin:hover
+{
+
+    color: #c1daff;
+
+}
+
+.file-input-admin
+{
+    min-width: 20px;
+    max-width: 100px;
+    height: 5vh;
+    /*width: 10vw;*/
+    background-color: #5ea1ff;
+    z-index: 1;
+    margin: 1vh;
+
+}
+
+.admin-nav
+{
+    position: relative;
+    display: flex;
+    width: 100vw;
+    margin: 0;
+    top: -1vh;
+    left: -1vh;
+    height: 7vh;
+    background-color: #447e9b;
+    justify-items: center;
+    justify-content: space-around;
+
+}
+
+.left
+{
+    display: flex;
+    flex-direction: column;
+    align-self: flex-start;
+}
+
+.admin-link
+{
+    color: #e4e4e4;
+    font-family: Cambria;
+    font-size: 3vh;
+    text-decoration: none;
+}
+
+.admin-link:hover
+{
+    color: #FFFFCC;
+}
+
+

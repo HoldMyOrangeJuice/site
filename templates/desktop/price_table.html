@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="description" content="Большой прайслист со множеством радиодеталей для самых разных нужд и их ценой.">
+    <meta name="keywords" content="прайслист, прайс, список радиодеталей, радиодетали купить">
+
+    <title>
+        {% if q %}
+           {{ q }}: Результаты
+        {% else %}
+            Полный прайс лист
+        {% endif %}
+
+    </title>
+
+    {#    icons price  #}
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+    {#    icons search  #}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    {% load static %}
+
+
+    {#  main bootstrap style  #}
+    <link rel="stylesheet" href="https://getbootstrap.com/docs/4.3/examples/pricing/pricing.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="{% static 'css/desktop/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/desktop/common_table.css' %}">
+    <link rel="stylesheet" href="{% static 'css/desktop/navbar_upper.css' %}">
+    <link rel="stylesheet" href="{% static "css/desktop/table_for_view.css" %}">
+
+    <script src="{% static "js/image_preview.js" %}"></script>
+    <script src="{% static 'js/funcs.js' %}"></script>
+
+{#   table  #}
+
+
+
+</head>
+<body id="price-table-body">
+
+
+    <!-- creating static headers if original not visible -->
+    <table id="view-header" class="nav_header" hidden="hidden">
+        <thead class="static-thead" id="static-thead">
+
+{#            {% for header in headers %}#}
+{##}
+{#                <th class="th-inner th-static">#}
+{#                    {{ header }}#}
+{#                </th>#}
+
+{#                <script>#}
+{#                    table_head = $("#{{ header }}");#}
+{##}
+{#                    static_header_element = document.getElementById("{{ header|concatenate:"static" }}");#}
+{##}
+{#                    static_header_element.style.width = `${table_head[0].offsetWidth}px`;#}
+{#                </script>#}
+
+
+
+{#            {% endfor %}#}
+        </thead>
+    </table>
+
+
+    <input type="hidden" id="page-index">
+
+    {% if q and p %}
+    <script>document.onload = update_current_table_page("{{ q }}", {{ p }}, "query-modified");</script>
+    {% endif %}
+
+  {% include "desktop/extendable/navbar.html" %}
+
+
+
+
+{#    <a class="p-2 text-dark" href="#footer_">Контакты <span class="glyphicon glyphicon-earphone"></span> </a>#}
+
+</div>
+    <div class="contacts___">
+
+          <div class="cont-text ">+38 068 785 68 25 (Kyivstar)</div>
+
+        <div class="cont-text"> vfo@ukr.net</div>
+            <div class="cont-text ">+38 095 903 23 10 (MTC)</div>
+
+
+    </div>
+
+<div class="centred">
+    <form method="get" ><button type="submit" name="download_price" value="pressed" class="button">Скачать прайс</button></form>
+</div>
+{#    {% include "price_list_table_template.html" %}#}
+    {% if server_side_gen %}
+        {% include "desktop/price_list_table_template.html" %}
+    {% else %}
+        {% include "desktop/js_table_template.html" %}
+    {% endif %}
+
+
+
+    <!-- show static headers if original not visible -->
+
+<script>
+    document.addEventListener("scroll", elementInViewport2);
+
+    function elementInViewport2() {
+        el = document.getElementById("js-table-head");
+        var top = el.offsetTop;
+        var left = el.offsetLeft;
+        var width = el.offsetWidth;
+        var height = el.offsetHeight;
+
+        while(el.offsetParent) {
+        el = el.offsetParent;
+        top += el.offsetTop;
+        left += el.offsetLeft;
+        }
+        if(
+            top < (window.pageYOffset + window.innerHeight) &&
+            left < (window.pageXOffset + window.innerWidth) &&
+            (top + height) > window.pageYOffset &&
+            (left + width) > window.pageXOffset
+          )
+        {
+            document.getElementById("view-header").hidden = true;
+        }
+        else
+        {
+            document.getElementById("view-header").hidden = false;
+        }
+    }
+    </script>
+
+<!-- -- -- -- -- -- -- -- -- -- -- -->
+
+
+
+
+<!-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -->
+
+
+
+
+{#    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>#}
+{#    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>#}
+{#    <script src="https://unpkg.com/bootstrap-table@1.15.5/dist/bootstrap-table.min.js"></script>#}
+
+{# hints #}
+
+
+</body>
+</html>
