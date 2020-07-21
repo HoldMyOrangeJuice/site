@@ -24,7 +24,6 @@
     {#    custom   #}
     {% load static %}
 
-
     <script src="{% static 'js/funcs.js' %}"></script>
 
 
@@ -43,11 +42,6 @@
     {% include "desktop/extendable/navbar.html" %}
 {#    <a class="p-2 text-dark" href="#footer_">Контакты <span class="glyphicon glyphicon-earphone"></span> </a>#}
 
-<button class="button font-weight-normal " onclick="show_login()">Войти</button>
-
-          {% if user %}
-          <a class="p-2 text-dark" href="/adm">У меня тут есть власть</a>
-          {% endif %}
 
         <script>
             function show_login() {
@@ -60,12 +54,7 @@
 
 <hr class="under-head">
 
-    <div class="contacts___">
-       <div class="cont-text ">+38 068 785 68 25 (Kyivstar)</div>
-
-        <div class="cont-text"> vfo@ukr.net</div>
-            <div class="cont-text ">+38 095 903 23 10 (MTC)</div>
-      </div>
+  {% include "desktop/extendable/contacts.html" %}
 
 
 <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
@@ -74,7 +63,7 @@
 
 
       <p class="lead">
-          Какой-то длинный текст. Радиодетали и электронные компоненты. Доставка по всей Украине.
+          ООО Раста реализует широкий выбор радиоэлектронных компонентов. Свыше 3000 наименований.
       </p>
 </div>
 

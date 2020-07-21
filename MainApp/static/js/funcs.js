@@ -1,7 +1,17 @@
 let max_pages;
+let items;
+let headers;
+
+// order
+let ordered_id = null
+let customer_data = null
+let form_data = null
+
+
 
 function rem_children(id)
 {
+    console.log("rem_children")
 
     let dl = document.getElementById(id);
 
@@ -16,58 +26,31 @@ function rem_children(id)
     }
 }
 
-
-//
-// function request_table(q)
-// {
-//
-//     $.ajax({
-//             type: "GET",
-//             url: window.location.href,
-//             data: { "q": q},
-//             dataType: "json",
-//             success:
-//             function(data_json)
-//             {
-//                 console.log("s");
-//                 console.log("success", data_json);
-//                 let data = data_json["data"];
-//                 let headers = data_json["headers"];
-//
-//                 if (data && headers)
-//                     format_table(data, headers);
-//
-//                 // add autocomplete to search-box
-//
-//             }
-//         })
-// }
-
-
 function pass_changes()
-        {
-            var csrftoken = getCookie('csrftoken');
+    {
+    console.log("pass_changes")
 
-            $.ajaxSetup({
-            beforeSend: function(xhr, settings) {
+        var csrftoken = getCookie('csrftoken');
 
-                    xhr.setRequestHeader("X-CSRFToken", csrftoken);
+        $.ajaxSetup({
+        beforeSend: function(xhr, settings) {
+                xhr.setRequestHeader("X-CSRFToken", csrftoken);
+            }
+        });
 
-                }
-            });
-
-            $.ajax({
-            type: "POST",
-            url: "/adm/",
-            data: { "changes": document.getElementById("changes").value}
+        $.ajax({
+        type: "POST",
+        url: "/adm/",
+        data: { "changes": document.getElementById("changes").value}
         })
-        }
+    }
 
 function reg_change_listener() {
+console.log("reg_change_listener")
+
 
     if (!document.getElementById("changes"))
     {
-
         let trgt = document.createElement("input");
         trgt.hidden = true;
         trgt.value = "{}";
@@ -75,8 +58,10 @@ function reg_change_listener() {
         document.body.appendChild(trgt);
     }
 
-    document.addEventListener("input", function (e) {
-        console.log(e);
+    document.addEventListener("input", function (e)
+    {
+        if (e.target.className !== "change-entry")
+            return;
             if(e.target.getAttribute("value") !== e.target.value && e.target.getAttribute("data-field"))
             {
                 e.target.style.color = "green"
@@ -89,11 +74,14 @@ function reg_change_listener() {
             {
                 e.target.setAttribute("placeholder", `${e.target.getAttribute("value")} Будет удален`)
             }
-            console.log(e.target);
+
             input_el = e.target;
             changes = JSON.parse(document.getElementById("changes").value);
             let id = input_el.getAttribute("data-id");
             let field = input_el.getAttribute("data-field");
+
+            if (!id || !field)return;
+
             if (input_el.type === "checkbox")
             {
                 changes[`${id}|${field}`] = input_el.checked === true;
@@ -103,9 +91,9 @@ function reg_change_listener() {
                 changes[`${id}|${field}`] = input_el.value;
             }
 
-            console.log(changes);
+
             document.getElementById("changes").value = JSON.stringify(changes)
-            })
+    })
 }
 
 function getCookie(name) {
@@ -124,40 +112,15 @@ function getCookie(name) {
     return cookieValue;
 }
 
-// function reg_update_table_context() {
-//     document.getElementById("search-box").addEventListener("input", function (e) {
-//
-//         let q = document.getElementById("search-box").value;
-//
-//
-//         if (!document.getElementById("js-table-template"))
-//         {
-//             let table = document.createElement("table");
-//             let thead = document.createElement("thead");
-//             let tbody = document.createElement("tbody");
-//             table.id = "js-table-template";
-//             thead.id = "js-table-head";
-//             tbody.id = "js-table-body";
-//
-//             table.appendChild(thead);
-//             table.appendChild(tbody);
-//             document.getElementsByTagName("body")[0].appendChild(table);
-//
-//         }
-//         // request and draw table, hints
-//         console.log("requesting upd");
-//         request_table(q)
-//     });
-// }
 
 function update_current_table_page(q, target_page, update_reason)
 {
+console.log("update_current_table_page")
     let cur_page = get_page();
     if (cur_page === target_page && update_reason === "page-change")
         return;
 
     set_page(target_page);
-    console.log("setting target page", target_page);
 
     $.ajax({
         type: "GET",
@@ -166,22 +129,34 @@ function update_current_table_page(q, target_page, update_reason)
         success: function (response)
         {
             max_pages = response['max-pages'];
-            format_table(response["query"], response["headers"]);
-            console.log("got response", response);
+            items = response["query"]
+            headers = response["headers"];
+            entry_count = response['entries']
+            format_table(items, headers, entry_count, q);
         }
     });
 
-
-
-
-
-
 }
 
-function format_table(items, headers_json)
-{
 
-    if (items.length === 0 || headers_json.length === 0)
+function format_table(items, headers_json, query_resp_entries, q)
+{
+    console.log("format_table")
+    let ignore_fields = ["index"];
+
+    let count = document.getElementById("entry-count");
+    let count_text = "";
+
+    if ((query_resp_entries-1)%10===0)
+        count_text = `Найден ${query_resp_entries} результат по запросу ${q}`;
+    else if (query_resp_entries%10>1 && query_resp_entries%10<5)
+        count_text = `Найдено ${query_resp_entries} результата по запросу ${q}`;
+    else
+        count_text = `Найдено ${query_resp_entries} результатов по запросу ${q}`;
+
+    count.innerText = count_text;
+
+    if (Object.keys(items).length === 0 || headers_json.length === 0)
     {
         set_page(0);
         return;
@@ -192,8 +167,8 @@ function format_table(items, headers_json)
     let table_head = document.getElementById("js-table-head");
     let table_body = document.getElementById("js-table-body");
 
+
     let avg_col_w = window.mobilecheck()?160:110;//table_head.offsetWidth / Object.keys(headers_json).length;
-    console.log("average col size", avg_col_w);
 
     rem_children("js-table-head");
     rem_children("js-table-body");
@@ -202,23 +177,6 @@ function format_table(items, headers_json)
 
     let fields = Object.keys(headers_json);
 
-
-    let w = $(document).width();
-
-    console.log("screen", w);
-    console.log("calc", headers_json, w);
-    let cols_to_miss = Math.ceil (((Object.keys(headers_json).length * avg_col_w) - w )/ avg_col_w);
-    let cropped_fields;
-    console.log("skip", cols_to_miss);
-    if (cols_to_miss >0)
-        cropped_fields = fields.slice(0, Object.keys(headers_json).length - cols_to_miss);
-    else
-        cropped_fields = fields;
-
-    console.log(fields);
-    let aliases = headers_json;
-
-    //determine mode:
     let mode;
 
     if (fields.includes("is_hidden"))
@@ -226,9 +184,37 @@ function format_table(items, headers_json)
     else
         mode = "v";
 
+    if (mode === "v")
+    {
+        fields.push("order");
+        fields.splice(fields.indexOf("index"),1);
+
+    }
+
+    let w = $(document).width();
+
+
+    let cols_to_miss = Math.ceil (((Object.keys(headers_json).length * avg_col_w) - w )/ avg_col_w);
+    let cropped_fields;
+
+    if (cols_to_miss > 0 && !window.location.href.includes("adm") )
+    {
+        cropped_fields = fields.slice(0, Object.keys(headers_json).length - cols_to_miss);
+    }
+
+    else
+    {
+        cropped_fields = fields;
+    }
+
+    headers_json["order"]="Заказать";
+    let aliases = headers_json;
+
+    //determine mode:
     for (let field of cropped_fields)
     {
         let header = aliases[field];
+
         let c = document.createElement("th");
         c.innerText = header;
         table_head.appendChild(c);
@@ -242,133 +228,133 @@ function format_table(items, headers_json)
         th.className = "th-inner th-static";
         thead_static.appendChild(th);
 
-
-
-        // <table id="view-header" class="nav_header" hidden="hidden">
-        // <thead class="static-thead">
-        //
-        //     {% for header in headers %}
-        //
-        //         <th class="th-inner th-static">
-        //             {{ header }}
-        //         </th>
     }
 
-    for (const [row_index, item, ]  of items.entries())
+    for (const [row_index, item, ]  of Object.values(items).entries())
     {
-
         let e_row = document.createElement("tr");
+        for (const [col_index, field, ] of cropped_fields.entries()) {
+            setTimeout(function () {
 
-        for (const [col_index, field, ] of cropped_fields.entries())
-        {
-            setTimeout(function() {
+                let val = item[field];
+                let td;
+                switch (field) {
 
+                    case "index":
+                        break;
 
-            let val = item[field];
-            let td;
+                    case "order":
+                        let make_order = document.createElement("td");
+                        let button = document.createElement("button");
+                        button.innerText = "Заказать";
+                        let cur_item_row_id = item["index"];
+                        button.type = "button";
+                        $(button).addClass("button");
+                        // prevents onclick disappearing after form sent, .onclick=()=>{} does not work properly
 
-            switch (field)
-            {
-                case "is_hidden":
-                    //add to table
-                    e = document.createElement("input");
-                    e.type = "checkbox";
-                    if (val)
-                        e.checked = "checked";
-                    td = document.createElement("td");
-                    td.appendChild(e);
-                    break;
+                        button.setAttribute("onclick", `open_order_window(${cur_item_row_id})`);
 
-                case "photo_link":
-                    if (mode === "e")
-                    {
+                        make_order.appendChild(button);
+
+                        if (mode === "v")
+                            td = make_order;
+                        break;
+
+                    case "is_hidden":
+                        //add to table
                         e = document.createElement("input");
-                        e.value = val;
+                        e.className = "change-entry";
                         e.setAttribute("data-id", item["id"]);
                         e.setAttribute("data-field", field);
+                        e.type = "checkbox";
+                        if (val)
+                            e.checked = "checked";
                         td = document.createElement("td");
                         td.appendChild(e);
-                    }
-                    else if (val)
-                    {
-                        e = document.createElement("img");
-                        e.src = val;
-                        e.id = `img${row_index}`;
-                        e.className = "item_image";
-                        // e.style.display = "none";
-                        document.getElementsByTagName("body")[0].appendChild(e);
-                        console.log("id", document.getElementById(e.id));
+                        break;
 
-
-                        let open_img = document.createElement("a");
-                        open_img.innerText = "фото";
-                        open_img.id = (e.id).replace("img", "open");
-                        open_img.onclick = function(e)
-                        {
-                          open_image(e.target.id.replace("open", ""));
-                        };
-
-                        td = document.createElement("td");
-                        td.appendChild(open_img);
-                    }
-                    else
-                    {
-                        td = document.createElement("td");
-                        td.innerText = "-"
-                    }
-                    //<img class="item_image" src="{{ item.photo_link }}" id="img{{ row_index }}" alt="{{ item.name }}">
-                    // add to document not to td
-                    break;
-
-                default:
-
-                    if (mode === "v")
-                    {
-                        if (field === "name")
-                        {
-                            let link = document.createElement("a");
-                            link.href = `/items?q=${item["index"]}`;
-                            link.innerText = val;
+                    case "photo_link":
+                        if (mode === "e") {
+                            e = document.createElement("input");
+                            e.className = "change-entry";
+                            e.value = val;
+                            e.setAttribute("data-id", item["id"]);
+                            e.setAttribute("data-field", field);
                             td = document.createElement("td");
-                            td.appendChild(link);
+                            td.appendChild(e);
+                        } else if (val) {
+                            e = document.createElement("img");
+                            e.src = val;
+                            e.id = `img${row_index}`;
+                            e.className = "item_image";
+                            // e.style.display = "none";
+                            document.getElementsByTagName("body")[0].appendChild(e);
+
+                            let open_img = document.createElement("a");
+                            open_img.innerText = "фото";
+                            open_img.className = "item_link";
+                            open_img.id = row_index + "open";
+                            open_img.setAttribute("onclick",`open_image(${row_index})`);
+                            console.log(open_img);
+                            td = document.createElement("td");
+                            td.appendChild(open_img);
+                        } else {
+                            td = document.createElement("td");
+                            td.innerText = "-"
                         }
-                        else
-                        {
-                            td = document.createElement("td");
-                            if (val.length > 20 && val.length - 20 > 3)
-                            {
-                                td.innerText = val.substring(0, 20) + "...";
-                                td.title = val;
+                        //<img class="item_image" src="{{ item.photo_link }}" id="img{{ row_index }}" alt="{{ item.name }}">
+                        // add to document not to td
+                        break;
+
+                    default:
+
+                        if (mode === "v") {
+                            if (field === "name") {
+                                let link = document.createElement("a");
+                                link.href = `/items?q=${item["index"]}`;
+                                link.className = "item_link";
+                                link.innerText = val;
+                                td = document.createElement("td");
+                                td.appendChild(link);
+                            } else {
+                                let units = "";
+                                if (field === "price")
+                                    units = " грн";
+                                else if (field === "amount")
+                                    units = " шт";
+
+                                td = document.createElement("td");
+                                if (val && val.length > 20 && val.length - 20 > 3) {
+                                    td.innerText = val.substring(0, 20) + "...";
+                                    td.title = val + units;
+                                } else if (val)
+                                    td.innerText = val + units;
                             }
-                            else
-                                td.innerText = val;
+
+                        } else if (mode === "e") {
+                            e = document.createElement("input");
+                            e.className = "change-entry";
+                            e.value = val;
+                            e.setAttribute("data-id", item["id"]);
+                            e.setAttribute("data-field", field);
+                            td = document.createElement("td");
+                            td.appendChild(e);
                         }
 
-                    }
-                    else if (mode === "e")
-                    {
-                        e = document.createElement("input");
-                        e.value = val;
-                        e.setAttribute("data-id", item["id"]);
-                        e.setAttribute("data-field", field);
-                        td = document.createElement("td");
-                        td.appendChild(e);
-                    }
-
-            }
-            //add e to table
-            e_row.appendChild(td);
-        },1);
+                }
+                e_row.appendChild(td);
+            }, 1);
+        }
         //add e_row to table
-        table_body.appendChild(e_row)
-            }
+        table_body.appendChild(e_row);
     }
-
 }
+
+
 
 function get_page()
 {
-    console.log(document.getElementById("page-index"));
+console.log("get_page")
     if (!document.getElementById("page-index").value)
             return "no_page_found";
 
@@ -380,29 +366,28 @@ function get_page()
 
 function set_page(i)
 {
-    console.log("setting", i);
-        let  indexes = document.getElementsByClassName("cur-page-index");
-        for (let item of indexes) {
-            item.innerText = i;
-        }
+console.log("set_page")
+    let  indexes = document.getElementsByClassName("cur-page-index");
+    for (let item of indexes)
+    {
+        item.innerText = i;
+    }
     document.getElementById("page-index").value = parseInt(i);
 }
 
 function render_page(i)
 {
+console.log("render_page")
     let page = get_page();
-
-
     page = page + i;
-    console.log("tryna render", page);
+
     if (page >= 0 && page < max_pages)
     {
         // normal
-        console.log("OK");
     }
     else if (page < 0)
     {
-        console.log("page_negative");
+
         if (max_pages)
         {
             page = (max_pages-1);
@@ -413,10 +398,9 @@ function render_page(i)
     }
     else if(page >= max_pages)
     {
-        console.log("page_don_exist");
+
         page = (0);
     }
-
 
     let q = document.getElementById("search-box").value;
     update_current_table_page(q, page, "page-change");
@@ -425,12 +409,13 @@ function render_page(i)
 
 function search_in_price_from_another_loc(q)
 {
+console.log("search_in_price_from_another_loc")
+
     var xmlHttp = new XMLHttpRequest();
     xmlHttp.open( "GET", document.location.href, false );
     xmlHttp.send( {"q":q, "p":0} );
     return xmlHttp.responseText;
 }
-
 
 window.mobilecheck = function() {
   var check = false;
@@ -439,5 +424,225 @@ window.mobilecheck = function() {
 };
 
 
+function open_order_window(id, retry)
+{
+console.log("open_order_window")
+
+    ordered_id = id;
+
+    let item_price = items[id]["amount"];
+    let item_name = items[id]["name"];
+    let item_max_amount = items[id]["amount"];
+
+    form = document.getElementById("order-form-hidden");
+    form.classList.remove("hidden");
+    console.log("overlay opened")
+
+    let item_label = document.getElementById("form_item_label");
+    item_label.innerText = item_name;
+
+    let amount_input = document.getElementById("form_amount_input");
+    amount_input.value = 1;
+    amount_input.max = item_max_amount;
+
+    amount_input.addEventListener("input", ()=>
+    {
+    // calculate price on amount input update
+    let total = item_price * amount_input.value;
+    $("#form-total-price").text(`total price: ${total} uah`);
+    });
+    form.dispatchEvent(new Event("input"));
 
 
+    // format form with user's data
+    if (!retry)
+        request_user_info(fill_form_with_user_data);
+}
+
+function request_user_info(callback)
+{
+console.log("request_user_info")
+    $.ajax({
+        type: "GET",
+        url: location.protocol + '//' + location.host + location.pathname,
+        data: {"give_me_user_data":"yes"},
+        success:  (user_data) =>
+        {
+            callback(user_data)
+        }
+    });
+}
+
+
+function fill_form_with_user_data(data)
+{
+console.log("fill_form_with_user_data")
+    if (!data)return
+    $("#name").val(data["name"]);
+    $("#phone").val(data["phone"]);
+    $("#email").val(data["email"]);
+}
+
+function submit_order_form()
+{
+console.log("submit_order_form")
+    let form_data = process_order_form();
+    customer_data = form_data
+
+    $.ajax({
+        type: "GET",
+        url: location.protocol + '//' + location.host + location.pathname,
+        data:
+            {
+            "action": "order",
+            "item_name": form_data["item_name"],
+            "customer_name": form_data["customer_name"],
+            "item_amount": form_data["item_amount"],
+            "customer_phone": form_data["customer_phone"],
+            "customer_email": form_data["customer_email"],
+            "item_id": form_data["item_id"]
+            },
+        success:(response) =>
+        {
+            //alert(response_text);
+            if (response["success"] == false)
+            {
+                open_order_window(ordered_id, true)
+                set_form_data(customer_data)
+            }
+            else
+            {
+                document.getElementsByTagName("body")[0].innerHTML += response.html;
+            }
+        }
+    });
+}
+
+function process_order_form()
+{
+    let item_input = document.getElementById("form_item_input");
+    let amount_input = document.getElementById("form_amount_input");
+    let name_input = document.getElementById("name");
+    let phone_input = document.getElementById("phone");
+    let email_input = document.getElementById("email");
+
+    return {
+            "customer_name": name_input.value,
+            "item_amount": amount_input.value,
+            "customer_phone": phone_input.value,
+            "customer_email": email_input.value,
+            "item_id": ordered_id
+            }
+}
+
+function set_form_data(form_data)
+{
+    if (!form_data)return
+    document.getElementById("form_amount_input").value = form_data.item_amount;
+
+    document.getElementById("name").value = form_data.customer_name;
+    document.getElementById("phone").value = form_data.customer_phone;
+    document.getElementById("email").value = form_data.customer_email;
+
+
+}
+
+function close_overlay()
+{
+$(".overlay").addClass("hidden")
+console.log("overlay closed")
+}
+
+function remove_overlay(id){($(`#${id}`)).remove()}
+
+function send_order_status(confirmed)
+{
+    let order_id = $("#ordered-item-id").val();
+    console.log(confirmed);
+    $.ajax({
+        type: "GET",
+        url: location.protocol + '//' + location.host + location.pathname,
+        data: {"confirmed": confirmed?"true":"false", "orderID": order_id},
+        success:  () =>
+        {
+            if (confirmed)
+                alert("successfully confirmed");
+            else
+                alert("successfully canceled");
+        }
+
+    });
+}
+
+function seen_order(elem, order_id)
+{
+    $( elem ).parent().removeClass("new");
+    $( elem ).parent().addClass("seen");
+
+    $.ajax({
+        type: "GET",
+        url: location.protocol + '//' + location.host + location.pathname,
+        data: {"seen_order": "yes", "order_id": order_id},
+        // success:  (order_data) =>
+        // {
+        //
+        // }
+    });
+}
+
+function delete_order(elem, order_id)
+{
+
+     $.ajax({
+        type: "GET",
+        url: location.protocol + '//' + location.host + location.pathname,
+        data: {"delete_order": "yes", "order_id": order_id},
+        // success:  (order_data) =>
+        // {
+        //
+        // }
+    });
+
+}
+
+function submit_form(form_id)
+{
+    var url_string = window.location.href;
+    var url = new URL(url_string);
+    let next = url.searchParams.get("next");
+
+    console.log( $("#" + form_id ).serialize()+ "&next=" + next)
+    $.ajax({
+      type: 'POST',
+      url: location.protocol + '//' + location.host + location.pathname,
+      data: $("#" + form_id ).serialize() + "&next=" + next,
+      success: function(response)
+      {
+
+            console.log(response)
+            $("#status")[0].innerText = response.response
+            if (response.redirect){location.pathname = response.redirect}
+      },
+    });
+
+}
+
+function sub_to_mailing(form_id)
+{
+  $.ajax({
+      type: 'GET',
+      url: location.protocol + '//' + location.host + location.pathname,
+      data: $("#" + form_id ).serialize(),
+      success: function(response)
+      {
+            console.log(response)
+            inform(response.response)
+            if (response.redirect){location.pathname = response.redirect}
+      },
+    });
+}
+
+function inform(message)
+{
+    alert(message)
+}

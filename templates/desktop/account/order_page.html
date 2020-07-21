@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+
+
+    {% load static %}
+    {% include "desktop/extendable/navbar.html" %}
+
+    <link rel="stylesheet" href="{% static "css/desktop/order_page.css" %}">
+    <link rel="stylesheet" href="{% static "css/desktop/style.css" %}">
+    <script src="{% static "js/funcs.js" %}"></script>
+
+</head>
+<body>
+        {% if days != None %}
+
+            {% for day in days %}
+                <div class="card-day">
+
+                    <div class="card-header">
+                        <p>{{ day }}</p>
+                        <div class="hl-big"></div>
+                    </div>
+
+                    {% for order in orders|get:day %}
+                        <p class=" substring">{{ order.time }}</p>
+                        <div class="order-body {% if order.seen %}seen{% else %}new{% endif %}">
+
+
+                            <div class="order-data">
+
+                                <p class="card-entry">{{ order.customer_name }}</p>
+                                <p class="card-entry">{{ order.customer_mobile }}</p>
+                                <p class="card-entry">{{ order.item_name }}</p>
+                                <p class="card-entry">{{ order.item_amount }} шт</p>
+                                <p class="card-entry">{{ order.customer_email }}</p>
+                                <p class="card-entry substring">{{ order.customer_id }}</p>
+
+                            </div>
+                            {% if order.seen %}
+                                <p class="substring">seen</p>
+
+                            {% endif %}
+
+
+                        </div>
+
+                        <div class="hl"></div>
+                    {% endfor %}
+
+                </div>
+
+            {% endfor %}
+        {% else %}
+            <div class="centred distance">Тут будует отображаться информация о ваших заказах</div>
+        {% endif %}
+        <div class="centred">
+        <form action="/">
+            <button class="button wide-button">Назад на главную</button>
+            </form>
+        </div>
+
+</body>
+</html>

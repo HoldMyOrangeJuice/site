@@ -1,0 +1,162 @@
+.order-form-container
+{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    /*       top  right bottom left*/
+    padding: 15vh 20vw 15vh 20vw;
+    width: 100%;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.62);
+
+
+
+}
+.hidden
+{
+    display: none !important;
+}
+
+.order-form
+{
+    width: 100%;
+    height: 100%;
+    background-color: white;
+    border-radius: 20px;
+    max-width: 400px;
+    max-height: 600px;
+    min-height: 500px;
+}
+
+.order-form-header
+{
+    display: flex;
+
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 10%;
+    width: 100%;
+    background-color: #4f4f4f;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+}
+
+.order-header-text
+{
+    color: white;
+    text-align: center;
+    margin: 0;
+    height: 100%;
+    font-weight: 100;
+}
+
+.order-body
+{
+    display: flex;
+    flex-direction: column;
+    height: 75%;
+    width: 100%;
+    background-color: #ebfbe3;
+
+    align-items: center;
+}
+
+.order-footer
+{
+    display: flex;
+    flex-direction: column;
+    height: 15%;
+    width: 100%;
+    background-color: #6ec5fb;
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
+
+    justify-content: center;
+    align-items: center;
+}
+
+.form-inputs
+{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding: 1rem 10% 0 10%;
+    align-items: stretch;
+}
+
+.form-input
+{
+    text-align: center;
+    width: 100%;
+    /*height: 5vh;*/
+    /*top right bottom left */
+    margin: 0.3rem 0 1vh 0;
+}
+
+.info
+{
+    margin: 2vh 0 2vh 0;
+    font-size: 1rem;
+}
+.confirm
+{
+
+}
+
+.hl
+{
+    width: 100%;
+    border-bottom: 2px solid #80645d;
+}
+
+.x
+{
+    position: relative;
+    left: 0.5vw;
+    bottom: 0.5vh;
+    text-align: center;
+    vertical-align: middle;
+    font-size: 1rem;
+    font-weight: 500;
+    align-self: flex-end;
+    background-color: white;
+    width: 25px;
+    height: 25px;
+    border-radius: 100%;
+    cursor: pointer;
+}
+
+.x:hover
+{
+    background-color: #26262e;
+}
+
+.form-label
+{
+    margin: 0 0 0 1vw;
+    font-size: 1rem;
+}
+
+.required
+{
+    color: #b85337;
+}
+
+.separate
+{
+    width: 100%;
+    margin: 10px;
+    align-items: center;
+    justify-content: space-evenly;
+
+
+}
+
+.nomargin
+{
+    margin: 0;
+}

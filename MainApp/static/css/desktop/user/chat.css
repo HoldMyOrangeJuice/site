@@ -1,0 +1,96 @@
+.chat_container
+{
+    width: 70%;
+    height: 80vh;
+    max-width: 600px;
+}
+
+.chat-header
+{
+    width: 100%;
+    height: 7%;
+    background-color: gray;
+}
+
+.chat-body
+{
+    width: 100%;
+    height: 86%;
+    background-color: rgba(159, 176, 224, 0.6);
+    overflow-y:auto
+}
+
+.chat-keyboard
+{
+    width: 100%;
+    height: 7%;
+    background-color: rgba(79, 158, 214, 0.6);
+    justify-content:center;
+}
+
+.you-container
+{
+    display: flex;
+    justify-content: flex-end;
+
+}
+
+.admin-container
+{
+    display: flex;
+    justify-content: flex-start;
+
+}
+
+.you
+{
+    background-color: rgba(95, 131, 232, 0.5)
+}
+.admin
+{
+    background-color: rgba(126, 155, 237, 0.5)
+}
+
+.message
+{
+    margin: 20px 10px 20px 10px;
+    padding: 8px 15px 8px 15px;
+    width: 45%;
+    display: flex;
+    flex-direction: column;
+
+}
+
+
+
+
+.message-header
+{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.message-body
+{
+
+}
+
+.textbox
+{
+    width: 60%;
+    height: 100%;
+    background-color: rgba(68, 113, 145, 0.6);
+    overflow-y:auto;
+    margin-right: 10px;
+    border: 0;
+
+}
+
+.keyboard
+{
+    padding: 10px 20px 10px 20px;
+    height: 100%;
+    display:flex;
+    flex-direction: row;
+}

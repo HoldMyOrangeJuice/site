@@ -1,0 +1,103 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    {% load  app_filters %}
+    {% load static %}
+
+    <script src="{% static "js/image_preview.js" %}"></script>
+    <script src="{% static "js/funcs.js" %}"></script>
+
+
+    <link rel="stylesheet" href="{% static 'css/desktop/style.css' %}">
+    <link rel="stylesheet" href="{% static "css/desktop/table_editor.css" %}">
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+
+<body>
+
+
+<!-- creating static headers if original not visible -->
+    <table id="view-header" class="nav_header" hidden="hidden">
+        <thead class="static-thead" id="static-thead">
+        </thead>
+    </table>
+
+<div class="admin-nav"><a href="/" class="admin-link left">Рога и копыта</a></div>
+
+<div id="page-load-status">ЗАГРУЗКА ПРАЙСА...</div>
+
+<input id="page-index" hidden="hidden">
+
+{% if q and p %}
+    <script>document.onload = update_current_table_page("{{ q }}", {{ p }}, "query-modified");</script>
+    {% endif %}
+
+<script>
+
+    function change_load_status_loaded()
+    {
+        el = document.getElementById("page-load-status");
+        el.innerText = "ПРАЙС ЗАГРУЖЕН";
+        el.style.color = "green";
+    }
+
+    function change_load_status_loading()
+    {
+        el = document.getElementById("page-load-status");
+        el.innerText = "ЗАГРУЗКА ПРАЙСА...";
+        el.style.color = "red";
+    }
+    document.addEventListener("DOMContentLoaded", change_load_status_loaded);
+    document.addEventListener("beforeunload", change_load_status_loading);
+</script>
+<div class="row_oriented even-space">
+    <form method="get"><button name="create_xl" class="action-button-admin" value="pressed">Скачать</button></form>
+
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        <div class="col_oriented">
+            <input type="file" name="file_input" class="file-input-admin" id="f-input">
+            <script>
+                document.getElementById('f-input').onchange = function(e) {
+                    document.getElementById('admin-sub-btn').hidden = false
+                };
+            </script>
+            <button type="submit" class="action-button-admin" id="admin-sub-btn" hidden="true">Загрузить</button>
+        </div>
+
+    </form>
+
+
+    {% include "desktop/datalist.html" %}
+    <input id="search-box" autocomplete="off" class="w3-input" list="items" name="search_request" placeholder="Поиск по прайсу">
+
+
+
+<a href="/adm?del_items=+">del_items</a>
+
+    <script>reg_change_listener()</script>
+
+<a onclick="" class="action-button-admin"  href="/adm?q=&p=0">Редактировать</a>
+<button onclick="pass_changes()" class="action-button-admin" >Save</button>
+
+
+    <a href="/adm/order_page">Orders</a>
+
+
+
+
+</div>
+   <div class="wide-split-line"></div>
+
+
+
+{% include "desktop/extendable/js_table_template.html" %}
+
+</body>
+</html>

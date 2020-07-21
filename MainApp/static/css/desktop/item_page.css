@@ -11,8 +11,8 @@
 img
 {
     margin: 2vw;
-    height: 12vw;
-    width: 16vw;
+    height: 24vw;
+    width: 32vw;
 }
 
 
@@ -23,9 +23,8 @@ img
 }
 .container-item-main
 {
-    margin: 4vh 30vw 4vh 30vw;
+    margin: 4vh 20vw 4vh 20vw;
     padding: 1vh 5vw 1vh 5vw;
-
     background-image: linear-gradient(#E2E6E7, #e5e7d8);
     border-radius: 5px 5px 0 0;
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
@@ -68,4 +67,19 @@ img
 .categ-link:hover
 {
     color: #995a4d;
+}
+
+.vl {
+  border-left: 2px solid white;
+}
+.hl
+{
+     border-bottom: 2px solid white;
+     margin: 0;
+}
+
+.info-entry
+{
+    color: #5c4a7a;
+    font-weight: 100;
 }

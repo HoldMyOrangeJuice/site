@@ -1,0 +1,46 @@
+{# order form extendable #}
+{% load static %}
+<link  rel="stylesheet" href="{% static "css/desktop/order.css" %}">
+
+{#set display to none for all overlay instances when clicked#}
+
+<div class="order-form-container hidden overlay" id="order-form-hidden">
+
+    <div class="order-form">
+
+        <div class="order-form-header">
+            <div class="x" onclick="close_overlay()">✖</div>
+
+            <h3 class="order-header-text">Оформить заказ</h3>
+        </div>
+
+        <div class="hl"></div>
+
+        <div class="order-body">
+
+            <div class="form-inputs">
+
+                <p class="form-label required">name*</p>
+                <input class="form-input w3-input" placeholder="name" id="name">
+                <p class="form-label required">phone*</p>
+                <input class="form-input w3-input" placeholder="phone" id="phone">
+                <p class="form-label">email</p>
+                <input class="form-input w3-input" placeholder="email" id="email">
+
+                <p class="form-input w3-input"  id="form_item_label"></p>
+                <p class="form-label required">amount*</p>
+                <input type="number" min="1" max="10" class="form-input w3-input" placeholder="amount*" id="form_amount_input">
+
+            </div>
+        </div>
+
+        <div class="hl"></div>
+
+        <div class="order-footer">
+            <p class="" id="form-total-price">total price: </p>
+            <button class="confirm button" onclick="submit_order_form(); close_overlay()">confirm</button>
+        </div>
+    </div>
+
+</div>
+

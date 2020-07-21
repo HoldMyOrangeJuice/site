@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    {% load  static %}
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+    <script src="{% static "js/funcs.js" %}"></script>
+
+</head>
+<body id="price-table-body">
+
+{% include "desktop/extendable/navbar.html" %}
+
+<div class="header">
+
+</div>
+
+<div class="page-body">
+    <div class="wide-centered">
+        <p class="user-label">{{ user.username }}</p>
+    </div>
+    <div class="wide-centered">
+        <p class="user-label">{{ user.email }}</p>
+    </div>
+
+     <div class="wide-centered">
+        <img class="pfp" src="{% static 'images/pfp.png' %}"/>
+    </div>
+
+    <div class="wide-centered">
+        <form>
+            <input type="hidden" name="action" value="logout">
+            <button class="button button-wide">log out</button>
+        </form>
+
+    </div>
+
+    <div class="wide-centered">
+         <form>
+            <input type="hidden" name="action" value="logout">
+            <button class="button button-wide">change password</button>
+         </form>
+    </div>
+
+    <div class="wide-centered">
+        <form id="sub_to_mail">
+            <input type="hidden" name="action" value="sub_to_mailing">
+            <button class="button button-wide" type="button" onclick="sub_to_mailing('sub_to_mail')">subscribe to email</button>
+        </form>
+    </div>
+
+
+
+</div>
+<div class="wide-centered"><a href="/">Return to main page</a></div>
+
+
+
+
+
+
+
+</body>
+</html>

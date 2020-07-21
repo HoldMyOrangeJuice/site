@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="{% static 'css/desktop/item_page.css' %}">
     <link rel="stylesheet" href="{% static 'css/desktop/navbar_upper.css' %}">
     <link rel="stylesheet" href="{% static 'css/desktop/style.css' %}">
-      <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 
@@ -21,61 +21,51 @@
 
 <body class="">
 
-    <div class="nav-bar">
-        <a class="nav-link" href="/">«ТОВ РАСТА»</a>
+   {% include "desktop/extendable/navbar.html" %}
 
-         <form action="/price/">
-            <div class="row_oriented">
-                {% include "desktop/datalist.html" %}
-                <input class="w3-input" type="text" name="q" list="items" placeholder="Поиск по прайсу">
-                <input type="hidden" value="0" name="p">
-                <button class="button" type="submit" ><i class="fa fa-search"></i></button>
-            </div>
-        </form>
 
-        <a class="nav-link" href="/price?full=true" title="прайс лист радиодетали">Прайс лист <span class="glyphicon glyphicon-align-justify"></span></a>
-
-    </div>
-
-    <div class="contacts___">
-        <div class="cont-text ">+38 068 785 68 25 (Kyivstar)</div>
-        <div class="cont-text"> vfo@ukr.net</div>
-        <div class="cont-text ">+38 095 903 23 10 (MTC)</div>
-    </div>
+   {% include "desktop/extendable/contacts.html" %}
 
     <div class=" container-item-main">
 
         <h1 class="main-header"><a class="categ-link" href="/price/?q={{ item.category_to_search }}&p=0">{{ item.category }}</a>: {{ item.name }} — Купить с доставкой по Украине</h1>
-        <hr class="">
+
+        <div class="hl"></div>
+
         <div class="flex space-betw">
             <p class="text-main">{{ item.description }}</p>
 
+            <div class="vl"></div>
+
             <div>
-                <img  src="{{ item.photo_link }}" alt="{{ item.name }}" title="{{ item.name }}">
+                {% if item.photo_link %}
+                    <img  src="{{ item.photo_link }}" alt="{{ item.name }}" title="{{ item.name }}">
+                {% else %}
+                    <p class="align-mid" style="color: #8d9bb0">Фотографии нет. Пока что...</p>
+                {% endif %}
 
                 <div class="data-row">
-                    <p class="align-mid">{% if item.amount|isint and  item.amount|toint > 0 %}Есть в наличии: {{ item.amount }} шт.{% else %}Нет в наличии{% endif %}</p>
-                    <p class="align-mid">Последние изменения: {{ date }} </p>
+                    <p class="align-mid info-entry">{% if item.amount|isint and  item.amount|toint > 0 %}Есть в наличии: {{ item.amount }} шт.{% else %}Нет в наличии{% endif %}</p>
+                    <p class="align-mid info-entry">Цена: {{ item.price }} ₴</p>
+                    <p class="align-mid info-entry">Последние изменения: {{ date }} </p>
+                    <p class="align-mid info-entry">Номер: {{ item.index }} </p>
                 </div>
 
-                <div class="data-row">
-                    <p class="align-mid">Price: {{ item.price }} ₴</p>
-                    <p class="align-mid">Последние изменения: {{ date }} </p>
-                </div>
+
+
+            <script>function goBack(){window.history.back()}</script>
+
             </div>
 
         </div>
+        <div class="card-footer">
+            <button onclick="goBack()" class="go_back button">Назад к прайсу</button>
+        </div>
+
+
         <div class="up-split"></div>
-
-
-
     </div>
-
-
 <hr>
-
-
-
 </body>
 
 </html>

@@ -1,0 +1,63 @@
+.card-day
+{
+    background-color: #d0f0ff;
+    margin-left: 36%;
+    margin-right: 36%;
+    text-align: center;
+    padding: 5%;
+    max-width: 400px;
+    min-width: 300px;
+}
+.card-header
+{
+    font-weight: 500;
+    font-size: 1.5rem;
+    color: #6622fb;
+    text-decoration: underline;
+    margin: 2vh 0 0 0;
+}
+.card-entry
+{
+    margin: 1vh 0 1vh 0;
+    font-size: 1.4rem;
+}
+
+.hl
+{
+    border-bottom: 1px solid gray;
+    margin: 0.2vh 0 0.2vh 0;
+}
+
+.hl-big
+{
+    border-bottom: 3px solid gray;
+}
+
+.order-data
+{
+
+}
+
+.seen
+{
+
+}
+.new
+{
+    background-color: #7dc0ff;
+}
+
+.substring
+{
+    font-size: 0.8rem;
+    font-weight: 100;
+    font-family: "Arial";
+    color: gray;
+    text-decoration: underline;
+
+}
+
+.order-body
+{
+    padding: 3%;
+}

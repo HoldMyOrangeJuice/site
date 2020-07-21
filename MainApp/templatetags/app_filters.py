@@ -42,3 +42,7 @@ def isint(i):
 @register.filter(name='toint')
 def toint(i):
     return int(i)
+
+@register.filter(name='get')
+def get(dict, i):
+    return dict.get(i)

@@ -26,21 +26,22 @@ SECRET_KEY = 'v65xsum3g8y2e4ipq15t3ygx(2cx$5mar+gndgqzj2sv$tsmb2'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-
+LOGIN_REDIRECT_URL = '/'
 ALLOWED_HOSTS = ["qwertty.com:20002", '127.0.0.1']
 
 
 # Application definition
 
 INSTALLED_APPS = [
+    'MainApp',
+    # 'MainApp.apps.MainappConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'MainApp.apps.MainappConfig',
-    'django_user_agents',
+
 ]
 
 MIDDLEWARE = [
@@ -51,8 +52,11 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'django_user_agents.middleware.UserAgentMiddleware',
+   # 'django_user_agents.middleware.UserAgentMiddleware',
+
 ]
+
+
 
 ROOT_URLCONF = 'siteff.urls'
 
@@ -113,6 +117,8 @@ LANGUAGE_CODE = 'en-us'
 
 TIME_ZONE = 'UTC'
 
+DATETIME_FORMAT = '%d-%m-%Y %H:%M:%S'
+
 USE_I18N = True
 
 USE_L10N = True
@@ -134,3 +140,5 @@ EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_HOST_USER = "rastaprices@gmail.com"
 EMAIL_HOST_PASSWORD = "nzyTMhXv4y"
 EMAIL_PORT = 587
+
+AUTH_USER_MODEL = "MainApp.Customer"

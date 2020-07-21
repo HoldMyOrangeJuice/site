@@ -43,3 +43,9 @@ tr:hover
         border-right: 1px solid #ddd;
         border-left: 1px solid #ddd;
 }
+
+.item_link
+{
+    text-decoration: underline!important;
+    color: #007bff!important;
+}

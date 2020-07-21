@@ -3,21 +3,28 @@
 .row_oriented
 {
     display: flex;
-    flex-wrap: wrap;
 }
 
-.button {
+.button
+{
 
     background: 0;
-      color: black;
+    color: black;
     border-radius: 5px;
     border-color: #007bff;
-      padding: 6px 12px;
+    padding: 6px 12px;
     border-width: 1px;
-      text-align: center;
-      text-decoration: none;
-      display: inline-block;
-      font-size: 16px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 16px;
+    overflow: hidden;
+    white-space: nowrap;
+}
+.button-wide
+{
+    //padding: 5px 2vw 5px 2vw;
+    min-width: 7vw;
+    margin: 1vh 1vw 1vh 1vw;
 }
 
 .button:hover
@@ -32,7 +39,7 @@
 
 body
 {
-    background: #bbccdd;
+    background: #bbccdd!important;
 }
 
 .d-flex
@@ -44,34 +51,12 @@ body
 {
     margin-right: 3px;
     background-color: #f8f8f8;
-    border-radius: 5px;
+    border-radius: 3px;
+    border: 1px #98a2ab solid;
     height: 40px;
-
+    padding-left: 8px;
 }
 
-#progress
-{
-    background-color: black;
-    height: 20px!important;
-}
-
-#login_window
-{
-    position: fixed;
-    background: 0;
-  top: 50%;
-  left: 50%;
-  font-size: 50px;
-    transform: translate(-50%,-50%);
-  -ms-transform: translate(-50%,-50%);
-
-}
-
-#login-form
-{
-    width: 300px;
-    background: 0;
-}
 
 .close-button
 {
@@ -86,22 +71,6 @@ body
     color: black;
 }
 
-#progress
-{
-    width: 63%;
-    margin-left: 3%;
-    margin-right: 30%;
-    background: 0;
-    display: flex;
-}
-
-#line
-{
-    display: flex;
-    align-items: center;
-    height: 10px;
-    background-color: #525252;
-}
 
 .contacts___
 {
@@ -122,9 +91,6 @@ body
     text-align: center;
 }
 
-td{
-
-}
 
 
 .show {
@@ -215,9 +181,13 @@ td{
 .centred
 {
     display: flex;
-    width: 100%;
     justify-content: center;
 
+}
+
+.distance
+{
+    margin: 1vw;
 }
 
 .photo_text
@@ -258,5 +228,52 @@ input::-webkit-calendar-picker-indicator {
 }
 
 
+.go_back
+{
+    align-self: center;
+}
+.card-footer
+{
+    border-top: 2px solid white;
+    padding-top: 1vh;
+    display: flex;
+    justify-content: center;
+}
 
+#entry-count
+{
+    width: 100%;
+    text-align: center;
+    color: #007bff;
+    font-weight: 500;
+}
+
+.nowrap
+{
+    flex-wrap: nowrap;
+}
+.wrap
+{
+    flex-wrap: wrap;
+}
+
+.wide-centered
+{
+    width: 100%;
+    display: flex;
+    justify-content: center
+}
+
+.ycenter
+{
+    margin-top: 25vh;
+}
+
+.container_main
+{
+    margin-top: 50px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
 

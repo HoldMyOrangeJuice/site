@@ -1,2 +1,0 @@
-1. Split hint setter func and table formatter func
-2. full priceupdate with js template

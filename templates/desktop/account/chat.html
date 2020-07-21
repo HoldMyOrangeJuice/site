@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    {% load  static %}
+    {% include "desktop/extendable/navbar.html" %}
+    <link rel="stylesheet" href="{% static "css/desktop/style.css" %}">
+    <link rel="stylesheet" href="{% static "css/desktop/user/chat.css" %}">
+    <script rel="stylesheet" src="{% static "js/funcs.js" %}"></script>
+
+</head>
+
+<body>
+
+    <div class="container_main">
+
+        <div class="chat_container">
+
+                <div class="chat-header">
+                    Vyacheslav
+                </div>
+
+                <div class="chat-body">
+
+                    <div class="you-container">
+                        <div class="message you">
+                            <div class="message-header"> <p>name</p> <p>date</p> </div>
+                            <div class="message-body"><p>text</p></div>
+                        </div>
+                    </div>
+
+                    <div class="admin-container">
+                        <div class="message admin">
+                            <div class="message-header"> <p>name</p> <p>date</p> </div>
+                            <div class="message-body"><p>text</p></div>
+                        </div>
+                    </div>
+
+
+                </div>
+
+                <div class="chat-keyboard">
+
+                    <div class="keyboard" ><p contenteditable="true" class="textbox"></p><button class="button">send</button></div>
+
+                </div>
+
+        </div>
+
+    </div>
+
+</body>
+</html>

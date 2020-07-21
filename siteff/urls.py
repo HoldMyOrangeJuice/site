@@ -23,4 +23,14 @@ urlpatterns = [
     path("adm/", admin_page),
     path("price/", price_page),
     path("items/", show_custom_item_page),
+    path("adm/order_page/", admin_order_page),
+    path("my_orders/", user_order_page),
+
+    path("accounts/login/", login_page),
+    path("accounts/register/", register_page),
+    path("accounts/confirm/", confirmation_page),
+
+    path("accounts/me/", user_page),
+    path("accounts/me/chat/", chatView),
+
 ]

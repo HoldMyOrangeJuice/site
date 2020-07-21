@@ -1,0 +1,68 @@
+{% if status == success %} {% else %}  {% endif %}
+
+{# order form extendable #}
+{% load static %}
+<link  rel="stylesheet" href="{% static "css/desktop/order.css" %}">
+<script src="{% static "js/funcs.js"%}"> </script>
+
+{#set display to none for all overlay instances when clicked#}
+
+<div class="order-form-container overlay" id="order-form-response">
+
+    <div class="order-form">
+
+        <div class="order-form-header">
+            <div class="x" onclick="remove_overlay('order-form-response')">✖</div>
+            <h3 class="order-header-text">{% if status == "success" %} Success{% else %} fail {% endif %}</h3>
+        </div>
+
+        <div class="hl"></div>
+
+        <div class="order-body">
+
+        {% if order %}
+            {% if order.customer_name%}
+                <p class="info">your name is {{ order.customer_name }}</p>
+            {% else %}
+                <p class="info">name not defined</p>
+            {% endif %}
+
+            {% if order.item_amount and order.item_name %}
+                <p class="info">you ordered {{ order.item_amount }} of {{ order.item_name }}</p>
+            {% else %}
+                <p class="info">item or amount not defined</p>
+            {% endif %}
+
+            {% if order.customer_mobile %}
+                <p class="info">your phone is {{ order.customer_mobile }}</p>
+            {% else %}
+                <p class="info">phone not defined</p>
+            {% endif %}
+
+            {% if order.customer_email %}<p class="info">your email is {{ order.customer_email }}</p>{% endif %}
+
+        {% else %}
+            <p class="info">not all required fields were passed</p>
+        {% endif %}
+
+        </div>
+
+        <div class="hl"></div>
+
+        <div class="order-footer">
+            <div>
+                <button class="confirm button" onclick="remove_overlay('order-form-response'); send_order_status(false)">
+                    cancel order
+                </button>
+                {% if status == "success" %}
+                <button class="confirm button" onclick="remove_overlay('order-form-response');send_order_status(true)">
+                    submit order
+                </button>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+</div>
+
+{#  #}

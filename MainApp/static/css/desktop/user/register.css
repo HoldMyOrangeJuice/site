@@ -1,0 +1,74 @@
+.container
+{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+
+}
+
+.register-form
+{
+    background-color: #1176d4;
+    margin-top: 10vh;
+    padding: 1vh 50px 2vh 50px;
+    max-width: 430px;
+    min-width: 400px;
+    min-height: 500px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.5);
+    border-radius: 3%;
+    transition: all 0.2s ease-out;
+}
+
+.register-form:hover
+{
+    background-color: #116cd4;
+    box-shadow: 0 0 15px rgba(0,0,0,0.7);
+}
+
+.inputs
+{
+    display: flex;
+    flex-direction: column;
+}
+
+.register-input
+{
+    min-width: 160px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.5);
+    margin: 10px 8% 0 8%;
+    transition: all 0.3s ease-out;
+}
+
+.register-input:hover
+{
+    box-shadow: 0 0 15px rgba(0,0,0,0.6);
+    margin: 10px 0 0 0;
+}
+
+
+.reg
+{
+    color: black;
+    font-size: 1.5 rem;
+    font-weight: 500;
+    font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif
+}
+
+.reg:hover
+{
+    color: white;
+}
+
+.pfp
+{
+    border: 1px black dashed;
+    min-width: 170px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.5);
+    border-radius: 50%;
+    transition: all 0.3s ease-out;
+}
+
+.pfp:hover
+{
+    box-shadow: 0 0 15px rgba(0,0,0,0.7);
+}

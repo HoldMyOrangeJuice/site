@@ -1,0 +1,27 @@
+.header
+{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    padding: 1vh 15vw 1vh 15vw;
+}
+
+.user-label
+{
+    font-size: 1.5rem;
+}
+
+.page-body
+{
+    margin: 3vh 35vw 1vh 35vw;
+    background-color: #328ba8;
+    box-shadow: 0 0 10px rgba(0,0,0,0.5);
+    width: 30vw;
+   
+}
+
+.pfp
+{
+    border-radius: 50%;
+    width: 12vw;
+}

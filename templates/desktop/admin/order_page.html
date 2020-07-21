@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+
+
+    {% load static %}
+    <link rel="stylesheet" href="{% static "css/desktop/order_page.css" %}">
+    <link rel="stylesheet" href="{% static "css/desktop/style.css" %}">
+    <script src="{% static "js/funcs.js" %}"></script>
+
+</head>
+<body>
+        {% if days != None %}
+
+            {% for day in days %}
+                <div class="card-day">
+
+                    <div class="card-header">
+                        <p>{{ day }}</p>
+                        <div class="hl-big"></div>
+                    </div>
+
+                    {% for order in orders|get:day %}
+                        {% if not order.seen %}
+                            <p class=" substring">{{ order.time }}</p>
+                            <div class="order-body {% if order.seen %}seen{% else %}new{% endif %}">
+
+
+                                <div class="order-data">
+
+                                    <p class="card-entry">{{ order.customer_name }}</p>
+                                    <p class="card-entry">{{ order.customer_mobile }}</p>
+                                    <p class="card-entry">{{ order.item_name }}</p>
+                                    <p class="card-entry">{{ order.item_amount }} шт</p>
+                                    <p class="card-entry">{{ order.customer_email }}</p>
+                                    <p class="card-entry substring">{{ order.customer_id }}</p>
+
+                                </div>
+
+
+                                    <button onclick="seen_order(this, {{ order.id }})" class="button">seen</button>
+
+
+
+                            </div>
+
+                            <div class="hl"></div>
+                         {% endif %}
+                    {% endfor %}
+
+                </div>
+
+            {% endfor %}
+        {% else %}
+            <p>nothing here...</p>
+        {% endif %}
+        <a href="/">back</a>
+
+</body>
+</html>

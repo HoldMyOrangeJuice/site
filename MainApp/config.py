@@ -1,8 +1,14 @@
+
+# for excel formatting
+
 e_headers = ["Скрыть", "Наименование", "Цена", "Количество", "Год", "Категория", "Место", "Примечания", "Сумма", "Фото", "Описание",]
-v_headers = ["№", "Категория", "Наименование", "Цена", "Количество", "Год", "Фото", "Описание",]
 e_fields = ["is_hidden", "name", "price", "amount", "year", "category", "spot", "sum", "notes", "photo_link", "description"]
+
+
+v_headers = ["№", "Категория", "Наименование", "Цена", "Количество", "Год", "Фото", "Описание",]
 v_fields = ["index", "category", "name", "price", "amount", "year", "photo_link", ]
 
+# #
 
 e_field_headers = {"is_hidden": "Скрыть",
                    "name": "Наименование",
@@ -17,14 +23,15 @@ e_field_headers = {"is_hidden": "Скрыть",
                    "description": "Описание"}
 
 v_field_headers = {
-                   "index": "id",
+
                    "category": "Категория",
                    "name": "Наименование",
                    "price": "Цена",
                    "amount": "Количество",
                    "year": "Год",
                    "photo_link": "Фото",
-                   "description": "Описание"}
+                   "description": "Описание",
+                   "index": "id"}
 aliases = [
     ("транзистор", "германиевые", ""),
     (),

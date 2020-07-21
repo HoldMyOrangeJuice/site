@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+    {% load  static %}
+    {% include "desktop/extendable/navbar.html" %}
+    <link rel="stylesheet" href="{% static "css/desktop/style.css" %}">
+    <link rel="stylesheet" href="{% static "css/desktop/user/login.css" %}">
+    <script rel="stylesheet" src="{% static "js/funcs.js" %}"></script>
+
+</head>
+<body>
+    <div class="container">
+        <div class="login-form">
+
+        <form method="POST" class="" id="login">
+            {% csrf_token %}
+            <div class="centred">
+                <img class="pfp" src="{% static 'images/pfp.png' %}"/>
+            </div>
+            <div class="inputs">
+                <input placeholder="username" class="w3-input login-input" name="username">
+                <input type="password" placeholder="password" class="w3-input login-input" name="password">
+            </div>
+            <div class="centred distance">
+                <a href="/accounts/register/" class="reg">register</a>
+            </div>
+
+            <div class="centred">
+            <button class="button button-wide" type="button" onclick="submit_form('login')">submit</button>
+            </div>
+
+            <div class="centred" id="status">
+
+            </div>
+
+        </form>
+
+
+    </div>
+    </div>
+
+</body>
+
+</html>
